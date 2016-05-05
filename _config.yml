@@ -12,7 +12,7 @@ email: skoji@mac.com
 description: > # this means to ignore newlines until "baseurl:"
   Satoshi Kojima. A programmer. Loves cats, beer and MMFR.
 baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "http://skoji.jp"
+url: "https://skoji.jp"
 twitter_username: skoji
 github_username: skoji
 permalink: /:year/:month/:title.html
