@@ -1,0 +1,45 @@
+---
+layout: post
+title: gtagsを使うことにした
+date: 2009-02-11 17:12:53.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>久々に、まじめにコード読もうと思って、etagsを使おうとして、こんなに面倒だったっけ? と思い、GNU globalをいれてみることにしました。</p>
+<h4>インストール</h4>
+<ol>
+<li>GNU global 5.7.4のダウンロード</li>
+<li>configure/make/make install</li>
+<li>emacsの設定</li>
+</ol>
+<p>emacsの設定でやったこと:<br />
+gtags.elをemacsのロードパスが通ったところにいれる<br />
+emacs.elに次のことをかく</p>
+<pre>
+;; gtsgs
+(load "gtags")
+(define-key gtags-mode-map [?\C-\M-.] 'gtags-find-tag-other-window)
+(define-key gtags-mode-map "\M-r" 'gtags-find-rtag)
+(add-hook 'c-mode-hook
+'(lambda ()
+(gtags-mode 1)
+(gtags-make-complete-list)
+))
+</pre>
+<h4>使い方</h4>
+<p>まず、読みたいソースのてっぺんでgtags -vする。<br />
+(これでgtagsが使うファイルが作られる)<br />
+それから、emacsで何かソースファイルを開く。<br />
+関数名のところでM-.すると、定義されてる場所をみつけてくれる。<br />
+M-rすると、参照元をみつけてくれる。</p>

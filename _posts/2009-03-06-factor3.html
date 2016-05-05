@@ -1,0 +1,50 @@
+---
+layout: post
+title: Factorに入門する(3) 名前づけの習慣
+date: 2009-03-06 12:42:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>迷走するFactor入門生その3。本日は短いですが名前付のコンベンションについて。</p>
+<p>参考資料は<a href="http://docs.factorcode.org/content/article-conventions.html">こちら</a>、というか、ただ要約しただけです。すみません。</p>
+<dl>
+<dt>foo?</dt>
+<dd> booleanを出力する。条件にあっているかテストする用ですね。</dd>
+<dt>?foo</dt>
+<dd> fooを場合によっては実行。</dd>
+<dt>&lt;foo&gt;</dt>
+<dd> fooのオブジェクトを新規作成。</dd>
+<dt>&gt;foo</dt>
+<dd> スタックトップをfooに変換。&gt;stringとか。</dd>
+<dt>foo&gt;bar</dt>
+<dd> スタックトップのfooをbarに変換。</dd>
+<dt>new-foo</dt>
+<dd> スタックトップから引数をとって、何か新規オブジェクトを作成。</dd>
+<dt>foo*</dt>
+<dd> fooのaltanativeまたは、fooからよばれるジェネリックなword </dd>
+<dt>(foo)</dt>
+<dd> fooから呼ばれる実装詳細</dd>
+<dt>set-foo</dt>
+<dd> fooを新しい値に。set-lengthとか。</dd>
+<dt>foo&gt;&gt;</dt>
+<dd> スロットのゲット。(スロットってなんだ? オブジェクトの属性かな)</dd>
+<dt>&gt;&gt;foo</dt>
+<dd> スロットへのセット。</dd>
+<dt>with-foo</dt>
+<dd> 新しい動的スコープの中で、fooに関わる初期化やクリーンアップをおこなう。</dd>
+<dt>$foo</dt>
+<dd> ドキュメンテーション用のマークアップ</dd>
+</dl>
+<p>次回は、実行時のスタック操作だけじゃなくて、パース時とかコンパイル時について調べるかもしれません。</p>

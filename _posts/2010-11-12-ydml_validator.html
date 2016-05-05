@@ -1,0 +1,35 @@
+---
+layout: post
+title: 電書部マークアップvalidatorを作ってみた
+date: 2010-11-12 18:07:10.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Ruby
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>電書部の技術班。今年はこればっかりやっていた気がする。<br />
+gihyo.jpで、電書部の技術解説の記事「<a href="http://gihyo.jp/dev/serial/01/ebook-distribution-server">電書部技術班，電子書籍配信サーバーに挑む</a>」がはじまっています。その中でEPUB変換まわりの原稿書きました。<br />
+<a href="http://gihyo.jp/dev/serial/01/ebook-distribution-server/0004">第4回　電書用マークアップYDMLを使った原稿作成と，YDMLパーサ</a><br />
+<a href="http://gihyo.jp/dev/serial/01/ebook-distribution-server/0005">第5回　電書原稿からEPUBをつくりだす</a><br />
+何気ないふうを装いつつも、少しどきどきしながらYDMLという言葉を出しました。でもどこからも何の突っ込みもなくてそれはそれでちょっとさみしいものです。<br />
+YDMLパーサ記事について「なんでXMLパーサでやらないの?」という趣旨のつっこみがtwitterで入りました。思い起こすとそもそもパーサジェネレータ作った理由は</p>
+<ul>
+<li>YDMLとは違うマークアップを目論んでいた</li>
+<li>DSLぽいものをRubyで作ってみたかった</li>
+<li>とにかく作ってみたかった</li>
+</ul>
+<p>そんなことでした。が、何をぼけていたのか、テキスト混合ノードはXML的にはwell-formedじゃないからという恥ずかしい説明をしてしまいました。恥ずかしいのでその経緯はリンクしません。(tweet消してはいないので探せばみつかります)<br />
+XMLでのvalidateくらいやってみるかと思い立ってやってみましたら、RelaxNGの勉強からはじめたのに1時間くらいで出来てしまい愕然としました。<br />
+YDMLを少しだけ改変(ルートのエレメント定義して、書式が変なタグを修正)してwell-formed XMLにしたものにたいして、RelaxNG compact syntaxでスキーマを定義し、それをcompactじゃないsyntaxに変換したうえでNokogiri::XML::RelaxNGに喰わせています。<br />
+ちゃんとvalidateはできるのですが、validじゃなかったときのエラーメッセージが分かりづらい。場合によっては分かりづらいを通り越して意味不明なので実用性低めです。でもせっかく作ったのでgithubにあげました。<br />
+<a href="https://github.com/skoji/ydml_simple_validator">https://github.com/skoji/ydml_simple_validator</a></p>

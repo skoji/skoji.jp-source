@@ -1,0 +1,73 @@
+---
+layout: post
+title: Factorに入門する(1) とにかく使ってみる
+date: 2009-03-02 20:35:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Forthの流れをくむ言語はいろいろありますが、今いちばん熱そうな<a href="http://factorcode.org/">Factor</a>をつまみぐいしてみています。</p>
+<h4>環境設定</h4>
+<p>インストールはとても簡単です。Macでは(おそらく他のプラットフォームでも)ダウンロードして適当な場所に置くだけ。</p>
+<p>そのままでも、GUIなWorkspaceが使えますが、わたしはemacsで使います。emacsの設定は、factor/misc/fuel/READMEに従って実施。</p>
+<h4>基本概念</h4>
+<dl>
+<dt>word</dt>
+<dd>関数・命令のこと。Forthと同じ。</dd>
+<dt>Vocaburary</dt>
+<dd>パッケージのようなもの。名前空間を分離した、wordのあつまり。</dd>
+</dl>
+<h4>チュートリアル</h4>
+<p>オンラインのドキュメント(配布物にも同じ内容が同梱されてる)に、<a href="http://docs.factorcode.org/content/article-first-program.html">Your first program</a>ってのがあるので、まずはこれにしたがってやってみましょう。</p>
+<h4>vocaburary作成</h4>
+<p><a href="http://docs.factorcode.org/content/article-first-program-start.html">この指示</a>に従い、まずはオレ用vocaburaryを作成。Emacsなので、M-x fuel-scaffold-vocabを使ってみました。</p>
+<p>で、超簡単なword (palindrome?)を定義したら、このtutorialでは"Press F2"ってかいてある所、C-c rでfuel listnerに戻ると、vocaburaryを読み直してくれます。</p>
+<p>emacs上でhelpを引くのは、C-c h。</p>
+<p>このチュートリアルは、回文を判定するwordを作るだけです。かなり短くて、あっという間におわります。印象的だったこと: </p>
+<ul>
+<li>vocaburaryのテンプレートを作成するためライブラリが標準で存在する</li>
+<li>テストのフレームワークも標準で含まれている。書き方も実行もとても簡単。</li>
+<li>ドキュメンテーションもどうやらFactorのコードで書くようです。</li>
+<li>ワード定義に書くカッコで囲まれた部分。Forthでは習慣として実行前・実行後のスタック状態を書く単なるコメントでしたが、Factorでは機能が割り当てられた構文(Stack effect declaration)だそうな。</li>
+</ul>
+<h4>stck effect declaration</h4>
+<p>Forthではただのコメントだったものがどう進化したかチェックしてみました。inferまたはinfer.というwordでチェックできるみたいです。</p>
+<pre>
+( scratchpad ) : legal-func ( x y z -- x ) * + ; ! 正しいstack effect declaration
+( scratchpad ) 1 2 3 legal-func .
+7
+( scratchpad ) [ legal-func ] infer.  ! チェック
+( object object object -- object )
+( scratchpad ) : illegal-func ( x -- x ) dup 1 + ; ! 正しくないdeclaration。ただしくは( x -- x y )
+( scratchpad ) 1 illegal-func .
+2
+--- Data stack:
+1
+( scratchpad ) .
+1
+( scratchpad ) [ illegal-func ] infer.
+In word: illegal-func
+Stack effects of the word illegal-func do not match.
+Inferred: (( object -- object object ))
+Declared: (( x -- x ))
+Type :help for debugging help.
+( scratchpad ) : illegal-or-legal ( str -- str ) length ; ! 数はあってるけど正しくは ( str -- n )
+( scratchpad ) "foobar" illegal-or-legal .
+6
+( scratchpad ) [ illegal-or-legal ] infer. ! 数しかチェックしてないのでOK。
+( object -- object )
+( scratchpad )
+</pre>
+<h4>この後調べたいことメモ</h4>
+<p>リテラルのいろいろ・実行モデル詳細(データスタック以外のスタックとか、辞書とか)ソースをパースするタイプの命令のモデル(USE: とか \とか)・スレッドでのスタック扱い(継続ベースの軽量スレッドがあるみたい)・Combinatorとはなんぞや・等々</p>

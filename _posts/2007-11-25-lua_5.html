@@ -1,0 +1,38 @@
+---
+layout: post
+title: 'Luaの勉強: 5'
+date: 2007-11-25 09:00:15.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Luaリファレンスマニュアルの<a href="http://sugarpot.sakura.ne.jp/yuno/html/lua51_manual_ja.html">日本語訳</a>でお勉強第5回です。</p>
+<h4>コルーチン</h4>
+<p>言葉だけ知ってるけど意味を知らないコルーチン。協調型マルチスレッドといわれたりします。継続の一種だともいわれたりします。</p>
+<p>Luaのコルーチンは、</p>
+<ul>
+<li>coroutine.createに、引数としてコルーチンのメイン関数を渡して作成</li>
+<li>corutine.resumeで開始。</li>
+<li>コルーチン内部では、coroutine.yieldで抜ける。このとき、よんだ側のresumeが帰ってくる。戻り値はtrueと、yieldの引数(あれば)。コルーチン内部でエラーがあればfalse。</li>
+<li>再度corutine.resumeを呼ぶと、yieldの後から再開される。</li>
+<li>resumeの引数は、最初の時はメイン関数への引数。yieldからの復帰のときは、yieldの戻り値になります。</li>
+<li> coroutine.wrapってのがあります。resumeに似ているが、
+<ul>
+<li>戻り値はコルーチンじゃなくてresumeを呼び出す関数</li>
+<li>関数の戻り値は、resumeの戻り値から最初のブール値を除いたもの</li>
+<li>コルーチン内部のエラーをキャッチすることはなく、そのまま呼び出しもとに伝搬</li>
+</ul>
+</li>
+</ul>
+<p>メカニズムは簡単ですね。使いどころを理解するのがちょっと難しそう。</p>
+<p>でも、Lightroom SDKでは標準ライブラリcoroutineが使えないので、Lightroomのプラグイン使ってる限りはコルーチン使うことはないのです。ちょっとつまらん</p>

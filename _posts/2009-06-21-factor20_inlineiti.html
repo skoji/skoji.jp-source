@@ -1,0 +1,36 @@
+---
+layout: post
+title: Factorに入門する(20) inlineそのいち
+date: 2009-06-21 20:56:58.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>「特定のディレクトリにあるjpgファイルのリスト」を得る用事(用事?)があって、factorで書いてみたらけっこう苦労しました。</p>
+<pre>
+USING: io.directories io.pathnames kernel sequences io ;
+IN: filelist
+&lt;PRIVATE
+: filter-quot ( str -- quot ) [ file-extension ] swap [ equal? ] curry compose ; inline
+PRIVATE&gt;
+: filelist ( path ext -- seq )
+dupd [ directory-files ] dip filter-quot filter
+[ dupd "/" swap 3append ] map nip ;
+</pre>
+<p>最初は、filer-quotのinline指定なしで書いてみました。そうすると、filelistのコンパイルに失敗します。曰く、</p>
+<pre>
+Got a computed value where a literal quotation was expected
+</pre>
+<p>filter-quotで生成したquotationを、filterに渡しているところでこのエラーが発生しているようです。filterはliteralのquotationじゃないと受け付けないと。それじゃ全然quotation使えないじゃん!</p>
+<p>と悩むこと30分。inline指定しておけばよいことがわかりましたが...これは「optimizing compiler」でのみ効くとのこと。つまり、optimizing compilerを使わなければinline指定しなくても動くはずとのこと。</p>
+<p>まだよくわからないので、続きます。</p>

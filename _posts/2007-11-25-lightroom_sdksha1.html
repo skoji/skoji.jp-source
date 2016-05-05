@@ -1,0 +1,22 @@
+---
+layout: post
+title: Lightroom SDKでは(いまのところ)SHA1が使えない...
+date: 2007-11-25 10:56:35.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>ちょっと寄り道してWSSEってどうやって使うんだ? とか調べていて気付きました。</p>
+<p>いまのPreview版Lightroom SDKではLrMD5ってのがあるけど、そこではSHA1は使えません。では自前でSHA1の実装を...と思うと、Luaで書くのはちょっと現実的じゃありません。Luaにはビット演算子がないんです(元データから0,1の数字列を生成すればできなくはないですが...)。では外部コマンドを、と思うと、Lightroom SDKではシェルからの実行は削除されてます。</p>
+<p>実行速度はともかくとして、Lua単体でSHA1作ってみるかな(笑)</p>
+<p>追記: あ、LrTasks.execute()ってのがos.execute()とほぼ同じだ。これでできるな</p>

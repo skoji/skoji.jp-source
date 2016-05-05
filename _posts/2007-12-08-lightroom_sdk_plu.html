@@ -1,0 +1,41 @@
+---
+layout: post
+title: 'Lightroom SDK: プラグインの構成'
+date: 2007-12-08 02:07:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<h4>プラグインの配置場所</h4>
+<p>プラグイン名.lrplugin or プラグイン名.lrdevpluginのフォルダを、/Library/Application Support/Adobe/Lightroom/Modulesに入れる。</p>
+<p>Windowsならexeがあるのとおなじところ、またはC:\Documents and Users\username\Application Data\Adobe\Lightroom\Modules(Windows XP) or C:\Users\username\AppData\Roaming\Adobe\Lightroom\Modulesc (Vista)</p>
+<h4>プラグインの構成ファイル</h4>
+<dl>
+<dt>Info.lua</dt>
+<dd>プラグインの情報。バージョンとか、動作を定義したスクリプトとか、そういった情報を入れたテーブルをreturnするコードを書いておく。</dd>
+<dt>動作定義ファイル.lua</dt>
+<dd>最低限、Info.luaから参照されるスクリプトファイルが必要。</dd>
+</dl>
+<h4>Info.luaの例</h4>
+<pre>
+return {
+LrSdkVersion = 1.3,
+LrSdkMinimumVersion = 1.3
+LrToolkitIdentifier = 'jp.skoji.my_export_plugin',
+LrExportServiceProvider = {
+title = "skoji uploader",
+file = 'uploader.lua',
+},
+}
+</pre>
+<p>続く...</p>

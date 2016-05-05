@@ -1,0 +1,41 @@
+---
+layout: post
+title: iBooks AuthorはEPUBオーサリングツールではない
+date: 2012-01-20 18:25:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Appleから電子書籍を作れるアプリ iBooks Author がでました。<br />
+作った電書をibooks フォーマットという初耳のファイルに出力して中を眺めると、だいぶEPUBぽい。ということは、これはEPUBのオーサリングツールなんでしょうか? ibooksファイルとEPUBをざっくり比べてみました。</p>
+<h4>EPUBと同じところ</h4>
+<ul>
+<li>zipアーカイブである</li>
+<li>mimetypeという名前のファイルがある</li>
+<li>OEBPSで定義されたMETA-INF/container.xmlがある</li>
+<li>opf2.0のファイルがある</li>
+<li>ナビゲーション用にncxファイルがある</li>
+<li>コンテンツは基本的にxhtmlである</li>
+</ul>
+<h4>EPUBと違うところ</h4>
+<ul>
+<li>拡張子がちがう</li>
+<li>mimetypeの中身が違う。EPUBでは"application/epub+zip"、ibooksフォーマットでは"application/x-ibooks+zip"</li>
+<li>opfのmanifestにapplication/x-ibooks+linehintsとかimage/x-thumb-jpegなんてmediatypeをもつitemがある(EPUBではmediatypeを限定していないので「違う」というのは正確ではないですが)</li>
+<li>cssに-ibooks-というプレフィクスがついたものがある</li>
+</ul>
+<h4>違うフォーマットだよね</h4>
+<p>拡張子が.epubじゃない上に、中のmimetypeがapplication/epub+zipじゃない。これは"ibooksフォーマットはEPUBじゃないよ"という意志の現れだとかんじました。これは拡張されたEPUBではなく、よく似ているけど全く別のフォーマットだと私は捉えました。</p>
+<h4>EPUBオーサリングツールじゃない</h4>
+<p>つまり「iBooks AuthorはiPad iBooks専用電子書籍のオーサリングツール」なのであって、「変な拡張をしたEPUBを吐き出す困ったツール」ではないのだと思います。<br />
+もうちょっと乱暴に「電子書籍アプリの簡単作成ツール」といってしまってもよいのじゃないかなあ。</p>

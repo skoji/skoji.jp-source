@@ -1,0 +1,38 @@
+---
+layout: post
+title: Carbon Emacsから辞書.appを使う
+date: 2009-03-06 12:28:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>以前は辞書引きアプリとしてJammingを使っていて、Emacsから辞書引きができるように設定していました(最初は日本語が通らなかったのですが、2ちゃんで質問やらやりとりやらやって、ちゃんとうごくようにしました。名無しで参加してましたがあれは私です。いまでも探せばアーカイブが出てきます:)。</p>
+<p>さて、Leopardの辞書.app (Dictionary.app)は大変便利です。SafariみたいなCocoaアプリでは、単語を選択してCommand-Control-dで辞書が引けます。</p>
+<p>これemacsからやりたいなー、と思っていたのですが、Dictionary.appのAPIがわからなくて(AppleScriptに対応してないみたいだし)、諦めていたのですが、方法がありましたよそれもとても簡単なのが。Tiger/Leopardでは、"dict://"というスキームでURLひらけば辞書が引けるのでした! 全く知らなかった。調査能力が低いです。というか、どこにそのドキュメントがあるのかも今の時点で分かりません。</p>
+<p>というわけで、大変簡単ですがCarbon EmacsでDictionary.appを使うelisp書いてみました。jammingのときと同じキーバインドにしています。region 指定で辞書引くってのは全く使わないので今回は省略です。</p>
+<pre>
+;MacOS X Dict
+(require 'thingatpt)
+(defun macdict-lookup (word)
+"Lookup word with Dictionary.app"
+(call-process "open" nil 0 nil (concat "dict://" word)))
+(defun macdict-lookup-word ()
+"Lookup the word at point with Dictionary.app."
+(interactive)
+(macdict-lookup (word-at-point)))
+(global-set-key "\M-l" 'macdict-lookup-word)
+</pre>
+<p>引きたい単語の上にポインタを置いて、M-lで 辞書.appが立ちあがります。</p>
+<p>Cocoaアプリみたいなパネルで表示できるともっと嬉しいんだけど、あれはCocoaな親プロセスがいないと使えないのかな。</p>
+<p><span class="note">(追記 2009.3.6 15:00)</span><br />
+Carbon Emacsのmac-key-mode使えばコンテクストメニューで辞書引けるんですね...。しかもだいぶ前から実装されていました...。そのソースみれば、browse-urlで辞書引くってのが一目瞭然でした...。</p>

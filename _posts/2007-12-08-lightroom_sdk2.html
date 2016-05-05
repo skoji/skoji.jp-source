@@ -1,0 +1,27 @@
+---
+layout: post
+title: 'Lightroom SDK: Luaとの差異'
+date: 2007-12-08 02:00:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>ちょっとだけLua自体を勉強してわずかにパワーアップしたところで、またLightroom SDKのGuideに戻ります。</p>
+<h4>namespace</h4>
+<p>どうもnamespaceって概念はLua自体にはないみたい。Lightroomでは、いくつかの関数を定義したテーブルを「Namespace」と呼んでいるそうな。Lua5.1にはmoduleという概念があるけれども、それとは関係ない。</p>
+<p>built in functionであるimport()は、Lightroom SDKで定義しているnamespaceにアクセスする手段。</p>
+<p>プラグイン側であたらしいnamespaceは作れない(というのは、正確にどういう意味なのかまだ理解できてない)</p>
+<h4>class, object</h4>
+<p>クラスもオブジェクトも、Luaの言語仕様にはなくて、Lightroom SDKの用語。実態はテーブル。 namespace同様、classもプラグインで新しくつくることはできない。ってこれも、どうやって「できなく」しているのかが理解できてません。</p>
+<h4>Lua組み込み機能</h4>
+<p>Lua5.1の機能がすべて使えるわけじゃない。collectgarbage(), getmetatable(), module()なんてあたりは使えない。</p>

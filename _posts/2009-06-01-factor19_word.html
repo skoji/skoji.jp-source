@@ -1,0 +1,46 @@
+---
+layout: post
+title: 'Factorに入門する(19) wordの定義: パース時、ランタイム'
+date: 2009-06-01 12:14:11.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>
+Factor入門1ヶ月以上あきました。第19回。まだ景色が見えてないところがたくさんあるのに、息切れしてきました。</p>
+<p>今日はwordを定義する方法について調べます。普通のword定義はこういうふうにします。</p>
+<pre>
+: myword ( x y -- z ) dup * + ;
+</pre>
+<p>ほぼ意味のないwordですが、x + y * 2を計算します。mywordは名称。( x y -- z )はstack effectの宣言。: からはじまって、;で終わるまでがwordの定義です。これは、ソースコードのパース時に読み込まれ、定義が実行されます。</p>
+<p>ランタイムでwordを定義することもできるそうで、それがdefine。</p>
+<pre>
+( scratchpad ) DEFER: foo
+( scratchpad ) \ foo [ dup * + ] define
+Attempting to define foo outside of a compilation unit
+Type :help for debugging help.
+( scratchpad ) [ \ foo [ dup * + ] define ] with-compilation-unit
+:errors - show 1 compiler errors
+( scratchpad ) :errors
+==== &lt;Listener input&gt;
+&lt;Listener input&gt;
+Asset: foo
+Missing stack effect declaration
+word foo
+:errors - show 1 compiler errors
+( scratchpad ) [ \ foo [ dup * + ] (( x y -- z )) define-declared ] with-compilation-unit
+( scratchpad ) 3 4 foo .
+19
+</pre>
+<p>defineだとstack effect declarationがない、って怒られてしまいました。用途としては、既に定義されているwordの中身を置き換えるもの、のように見えます。いきなり定義するにはdefine-declaredを使う必要があるようです。いずれにせよ、wordとして用意しておかなくてはならないので、DEFER:を使わなくてはなりません。DEFER:はランタイムじゃなくてパースタイムだよな。ランタイムにwordを作る方法はやっぱりよく分かりません。</p>
+<p>あと、with-compilation-unitが必要とのことですが、compilation-unitの詳細もよく分かっていません。要調査。</p>

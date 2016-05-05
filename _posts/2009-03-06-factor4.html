@@ -1,0 +1,87 @@
+---
+layout: post
+title: Factorに入門する(4) リテラル
+date: 2009-03-06 22:43:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>順番むちゃくちゃFactor入門。予告も無視で今回はリテラルのいろいろ。これ調べていて気付いたこと: 前のエントリで書いたconventionsには出てこなかったですが、"foo:"は、parsing wordみたいですね。</p>
+<h4>数値</h4>
+<p>ふつうの整数、integer</p>
+<pre>
+1
+-10
+12345
+</pre>
+<p>分数、ratio。符号が分母・分子につくことあり。空白はあけない(Forthの子孫だし)</p>
+<pre>
+1/2
++2/5
+-1/-2
+</pre>
+<p>ふつうに、2/5とかやってもratioが出てくる。</p>
+<p>浮動小数点float。</p>
+<pre>
+1.25
+-3.14
+1.5e5
+</pre>
+<p>複素数complex。</p>
+<pre>
+C{ 1 2 }
+</pre>
+<h4>word</h4>
+<p>wordのliteralは、\(バックスラッシュ)に続けてwordを書きます。</p>
+<pre>
+\ +
+</pre>
+<p>これだと、加算は実行されずに、word "+"がスタックに積まれます。そこでexecuteすると実行されます。この"\"はparsing word。スタックを消費するんじゃなくて、つづくソースコードをパーズするタイプのwordです。</p>
+<h4>quotation</h4>
+<p>quatationの表記もliteral。</p>
+<pre>
+[ 3 2 * ]
+</pre>
+<p>これ、対話形式で途中で改行いれてもいいんですよね。"["はparsing wordだからな</p>
+<h4>array</h4>
+<p>配列</p>
+<pre>{ 1 2 3 }</pre>
+<h4>文字・文字列</h4>
+<p>文字リテラルはない。文字コードを扱うことはできる。CHAR: につづけての指定で文字コードをスタックにつめる。unicodeのコードポイントもかけます。</p>
+<pre>
+CHAR: x
+CHAR: exclamation-mark
+</pre>
+<p>文字列リテラルはふつうにダブルクオートで囲む。stringオブジェクトは長さ固定。</p>
+<pre>
+"moji retsu"
+</pre>
+<h4>sequences</h4>
+<p>Byte Array バイト列。ところでFactorには"protocol"という概念があるようで、これは"sequence protocol"を実装しています。そういえば文字列もsequenceです。</p>
+<pre>B{ 1 2 3 }</pre>
+<p>Vector。可変長sequenceだそうです。詳細はまだ理解していません。</p>
+<pre>V{ 1 2 3 }</pre>
+<p>String buffer。可変長の文字sequence。</p>
+<pre>SBUF" hello!"</pre>
+<p>SBUF"のあとにはスペースをあける必要あり。</p>
+<p>Hashtable。ふつうの連想配列。</p>
+<pre>H{ { "name" "kojima" } { "web" "skoji.jp" } }</pre>
+<h4>Tuple</h4>
+<p>Factorの名前つきslotを持っているオブジェクト。</p>
+<pre>T{ rgba { red 1.0 } { green 0.0 } { blue 0.5 } }</pre>
+<h4>pathname</h4>
+<p>パス名。なぜstringと別に用意されているのかはまだ分かってません。</p>
+<pre>P" foobar.txt"</pre>
+<h4> まとめ</h4>
+<p>超駆け足ですが、リテラルのいろいろでした。データ型としてよく分からないものもまだあります。parsing wordとかsequenceとかprotocolって概念も近々ちゃんと調べて書きます。</p>

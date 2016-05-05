@@ -1,0 +1,43 @@
+---
+layout: post
+title: Factorに入門する(その他) はじめてのFizzBuzz
+date: 2009-03-23 12:39:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>素直にFizzBuzzを書いてみました。</p>
+<pre>
+﻿IN: fizzbuzz
+USING: kernel io math prettyprint sequences ;
+: fizzBuzz ( -- ) "FizzBuzz" print ;
+: fizz ( -- ) "Fizz" print ;
+: buzz ( -- ) "Buzz" print ;
+: modN? ( x n -- ? ) mod 0 = ;
+: fizzBuzzMain ( array -- )
+dup 15 modN?
+[ drop fizzBuzz ]
+[ dup 3 modN?
+[ drop fizz ]
+[ dup 5 modN?
+[ drop buzz ]
+[ . ]
+if
+]
+if
+]
+if ;
+100 [ 1 + fizzBuzzMain ] each
+</pre>
+<p>かっこわるい。xがnで割り切れるならstrをスタックに置く、みたいなwordが書ければよいんだけど、手持ちの語彙でシンプルに書くことができません。まだまだFactor使いの初歩にもいっていないなわたし。</p>

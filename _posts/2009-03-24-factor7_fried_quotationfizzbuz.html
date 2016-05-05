@@ -1,0 +1,55 @@
+---
+layout: post
+title: Factorに入門する(7) Fried QuotationでFizzBuzzを書く
+date: 2009-03-24 08:36:19.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>流浪のFactor入門第7回。本日は、"fried quotation" についてです。</p>
+<p>Fried quotationとは何か? <a href="http://docs.factorcode.org/content/article-fry.html">ドキュメント</a>をみてみましょう。</p>
+<blockquote><p>
+The fry vocabulary implements fried quotation. Conceptually, fried quotations are quotations with "holes" (more formally, fry specifiers), and the holes are filled in when the fried quotation is pushed on the stack.
+</p></blockquote>
+<p>fried quotationとは「穴」があいているquotationで、スタックにpushされたときに、その穴が埋められるものをいいます。fried quotationは " '["からはじまります。「穴」は"_"または"@"です。実例をみてみましょうか。</p>
+<pre>
+( scratchpad ) 4 '[ _ 1 + ]
+--- Data stack:
+[ 4 1 + ]
+( scratchpad ) 30 15 '[ _ _ mod ]
+--- Data stack:
+[ 4 1 + ]
+[ 30 15 mod ]
+</pre>
+<p> "_"がスタック上の値で穴うめされているのが分かります。</p>
+<pre>
+( scratchpad ) 2 [ sq ] '[ @ . ] call
+4
+</pre>
+<p>"@"は、"_ call"のsyntax sugarだそうです。上の例では、[ sq ] call になっているわけですね。</p>
+<p>fried quotationはcurryとかcomposeより便利な手段、だそうなので、本来は先にcurryとかcomposeをみるべきなのかもしれません。次回の宿題です。</p>
+<p>さて、<a href="http://www.skoji.jp/blog/2009/03/factor_fizzbuzz.html">前回</a>たどたどしいFizzBuzzをかきましたが、fried quotationで書き直してみます。</p>
+<pre>
+IN: fizzbuzz
+USING: kernel io math math.parser prettyprint sequences fry ;
+: modN? ( x n -- ? ) mod 0 = ;
+: fb ( x n str -- x/str ) pick number?
+[ '[ _ dup _ modN? [ drop _ ] when ] call ]
+[ 2drop ]
+if ;
+: pp ( x/str -- ) dup number? [ number>string ] when print ;
+100 [ 1 + 15 "FizzBuzz" fb 3 "Fizz" fb 5 "Buzz" fb pp ] each
+</pre>
+<p><strike>fried quotationを濫用しすぎな気がしますが( "'[ _ _ _ 2drop ]"とか酷いな)、</strike>これ便利だな。</p>
+<p class="note">(2009.3.24 9:59) 無意味なfried quotationがあったので直しました</p>

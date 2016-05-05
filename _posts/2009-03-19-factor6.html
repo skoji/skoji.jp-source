@@ -1,0 +1,52 @@
+---
+layout: post
+title: Factorに入門する(6) 簡単なスクリプトを書いてみる
+date: 2009-03-19 23:12:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>
+帆も櫂もないFactor入門第6回。<a href="http://www.skoji.jp/blog/2009/03/factor5_parsing_words.html">前回</a>深みにはまったparsing wordsのことはひとまず忘れます。</p>
+<p>ここまで、対話環境であるlistenerで遊んでいるだけだったのですが、ここで簡単なスクリプトを書いてみました。題材はどう書く? orgから<a href="http://ja.doukaku.org/236/">17歳教</a>。生年月日を入力すると、17歳とXヶ月X日と表示するスクリプトです。</p>
+<p>
+エラー処理皆無。"Factorらしい"書き方とか全然できていなさそうですが。</p>
+<pre>
+USING: kernel math.parser calendar math io ;
+IN: age17code
+: duration&gt;monthsInInteger ( duration -- x ) duration&gt;months &gt;integer ;
+: getDaysPart ( duration -- x ) dup duration&gt;monthsInInteger months time- duration&gt;days &gt;integer ;
+: whenAge17 ( timestamp -- timepstamp ) 17 years time+ ;
+: age17duration ( timestamp -- duration ) whenAge17 now swap time- ;
+: age17and ( timestamp -- months days ) age17duration dup duration>monthsInInteger swap getDaysPart ;
+"生まれた年は? (西暦で): " write flush
+readln string>number
+"生まれた月は?: " write flush
+readln string>number
+"生まれた日は?: " write flush
+readln string>number
+&lt;date&gt; age17and
+! stack: months days
+swap number&gt;string
+"あなたは17歳と" write write "ヶ月" write
+number&gt;string write "日です" print
+</pre>
+<p>
+書いてみての発見。</p>
+<ul>
+<li>対話環境だと読み込まれているvocaburaryでもスクリプトには宣言しないとダメ。USING: kernel ;も必要なのか!</li>
+<li>word定義するときには、IN:しておかないとダメ。へー。</li>
+<li>write/printは、flushしとかないと実行途中では出てこない。</li>
+<li>時間の加算は+じゃなくてtime+</li>
+</ul>

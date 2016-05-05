@@ -1,0 +1,36 @@
+---
+layout: post
+title: gepub EPUB builder API
+date: 2012-02-22 06:26:14.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- gepub
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>gepubにEPUB生成インタフェースを追加しようとしています(まだ実装してません!)。以下に、今の案での、使い方例を示します。基本的な考え方は</p>
+<ol>
+<li>まずアイテムを定義(titleとかfile)</li>
+<li>続いてその属性を定義(alt, file_as, mime typeとか)</li>
+</ol>
+<p> です。<br />
+ご意見いただけると嬉しいです。<br />
+I'm planning to add EPUB builder interface to gepub(not implemented at all, yet). Here is my current idea how GEPUB::Builder interface looks like. Its style is:</p>
+<ol>
+<li>define item (e.g. title, creator, etc) </li>
+<li>set attributes to  last defined item (e.g. alt, file_as, mimetype, etc)</li>
+</ol>
+<p>If you have any comment or suggestion, please tell me!</p>
+<h4> simple example </h4>
+<p><script src="https://gist.github.com/1878995.js?file=builder_simple_example.rb"></script></p>
+<h4> rather complicated example</h4>
+<p><script src="https://gist.github.com/1878995.js?file=builder_sample.rb"></script></p>

@@ -1,0 +1,28 @@
+---
+layout: post
+title: NoraMark HTMLBookプラグインつくりました
+date: 2014-05-09 07:37:01.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電子書籍
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="https://github.com/skoji/noramark">NoraMark</a>から<a href="https://github.com/oreillymedia/HTMLBook">HTMLBook</a>に変換するプラグイン<a href="https://github.com/skoji/nora_mark_htmlbook"> NoraMark HTMLBook</a>つくりました。<br />
+使い方はこんなかんじです。Ruby 2.0以上が必要です。</p>
+<pre><code>$ gem install nora_mark_htmlbook
+$ nora2htmlbook &lt; source.nora &gt; dest.html</code></pre>
+<p>EPUB用のマークアップとして作っているNoraMarkとしては寄り道、なのですが、プラグインの一例も兼ねてつくってみました。このプラグインはNoraMarkの抽象構文木を操作するNoraMark::Transformerだけで書いていて、HTMLへのレンダリング処理はNoraMarkデフォルトのHTML Generatorを使っています。コマンドラインだけでなく、rubyのコードの中からももちろん使えます。詳しくはgithubのほうをみてください。<br />
+あと、HTMLBookは今一部で熱めの分野なので、これならすぐ使ってくれる方もいるかもな、というのもあります。<br />
+体系的なドキュメントはぼちぼち書きますが、現時点で試してくださる方がいるとうれしいです。<br />
+ソースと変換結果サンプルです。<br />
+<script src="https://gist.github.com/skoji/6a4b4a3f676f8db5ed90.js"></script></p>

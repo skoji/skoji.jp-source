@@ -1,0 +1,110 @@
+---
+layout: post
+title: 'VirtualMachine本: Chapter 3 Process Virtual Machines'
+date: 2009-02-10 12:15:47.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- LowLevel
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/1558609105/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51QA8H7XZ4L._SL160_.jpg" alt="Virtual Machines: Versatile Platforms For Systems And Processes (The Morgan Kaufmann Series in Computer Architecture and Design)" />Virtual Machines: Versatile Platforms For Systems And Processes </a></p>
+<p>VM本第三章やっと読み終わりました。ProcessVMについてです。</p>
+<p>いろいろなVMがあるけど、ここではProcess or Program VMについて語られます。「仮想ABI」です。たとえばIA-32/WindowsのアプリケーションをItaniumのWindows上で動作させるものです。</p>
+<p><!--more--></p>
+<h4>3.1 Virtual Machine Implementation</h4>
+<p>Process VMのよくある構成について、主なブロック。</p>
+<dl>
+<dt>loader</dt>
+<dd>guestのコードをロードする。</dd>
+<dt>initialization</dt>
+<dt>
+</dt>
+<dd>ロードされたあとに、初期化をするモジュール。code cacheとか、trapの登録とか、いろいろな前準備をする</dd>
+<dt>emulation engine</dt>
+<dd>インタープリットまたは・およびバイナリトランスレーションをする。プレデコードとかトランスレート結果はcode cacheに保持される。</dd>
+<dt>code cache manager</dt>
+<dd>コードキャッシュはたいてい限られているので、その管理をする。</dd>
+<dt>profile database</dt>
+<dd>ダイナミックに収集されたコードのプロファイル情報。最適化に使われる。</dd>
+<dt>OS Call Emulator</dt>
+<dd>OSとのインタラクションをエミュレートする。</dd>
+<dt>Exception Emulator</dt>
+<dd>Exception(trapや割り込み)をエミュレートする。</dd>
+<dt>Side tables</dt>
+<dd>トランスレートの信仰とともに生成されるデータ。用途はいろいろ。
+</dd>
+</dl>
+<h4>3.2 Compatibility</h4>
+<p>ネイティブなプラットフォームとVM環境の互換性について。</p>
+<h5>3.2.1 Levels of Compatibility</p>
+<p>"intrinsic compatibility"と"extrinsic compatibility"がある。</p>
+<p>intrinsic compatibilityは"complete transparency"ともいわれる。多くの場合は完全な透過性はオーバースペック。</p>
+<p>extrinsic compatibilityは、何らかの条件がつく。たとえば、特定のアプリケーションは動作するよ、とcertifyするなど。</p>
+<h5>3.2.2 A Comptibility Framework</h5>
+<p>intrinsicだろうがextrinsicだろうが、互換性があることを証明するのは大変むつかしい。その話をするためのフレームワークとして、まずはVMを構成要素に分解する。そして、各構成要素について(1)native環境とのステートマップ(2)ステート間遷移のマップをおこなう。このステートは、user-managedとOS-managedに分けることができる。</p>
+<h6> State Mapping</h6>
+<p>user-managedなステートマップはそんなに難しくない。guestのレジスタがhostのメモリにマップされるなどの場合があるが。OS-managed stateは、考え方が同じだがもうちょっと複雑。</p>
+<h6>Operations</h6>
+<p>user codeからOSへ制御がうつるポイントがキー。このマップがつくれれば、そのポイントでの状態が同等かどうかに集中できる。</p>
+<h6>Sufficient Compatibility Conditions</h6>
+<p>制御ポイントが明確になると、次のことがいえる:</p>
+<ol>
+<li>user code → OSのポイントで、ゲストの状態がホストの状態とマップ上同じである。ここからいえる重要なこと: 命令の粒度ではなく、OSへコントロールが渡る単位で状態の同等性をメンテナンスすればよい。</li>
+<li>OS → user codeのポイントでも、状態が同等。このとき、グラフィックとかネットワークとかみたいに、状態が同等なだけじゃなくてオペレーションの順番が同等である必要があるものもある。</li>
+</ol>
+<h6>Discussion</h6>
+<p>ここまでをふまえた議論。</p>
+<h5>3.2.3 Implementation Dependences</h5>
+<p>ISAの実装が、機能の差として顕れるケースがある。</p>
+<p>たとえば、コードセグメントへの書き込みが、コードキャッシュにすぐ反映されない。</p>
+<p>このような実装差が問題になるのは、たとえば、CPUの種別判定に使われる時。</p>
+<p>逆に、仕様上は「コードキャッシュに反映されない」となっていても、実在の実装がすべてコードキャッシュに反映させているケースもある。そうすると、仕様に従って実装されたVMでは、現実のコード(自己変更含むもの)がうごかないかもしれない。「仕様に従っている」はいいわけにならない。</p>
+<h4>3.3 State Mapping</h4>
+<p>guest → targetの状態マップ。状態とはレジスタとメモリのことで、要はリソースなので、リソースマップと呼ぶこともある。</p>
+<p>ここでのメモリは、論理メモリで実メモリスペースの話じゃない。</p>
+<h5>3.3.1 Register Mapping</h5>
+<p>レジスタマッピングはstraightforward(ってなんて訳すのがよいかな)。target側に充分なレジスタ数があれば、全部マップすればよいし、ダメならメモリにマップしたり、ダイナミックにマップを変更したりする。</p>
+<h5>3.3.2 Memory Address Space Mapping</h5>
+<p>メモリ空間のエミュレーションは、いろんなやり方がある。ソフトウェアの役割が大きいやりかたほど遅くなり、ハードウェアに任せる部分が多いほどパフォーマンスがよくなる。</p>
+<h6>Runtime Software-Supported Translation Tables</h6>
+<p>一番フレキシブル。ランタイムソフトウェアがメモリ管理。</p>
+<p>でもバイナリトランレート環境ではかなり遅い。最後の手段。</p>
+<h6>Direct Translation Methods</h6>
+<p>単純なマッピング。同一アドレスか、単にオフセットを与えるかだけ。</p>
+<h6>Compatibility Issues</h6>
+<p>メモリマッピングとアドレス変換に何を使うか、はパフォーマンス・互換性の要求と深い関係がある。</p>
+<p>メモリサイズや、ランタイムがアドレス空間を共用するか、など。</p>
+<p>extrinsic compatibilityでよい場合も多い。</p>
+<h4>3.4 Memory Architecture Emulation</h4>
+<p>メモリアーキテクチャのエミュレーションで、考慮しなきゃいけないのは:</p>
+<ul>
+<li>アドレス空間の構成: セグメントがあるのか、連続なのか。</li>
+<li>アクセス権: R/W/Eがあるのか。RWのみか。</li>
+<li>保護・アロケーションの粒度:メモリブロックのサイズ</li>
+</ul>
+<h5>3.4.1 Memory Protection</h5>
+<p>メモリプロテクションは、もし変換テーブルが用意されていれば簡単。しかし直接またはオフセットアドレッシングだとそうはいかない。ホストのメモリプロテクション機能に頼ることもできるが、ページサイズがホスト・ゲストで異なるとか、実行中にメモリの権限が変更されることもある。</p>
+<h5>3.4.2 Self-Referencing and Self-Modifying Code</h5>
+<p>自己参照はオリジナルの参照をしているからOK。自己書き換えについて、基本的なやりかたはRead onlyにしておくこと。例外のハンドリングで自己書き換えを扱うことができる。</p>
+<h6>psude-self-modifing code</h6>
+<p>psude-self-modifingという概念がある。code pageのなかに、実際にデータが混じっているもの。デバイスドライバや組み込みのコードに見られる。psude-self-modifing codeについては、「頻繁にwrite exceptionがおきるとき、それがpsude-self-modifingかどうかチェックして、その場合はwrite protectionをはずす」という手がある。</p>
+<h6>Fine-Grain Write Protection</h6>
+<p>ページ単位ではなく、もっと細かいwrite protectionをソースのコードに用意する。ページ毎にbit mask</p>
+<h6>True Self-modifing Code</h6>
+<p>ほんとうにSelf-modifing codeがある場合(code regionにデータがあるのではなく、実際にcodeがかきかわる場合)は、idiom recognitionでself modifyじゃないコードに書き換える。</p>
+<h6>Protecting Runtime Memory</h6>
+<p>Omniware VMという例では、２の累乗サイズのページごとにアクセス権を設定。それにより、アドレスのシフト演算で権限チェックが簡単にできる。</p>
+<p>ランタイム実行中と、エミュレーション中で権限を切り替えるやりかたがある(エミュレーション中はランタイムのアドレスにはアクセスできない、そしてCode Cacheは実行可能。ランタイム実行中は、Code Cacheは読み書き可能、など)。</p>
+<p>レジスタがメモリ上にマップされているときの問題もある。</p>
+<h4>3.5 Instruction Emulation</h4>
+<p>(続く)</p></p>
+</h5>

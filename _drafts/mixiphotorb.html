@@ -1,0 +1,100 @@
+---
+layout: post
+title: mixi-photo.rbふるいばん
+date: 
+type: post
+published: false
+status: draft
+categories:
+- 未分類
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<pre>
+# mixi photo upload libraryつくりかけ
+require 'digest/sha1'
+require 'Base64'
+require 'net/http'
+require 'uri'
+require 'time'
+require 'rexml/document'
+class MixiPhoto
+attr_accessor :albums
+def initialize(username, password)
+@username = username
+@password = password
+connect
+end
+# mode="public", "protected", "friends". keyはprotectedのときに必要。
+def createAlbum(albumName, mode="public", key="")
+http = Net::HTTP.new(@album_uri.host)
+response = http.post(@album_uri.path, albumRequestXml(albumName, mode, key), {'X-WSSE' =&gt; get_wsse_header, 'ContentType' =&gt; 'text/xml'})
+raise "#{response.body}" unless response.is_a?(Net::HTTPCreated)
+return response["location"]
+end
+def connect
+server = 'photo.mixi.jp'
+path = '/atom/r=4/'
+http = Net::HTTP.new(server)
+response = http.get(path, {'X-WSSE' =&gt; get_wsse_header})
+raise "#{response.body}" unless response.is_a?(Net::HTTPSuccess)
+# get album data
+@albums = []
+doc = REXML::Document.new response.body
+doc.elements.each('/service/workspace/collection') {
+|e|
+accept = e.elements['accept'].nil? ? "" : e.elements['accept'].text
+if accept == 'image/jpeg'
+@albums &lt;&lt; { e.elements["atom:title"].text =&gt; e.attributes["href"]}
+else
+@album_uri = URI.parse(e.attributes["href"])
+end
+}
+end
+def get_wsse_header
+nonce=Array.new(10){rand(2^8)}.pack('I*')
+timenow=Time.now.iso8601
+digest = Base64.encode64(Digest::SHA1.digest(nonce+timenow+@password)).strip
+return "UsernameToken Username=\"#{@username}\", PasswordDigest=\"#{digest}\", Nonce=\"#{Base64.encode64(nonce).strip}\", Created=\"#{timenow}\""
+end
+def albumRequestXml(albumName, mode, key)
+if (mode=="protected")
+keytag="&lt;permit:token&gt;#{key}&lt;/permit:token&gt;"
+else
+keytag = ""
+end
+return %Q(&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://purl.org/atom/app#" xmlns:permit="http://mixi.jp/atom/ns#permit"&gt;
+&lt;title&gt;#{albumName}&lt;/title&gt;
+&lt;author&gt;&lt;name /&gt;&lt;/author&gt;
+&lt;content /&gt;
+&lt;summary&gt;#{albumName}&lt;/summary&gt;
+&lt;updated&gt;#{Time.now.iso8601}&lt;/updated&gt;
+&lt;app:control&gt;
+&lt;permit:access&gt;#{mode}&lt;/permit:access&gt; #{keytag}
+&lt;/app:control&gt;
+&lt;/entry&gt;)
+end
+protected :connect, :get_wsse_header, :albumRequestXml
+end
+</pre>
+<p>超簡単な使用例</p>
+<pre>
+#!/usr/bin/ruby
+$KCODE='u'
+require 'mixi-photo'
+user=''
+pass=''
+mixi = MixiPhoto.new(user, pass)
+mixi.albums.each { |a|
+p a
+}
+created_album_uri = mixi.createAlbum("test album", "protected", "foobar")
+p created_album_uri
+</pre>

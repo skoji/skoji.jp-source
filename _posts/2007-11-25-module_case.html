@@ -1,0 +1,39 @@
+---
+layout: post
+title: Module#===
+date: 2007-11-25 12:40:43.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Ruby
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>RubyリファレンスマニュアルのNet::HTTPまわりをみていたら、こんな例がありました。</p>
+<pre>
+response = Net::HTTP.get_response(URI.parse(uri_str))
+case response
+when Net::HTTPSuccess     then response
+when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+else
+response.error!
+end
+</pre>
+<p>型チェックでcaseが使えるのか...? と不審に思い。caseの比較は===演算子だよな。</p>
+<pre>
+String === "foo" # ==> true
+"foo" === String # ==> false
+Object == "foo" # ==> true
+Integer === "foo" # ==> false
+Numeric === 1 # ==> true
+</pre>
+<p>クラスオブジェクトの===ってこういうふうに使えるようですが、どこで定義されてるんだ...? </p>
+<p>と思ったら、<a href="http://www.ruby-lang.org/ja/man/?cmd=view;name=Module#a.3d.3d.3d">Module#===</a>が働いているようです。メカニズムまだ理解できません。</p>
+<p>追記: あ、ClassがModuleのサブクラスだったのか! なるほど。っていうか、この疑問はそもそも恥ずかしい疑問だったんだな...。</p>

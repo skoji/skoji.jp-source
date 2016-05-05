@@ -1,0 +1,26 @@
+---
+layout: post
+title: gitの第一歩： working tree, index(staging area), repository(commited)
+date: 2009-05-12 22:35:32.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>gitをつかいはじめてみたけど、どうもわたしは基本的な概念が分かっていないぽいので、本を探してみました。見つけたのは2冊。</p>
+<h4>Git Internals</h4>
+<p><a href="http://peepcode.com/products/git-internals-pdf">Git Internals</a>は$9のPDF本。大変安い。Internalsというだけあって、仕組みを解き明かす本のようです。<br />
+<h4>Pragmatic Version Control using Git</h4>
+<p><a href="http://www.pragprog.com/titles/tsgit/pragmatic-version-control-using-git">Pragmatic Version Control using Git</a>は、名前から推測つくように、The Pragmatic Bookshelfから出ている本。電子版$22, 書籍版$34.95 + 送料, 電子+書籍$43.75。</p>
+<p>まずはPragmatic Version Control using Gitの電子版を買って、読み始めています。iPhoneでも読めるので通勤の友です。<a href="http://www.skoji.jp/blog/2009/05/git.html">前回疑問に思った</a>レポジトリをworkingの関係はすぐにすっきりしました。</p>
+<p>Gitには3種類のエリアがあります: working tree (ここで実ファイルを編集), repository(コミットされたファイルの各バージョンが入っているデータベース), index(or staging area)(これからコミットされるファイルが一時的に入っている場所)。このindexの存在意義がいまのところ私には分かっていませんが、indexとかstating areaとかcachedとかいわれるものが、レポジトリとworkの間にはさまっていることを理解しておくのがGitをちゃんと理解してつかう第一歩なように思います。</p>
+<p>その他にもGitはいろいろ特徴的なようです。本質的に「内容の」変更がtrackされること(ファイルではなく!)、branchが本質的でその処理も非常に軽いこと(だからbranchを使いまくる、従来のVCSからみると「過激な」使い方も気楽にできる)、VCSというよりは履歴つきファイルシステムのようなものであること、等々。</p></p>

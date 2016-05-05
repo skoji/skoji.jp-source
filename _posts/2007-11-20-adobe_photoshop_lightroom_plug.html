@@ -1,0 +1,29 @@
+---
+layout: post
+title: Adobe Photoshop Lightroom plugin SDKはじめました
+date: 2007-11-20 23:21:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>超ひさびさの更新です。</p>
+<p>Adobe Photoshop Lightroom 1.3発表と同時に、plugin SDKのpreview版が<a href="http://labs.adobe.com/technologies/lightroomsdk/">発表</a>されました。</p>
+<p>プラグインは、Luaというスクリプト言語で書きます。Luaって初耳でしたが、ブラジル製の組み込み向けスクリプト言語だそうで、わたしが知らないところでけっこうつかわれているらしいです。CarbonEmacsパッケージにはlua-mode.el入ってたしな。そしてLightroomはそもそも、Luaでかなりの部分が書かれているそうな。</p>
+<p>まずはSDK Guideのチュートリアルをちまちまやってみました。Luaの文法すら知らずにやってるので、いろいろわからんのですが、雰囲気はつかめました。今日の所のメモ: </p>
+<ul>
+<li> Luaスクリプト内で日本語はUTF8で書けばよいみたい。要仕様確認</li>
+<li> Luaで{}でかこわれたモノはなんだ? propertyの列のようでもある。namespaceをあらわすこともある。tableと呼ぶらしい。</li>
+<li> Luaでのピリオドとコロンの意味を調べること。namespace.functionぽいのだけど、コロンがよくわからない。factory:itemみたいな使い方。</li>
+<li> import, requireの意味を調べること</li>
+<li>LrFunctionContext.callWithContext...の意味を調べること</li>
+</ul>

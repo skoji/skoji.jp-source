@@ -1,0 +1,62 @@
+---
+layout: post
+title: オライリーが公開しているHTMLBookでEPUBはつくれるのか
+date: 2014-03-27 13:40:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電子書籍
+tags: []
+meta:
+  _edit_last: '1'
+  s4_url2s: ''
+  s4_image2s: ''
+  s4_ctitle: ''
+  s4_cdes: ''
+  _wpcom_is_markdown: '1'
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>それっぽいxsltがあるので作れそう。<br />
+MacOS X Mavericksで試してみました。<br />
+HTMLBookはこれ。<br />
+<a href="https://github.com/oreillymedia/HTMLBook/">https://github.com/oreillymedia/HTMLBook/</a><br />
+変換対象は、ここにある2冊。<br />
+<a href="https://github.com/oreillymedia/HTMLBook/tree/master/samples">https://github.com/oreillymedia/HTMLBook/tree/master/samples</a><br />
+以下、コマンドラインのみの作業です。<br />
+まず、HTMLBookをとってきます。gitが使えるならこう。<br />
+$ git clone https://github.com/oreillymedia/HTMLBook.git<br />
+gitがつかえないなら、こう。<br />
+(HTMLBook-masterの名称変更は本来不要ですが、あとの説明をしやすくするためにこうしています)<br />
+$ curl -O -L https://github.com/oreillymedia/HTMLBook/archive/master.zip<br />
+$ unzip master.zip<br />
+$ mv HTMLBook-master HTMLBook<br />
+xsltprocにかけます。私のMacにはなぜか入っていましたがどこからきたんだろう。→ 標準ではいっているようです。<br />
+$ mkdir htmlbook-sample<br />
+$ cd htmlbook-sample<br />
+$ xsltproc ../HTMLBook/htmlbook-xsl/epub.xsl ../HTMLBook/samples/htmlbook.html<br />
+なんかエラーいっぱいでてますが、それっぽいファイルできています。<br />
+$ ls -F<br />
+META-INF/     OEBPS/     mimetype<br />
+ので、気にしないでEPUBにしてみます。<br />
+$ zip -0 -X ../htmlbook-sample.epub mimetype<br />
+$ zip -r ../htmlbook-sample.epub META-INF/ OEBPS/<br />
+EPUBできた! ひらいてみましょう。<br />
+$ open ../htmlbook-sample.epub<br />
+<img alt="htmlbook-sample.jpg" src="/migrated-b/blog/htmlbook-sample.jpg" width="1189" height="820" class="mt-image-center" style="text-align: center; display: block; margin: 0 auto 20px;" /><br />
+ちゃんと読めますね。(epubcheckではフォントがないとかいろいろエラーでるけど)<br />
+同じように、alices&#95;adventures&#95;in&#95;wonderland.html も変換してみましょう。こっちもエラーいっぱいでます。<br />
+$ cd ..<br />
+$ mkdir alice<br />
+$ cd alice<br />
+$ xsltproc ../HTMLBook/htmlbook-xsl/epub.xsl ../HTMLBook/samples/alices_adventures_in_wonderland.html<br />
+$ zip -0 -X ../alice.epub mimetype<br />
+$ zip -r ../alice.epub META-INF/ OEBPS/<br />
+$ open ../alice.epub<br />
+こんなかんじです。<br />
+<img alt="alice.jpg" src="/migrated-b/blog/alice.jpg" width="1189" height="820" class="mt-image-center" style="text-align: center; display: block; margin: 0 auto 20px;" /></p>

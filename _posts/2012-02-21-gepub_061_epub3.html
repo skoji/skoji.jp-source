@@ -1,0 +1,30 @@
+---
+layout: post
+title: 'gepub 0.6.1リリースしました: EPUB3対応、パース対応'
+date: 2012-02-21 06:13:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- gepub
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>(English entry is <a href="http://www.skoji.jp/blog/2012/02/released_gepub_060_epub3.html">here</a>)<br />
+昨晩、<a href="http://github.com/skoji/gepub/">gepub 0.6.1をリリース</a>しました。gepubは、rubyで書かれた汎用EPUBライブラリです。主にメタデータを取り扱うことを目的としています。<br />
+0.6の代表的な新機能は次のとおり。</p>
+<ul>
+<li>EPUB3対応。<a href="http://idpf.org/epub/30/spec/epub30-publications.html">EPUB3 Publication</a>で定義された全てのメタデータを扱えます(扱えないなら、それはバグです)</li>
+<li>EPUBファイルのパース</li>
+<li>新しいEPUB生成インタフェース</li>
+</ul>
+<p>詳しくは、<a href="http://github.com/skoji/gepub/">github レポジトリ</a>のREADMEやexamplesをどうぞ。<br />
+gepubはもともと、good-enough EPUB generatorを目指していました。が、「必要十分」を目標にすると、十分からほど遠いことになってしまう、ということにようやく気付きました。gepub0.5.0は「私には」必要十分でしたが、非常に貧弱な機能しかありませんでした。<br />
+あたらしいgepubは「汎用」EPUBライブラリを目指します。まだまだ汎用とはいえませんし、そもそもバグだらけですが、自分で使いながら改善していきたいなーと思っております。</p>

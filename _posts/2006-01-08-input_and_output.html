@@ -1,0 +1,62 @@
+---
+layout: post
+title: 情報収集
+date: 2006-01-08 12:30:03.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Ruby
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>昨年は情報収集の環境が整った年でした。</p>
+<p>個人的に一番大きいのがソーシャルブックマークである<a href="http://del.icio.us/">del.icio.us</a>の存在です。</p>
+<p><a href="http://www.skoji.jp/movabletype/2005/01/delicious.html">本家ブログ</a>で話題にしたのがほぼ一年前。そのときは「タグがつけられるブックマークって便利だなー♪」くらいの気持ちでした。</p>
+<p>しばらく使っているうちに、「同じものをブックマークしているひと」が気になり始めました。こーいうのがソーシャルフィルタリングの動機なのかな? 教えて偉い人。</p>
+<p>まずは、コメントが気になります。del.icio.usでは(はてなブックマークでも)ブックマークに短いコメントがつけられるのです。それを読んで、なるほどこんな見方をしてるのかと感心してみたり。さらにそのひとのブックマークを辿ると、どれも興味深いことがあります。そういうひとのブックマークはRSSリーダ(わたしは<a href="http://www.bloglines.com">Bloglines</a>を使っています)に登録して、日々ブックマーク更新を観察します。面白いのがあればわたしも横取りしてブックマーク。そしてブックマーク先がブログでかつ面白そうであれば、それもBloglinesに登録。</p>
+<p>一年たった今、わたしがdel.icio.usでブックマークしている項目は<a href="http://del.icio.us/skoji">284項目</a>。意外に少ないですが、きっとどんどん使う頻度が増えているに違いありません。月ごとにどのくらいブックマークをポストしてたか、たどたどしいrubyスクリプトで簡単に調べてみました。del.icio.us APIを叩くのに<a href="http://www.pablotron.org/software/rubilicious/">Rubilicious</a>を使ってます。</p>
+<pre>
+require 'rubygems'
+require 'date'
+require_gem 'Rubilicious'
+# del.icio.usのユーザ名とパスワード
+user = 'skoji'
+pass = 'xxxxx'
+r = Rubilicious.new(user, pass)
+e = r.dates
+h = Hash.new
+e.each { | date, count |
+d = Date.parse(date)
+key = "#{d.year}-#{sprintf("%02d",d.month)}"
+h[key] = count + ((h[key] == nil) ? 0 : h[key])
+}
+h.sort.each { |month,count| puts "#{month}, #{count}" }
+</pre>
+<p>
+結果はこのとおり</p>
+<blockquote>
+<p>
+2005-01, 44<br />
+2005-02, 22<br />
+2005-03, 28<br />
+2005-04, 11<br />
+2005-05, 65<br />
+2005-06, 20<br />
+2005-07, 24<br />
+2005-09, 16<br />
+2005-10, 9<br />
+2005-11, 47<br />
+2005-12, 155<br />
+2006-01, 29</p>
+</blockquote>
+<p>あれー。思ったような結果になりませんでした。先月がすごい多いけど。グラフ化しようという意欲が失せました:)</p>
+<p>激しく話がそれましたが、こんなわけでdel.icio.usとBloglinesの組みあわせで、日々いろんな情報が簡単を得られるようになったのが昨年でした(ソフトウェアに関する情報に限られていますが)。</p>
+<p>一年たってあらためて振り返ると、多量の情報をそこそこの質で簡単に得られるので、情報収集に没頭してしまう危険を感じます。そのままただただ情報を収集しているだけだと何の役にもたたないタイプの批評家になりさがってしまうだろうなということがひしひしと感じられます。</p>
+<p>情報を消費するだけじゃなくて自分でも手を動かさないとね。ありきたりな結論ですみません。</p>

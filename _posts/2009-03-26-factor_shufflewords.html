@@ -1,0 +1,125 @@
+---
+layout: post
+title: Factorに入門する(10) スタックを操作しまくる
+date: 2009-03-26 23:13:25.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factorへの入門第10回。このあたりでわれにかえって、基本的なスタック操作のwordについてしらべます。</p>
+<p>FactorはForthの末裔なのでスタックが重要です。Factorにはdata stack, retain stack, call stackの3つのスタックがあるようですが、ふつうに"the stack"というときはdata stackのことです。<br />
+Factorのwordはスタックからデータをとり、そしてスタックに結果を残します。これを"stack effect"といいます。<br />
+word定義にはstack effectを書くことができます。</p>
+<pre>
+: multiple? ( x n -- ? ) mod 0 eq ;
+</pre>
+<p>
+カッコ"()"で囲われた部分がstack effectの記述です。<br />
+"--"の左側が実行前、右側が実行後です。<br />
+このwordの場合は、スタックの上にある値2つ (xとn)をつかって、結果としてひとつの値をスタックにつみます。<br />
+xとnはこの順につまれています。つまり、nがスタックの一番上です。<br />
+このwordは、xがnで割り切れるかどうかチェックする関数になります。<br />
+modのstack effectは ( x y -- z )なので、特にスタックをいじる必要はありません。</p>
+<p>では、"xとyがnを法としたときに合同かどうかチェックする"wordを書こうとおもったらどうでしょうか。rubyみたいな普通の言語で書くとこうですかね。</p>
+<pre>
+def modEq?(x, y, n)
+x % n == y % n
+end
+</pre>
+<p>factorで書くとどうでしょう。stack effectは( x y n -- ? )にしましょう。まずは対話環境で考えてみます。</p>
+<pre>
+( scratchpad ) 9 8 2
+--- Data stack:
+9
+8
+2
+( scratchpad )
+</pre>
+<p>ここで、9 mod 2 と8 mod 2の結果が欲しいわけです。2は2回使うのでコピーしておきたい。スタックトップの値を単にコピーするwordがあります。</p>
+<pre>
+( scratchpad ) dup
+--- Data stack:
+9
+8
+2
+2
+</pre>
+<p>dupはForthから存在する由緒正しいwordです。PostScriptにもあります。stack effectは ( x -- x x )。明解ですね。では次に、沈んでいる8を取り出しましょう。これは、コピーを取り出さなくてもよいです。</p>
+<pre>
+( scratchpad ) rot
+--- Data stack:
+9
+2
+2
+8
+( scratchpad )
+</pre>
+<p>rotも由緒正しいwordです。stack effectは ( x y z -- z y x )。<br />
+スタックトップに8, 2がありますが、順序が逆なので交換しましょう。それからmodをとります。</p>
+<pre>
+( scratchpad ) swap
+--- Data stack:
+9
+2
+8
+2
+( scratchpad ) mod
+--- Data stack:
+9
+2
+0( scratchpad )
+</pre>
+<p> swapのstack effectは ( x y -- y x )。続いて、9 2 0 の順序を0 9 2にしましょう。そこまでくればあとひといき。</p>
+<pre>
+( scratchpad ) -rot
+--- Data stack:
+09
+2
+( scratchpad ) mod
+--- Data stack:
+01
+( scratchpad ) =
+--- Data stack:
+f
+( scratchpad )
+</pre>
+<p> -rotは、スタックトップから3つの値をrotとは逆順にまわします。( x y z -- z x y )ですね。ここまでをwordにまとめてみます。</p>
+<pre>
+: modEq? ( x y n -- ? ) dup rot swap mod -rot mod = ;
+</pre>
+<p> over ( x y -- x y x )を使うと、こう書くこともできます。1手少ない:-) </p>
+<pre>
+: modEq? ( x y n -- ? ) swap over mod -rot mod = ;
+</pre>
+<p>いずれにしても、慣れないと判じ物ですね。慣れると、このくらいなら気にならなくなると思います。</p>
+<p>Factorには、古典的なshuffle wordsのほかにも(たぶんJoy由来の)combinatorがあります。この例はdip combinatorでこう書くこともできます。</p>
+<pre>
+: modEq? ( x y n -- ? ) swap over mod [ mod ] dip = ;
+</pre>
+<p>まずswap overでx n y nという使いやすい並びにしておき、modを実行してy mod nをスタックトップにおき、そしてスタックトップをretain stackにいれておいてx mod nを計算する([ mod ] dip)する、という流れです。</p>
+<p> keepというcombinatorも使えます。</p>
+<pre>
+: modEq? ( x y n -- ? ) [ mod ] keep [ swap ] dip mod = ;
+</pre>
+<p>この場合は、まず[ mod ] keepで y mod nを計算し、その上にnをのせます。y mod n の結果をzと書くと、x z n。[ swap ] dip してz x nにして、modする、という流れです。</p>
+<p>あ、swapdというshffule wordsがあるのを今発見。stack effectは( x y z -- y x z )で、[ swap ] dipと同じです。</p>
+<pre>
+: modEq? ( x y n -- ? ) [ mod ] keep swapd mod = ;
+</pre>
+<p>dip使う場合もswapd使うとこんなふうに書けます</p>
+<pre>
+: modEq? ( x y n -- ? ) dup [ mod ] dip swapd mod = ;
+</pre>
+<p>でもkeep使うほうが短いですね。この例の場合、どうしてもnをコピーしなくてはいけません。そのためにdupやoverを使ってもいいのですが、keepを使えばnを使ったあとに戻してくれるので、dupやoverなどが不要になり、結果として短くかけるのですな。</p>
+<p>さて、スタック上のデータを華麗に:-)扱うには、shuffle wordsはもちろんですが、combinatorも適宜駆使するのがきっとFactorらしいにちがいない。dip combinatorsは<a href="http://www.skoji.jp/blog/2009/03/factor8_dip_combinatorsfizzbuz.html">とりあげました</a>が、他のcombinatorも今後とりあげていきます。</p>

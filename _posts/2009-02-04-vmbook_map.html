@@ -1,0 +1,43 @@
+---
+layout: post
+title: VirtualMachine本のひとり勉強会
+date: 2009-02-04 23:35:39.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- LowLevel
+- 本
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>VM本読書記録がいくら自分用メモとはいえ、粒度がむちゃくちゃで読みにくいので、いったんVM本の全体構成をおさらいしてみましょう。(そういうことは先にやれ＞おれ)</p>
+<p>現時点(2009.2.4)では、Chapter 3の途中です。読み進むにつれ、このエントリはかきかえていきます。</p>
+<h4>Chapter 1: Introduction to Virtual Machines</h4>
+<p><a href="http://www.skoji.jp/blog/2009/01/vmbook_chapter1.html">Chapter1のメモ</a></p>
+<p>タイトル通り、仮想マシンへのイントロダクション。コンピュータのアーキテクチャ、「仮想」とはなんであるか、仮想マシンのいろいろ、そして本書の構成について。</p>
+<h4>Chapter 2: Emulation: Interpretation and Binary Translation</h4>
+<p><a href="http://www.skoji.jp/blog/2009/02/virtualmachine_chapter2.html">Chapter2のメモ</a></p>
+<p>命令セットのエミュレーション全般。直観的なインタープリットから始まり、threaded, predecode, binary translationなどの方式や、命令セットのエミュレーションにおけるさまざまな問題について概観します。</p>
+<h4>Chapter 3: Process Virtual Machines</h4>
+<p><a href="http://www.skoji.jp/blog/2009/02/virtualmachine_chapter3.html">Chapter3のメモ</a></p>
+<p>プロセスVMを構成するはなし。まずは全体の構成からはじまります。それから互換性・状態のマッピング・エミュレーションいろいろ(メモリアーキテクチャ・命令・例外・OS)・コードキャッシュの管理・そしてシステム環境への埋め込み。FX!32の実例をとりあげてから、まとめです。</p>
+<h4>Chapter 4: Dynamic Binary Optimization</h4>
+<p>ダイナミックバイナリ最適化の話。ここでは主に複数のbasic blockをまたがる最適化について。</p>
+<p>まずは最適化の前提としてプロファイルで「どこがよく実行されているのか」を知る。そしてsuperblockをはじめとするブロック最適化。それをベースにした最適化フレームワーク。フレームワークの上でのテクニックとしてのコード再配置。そしてコードの最適化いろいろ(余分なブランチ削除、定数展開、コピー展開等々)。さらに、同一ISAでの最適化についての話題。</p>
+<p>以下、じわじわ更新していきます。</p>
+<h4>Chapter 5: High-Level Language Virtual Machine Architecture</h4>
+<h4>Chapter 6: High-Level Language Virtual Machine Implementation</h4>
+<h4>Chapter 7: Codesigned Virtual Machines</h4>
+<h4>Chapter 8: System Virtual Machines</h4>
+<h4>Chapter 9: Multiprocessor Virtualization</h4>
+<h4>Chapter 10: Emerging Applications</h4>
+<h4>Appendix A: Real Machines</h4>
+<p>実マシンの復習。</p>
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/1558609105/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51QA8H7XZ4L._SL160_.jpg" alt="Virtual Machines: Versatile Platforms For Systems And Processes (The Morgan Kaufmann Series in Computer Architecture and Design)" />Virtual Machines: Versatile Platforms For Systems And Processes </a></p>

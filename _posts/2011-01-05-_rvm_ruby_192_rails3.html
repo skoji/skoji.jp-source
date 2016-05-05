@@ -1,0 +1,32 @@
+---
+layout: post
+title: '環境設定メモ: RVM + Ruby 1.9.2 + Rails3'
+date: 2011-01-05 16:20:26.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>MacBook (SnowLeopard)でRails3の環境をつくりはじめました。</p>
+<h4>readlineのインストール</h4>
+<p>readline入れとかないとirbで日本語使えないということなので、readline-6.1をインストール。単純にconfigure/make/sudo make install。</p>
+<h4>RVMのインストール</h4>
+<p><a href="http://rvm.beginrescueend.com/">http://rvm.beginrescueend.com/</a>の指示に基本的には従う、が、scripts/installが実行されなかったので手動で実行する。<br />
+.bash_profileに、次の追記をする。</p>
+<pre> [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" </pre>
+<h4>Ruby 1.9.2をインストールする</h4>
+<pre>rvm install ruby-1.9.2 --with-readline-dir=/usr/local </pre>
+<h4>Railsをインストール</h4>
+<pre>
+rvm use 1.9.2
+gem install rails
+</pre>

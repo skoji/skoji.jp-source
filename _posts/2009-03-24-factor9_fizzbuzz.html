@@ -1,0 +1,55 @@
+---
+layout: post
+title: Factorに入門する(9) マクロでFizzBuzz
+date: 2009-03-24 23:22:39.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factor入門第9回。またFizzBuzzかよ。Factorは今時の言語なので、Lisp的なマクロがあります。</p>
+<p>マクロの実例。</p>
+<pre>
+( scratchpad ) : ++ ( x -- x ) 1 + ;
+( scratchpad ) 2 ++ .
+3
+( scratchpad ) MACRO: macro++ ( x -- x ) [ 1 + ] ;
+( scratchpad ) 2 macro++ .
+3
+( scratchpad ) </pre>
+<p> 見た目は普通のword定義に似ています。違いは、quotationをかえすように書かなくてはいけないところ。実行結果はふつうのwordと同じ。</p>
+<p>では何が違うのか? というと、</p>
+<blockquote><p>
+A call of a macro inside a word definition is replaced with the quotation expansion at<br />
+compile-time if precisely the following conditions hold:<br />
+- All inputs to the macro call are literal<br />
+- The word calling the macro has a static stack effect<br />
+- The expansion quotation produced by the macro has a static stack effect<br />
+If any of these conditions fail to hold, the macro will still work, but expansion will be<br />
+performed at run-time.
+</p></blockquote>
+<p>とのことで、入力がリテラル・マクロを呼ぶwordのスタックエフェクトがstatic・かつマクロが生成するquotationのスタックエフェクトもstaticのときに、コンパイル時に展開されるそうです。</p>
+<p>さて、FizzBuzzをマクロで書き直してみます。friedバージョンを書き直しましょう。</p>
+<pre>
+IN: fizzbuzz
+USING: macros kernel io math math.parser prettyprint sequences fry ;
+: modN? ( x n -- ? ) mod 0 = ;
+MACRO: fb ( x n str -- x/str )
+pick number?
+[ '[ _ dup _ modN? [ drop _ ] when ] ]
+[ '[ _ _ _ 2drop ] ]
+if ;
+: pp ( x/str -- ) dup number? [ number>string ] when print ;
+100 [ 1 + 15 "FizzBuzz" fb 3 "Fizz" fb 5 "Buzz" fb pp ] each
+</pre>
+<p>ま、これでも動くんですが、「引数がすべてリテラル」の条件が満たせてないので、速度のメリットもないですね。マクロについてはまた改めてとりあげようと思います。</p>

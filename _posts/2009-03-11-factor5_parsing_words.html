@@ -1,0 +1,70 @@
+---
+layout: post
+title: Factorに入門する(5) parsing words
+date: 2009-03-11 12:22:34.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factor入門第5回。<br />
+今回は"parsing words"について調べます。</p>
+<p>通常、Factorのwordは、パーズされ解釈され、即スタックに影響を与えます。数値リテラルならスタックに積まれるし、wordなら実行されます。多くの場合、スペースで区切られたひとつのwordは、スタックのみに依存して動作します。</p>
+<p>スタック系言語の、わたしに認識できる歳代の利点は、このように「文法構造」がほぼないので、文法部分にあたまを使わずに読み書きできる、ということです。文法構造を理解する必要もない。</p>
+<p>でも一部に、その場でスタックとのやりとりをしない動作をするものがあります。たとえば、quotationのはじまりを示す"["。</p>
+<pre>
+( scratchpad ) [
+</pre>
+<p>このように、Factorの対話画面(listenerといいます、って入門第5回で紹介するのは遅すぎですね)で"["を入力して、リターンを押しても何も起きません。( scratch )のプロンプトすら出ません。</p>
+<pre>
+( scratchpad ) [
+2 4 *
+</pre>
+<p> 2 4 * と入力すると、普通は2がつまれ4がつまれ、そしてそれに乗算が適用されて、スタックに8がつまれますが、やはり何も起きません。</p>
+<pre>
+( scratchpad ) [
+2 4 *
+]
+--- Data stack:
+[ 2 4 * ]
+( scratchpad )
+</pre>
+<p>"]" で閉じるとはじめてプロンプトが戻り、そしてquotation "[ 2 4 * ]"がスタックにつまれます。明らかに普通のwordとは動作が違います。</p>
+<p>word "["は、Factorではふつうのwordではなく、"parsing word"として定義されています。Factorのドキュメントの<a href="http://docs.factorcode.org/content/article-parsing-words.html">解説</a>を参照してみましょう。</p>
+<blockquote><p>The Factor parser follows a simple recursive-descent design. The parser reads successive tokens from the input; if the token identifies a number or an ordinary word, it is added to an accumulator vector. Otherwise if the token identifies a parsing word, the parsing word is executed immediately.</p></blockquote>
+<p>ふつうのwordでも、先にわたしが書いた「即スタックに影響を与えます」というのに対応するのは"added to an accumulator vector"だそうで、accumulator vectorというものに初遭遇です。さらに、parsing wordの場合は「即実行されます」と書かれています。即実行なのか。実例が出ているので試してみます。</p>
+<pre>
+( scratchpad ) : hello "hello world." print ; parsing  #! まず実例
+( scratchpad ) hello
+hello world.
+( scratchpad ) : hello2 "hello world." print ; #! parsingじゃない版
+( scratchpad ) hello2 #!結果同じじゃん
+hello world.
+( scratchpad ) : hello3 "hello world." ; parsing #!スタックに文字列を残してみよう(parsing wordでは違反のはず)
+( scratchpad ) hello3 #! なんじゃこりゃ
+--- Data stack:
+T{ decoder f ~input-port~ utf8 f }
+104
+101
+108
+108
+111
+32
+119
+111
+114
+108
+100
+46
+</pre>
+<p>parsing word, 気軽に始めたのですが、けっこう手強そうです。つづく。</p>

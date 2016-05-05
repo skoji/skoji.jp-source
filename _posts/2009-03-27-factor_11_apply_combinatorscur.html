@@ -1,0 +1,71 @@
+---
+layout: post
+title: Factorに入門する (11) apply combinatorsとcurry
+date: 2009-03-27 17:50:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>
+くるくる回りながらも上昇していると信じたいFactorへの入門も11回目です。今回は、apply combinatorsとcurryでFactorがもつパワーの一端を感じてみます。</p>
+<p><a href="http://www.skoji.jp/blog/2009/03/factor_shufflewords.html">前回</a>は、"xとyがnを法として合同か?"というwordをこんな風に定義しました。</p>
+<pre>
+: modEq? ( x y n -- ? ) swap over mod -rot mod = ;
+</pre>
+<p>明らかに分かりづらいですよね。keepというcombinatorを使っても</p>
+<pre>
+: modEq? ( x y n -- ? ) [ mod ] keep swapd mod = ;
+</pre>
+<p>やはり分かりづらい。トリッキー。スタック操作にあたまを使いすぎている気が。<br />
+スタックベースの言語の限界か...? いや、そんなことはないはず。</p>
+<p>
+このwordで本質的にやりたいことはなんなのか。それは"nとのmodをx, yのふたつに適用し、その結果が等しいかどうかを判定する" ことです。"mod nをふたつの値に適用する"ようなことができるcombinatorがあるでしょうか、調べてみましょう。</p>
+<p><a href="http://docs.factorcode.org/content/article-apply-combinators.html">Apply combinators</a></p>
+<blockquote><p>The apply combinators apply a single quotation to multiple values.
+</p></blockquote>
+<p>これがつかえそうです。中でも</p>
+<blockquote><p>
+bi@ ( x y quot -- )<br />
+Applies the quotation to x, then to y.
+</p></blockquote>
+<p>これがまさにそうですね。9と8が2を法として合同か? と判断するなら[ 2 mod ] bi@とやればよいので</p>
+<pre>
+( scratchpad ) 9 8 [ 2 mod ] bi@
+--- Data stack:
+1      ! 9 2 modの結果
+0      ! 8 2 modの結果
+( scratchpad ) =
+-- Data stack:
+f
+</pre>
+<p>というふうにやればよいですね。さて、これをwordにしようとすると、引数としてわたされてくるn (この例でいえば、2)をどうやってquotationの中にいれるか? が問題です。前にとりあげたfried quotationを使ってもいいのですが、よりプリミティブな形であるcurryを使ってみます。</p>
+<pre>
+( scratchpad ) 9 8 2 [ mod ] curry
+--- Data stack:
+9
+8
+[ 2 mod ]
+( scratchpad ) bi@
+--- Data stack:
+1
+0</pre>
+<p>x [ p ] curry で [ x p ] が作られます。Haskellが流行ってからよく見かけるようになった「カリー 化」、スタックベースのFactorではこんなに単純なんです。で、これでmodEq? をかけます。</p>
+<pre>
+: modEq? ( x y n -- ? ) [ mod ] curry bi@ = ;
+</pre>
+<p>驚異的に分かりやすくなりました。nでmodする関数を作成し([ mod ] curry)、それを2つの値に適用し、それを比較する。ほぼ人間が考えるレベルの抽象度です。fried quotationでも書いてみます。</p>
+<pre>
+: modEq? ( x y n -- ? ) '[ _ mod ]  bi@ = ;
+</pre>
+<p>このくらい単純な例でも、こっちのほうが、読むひとにより易しいですね。</p>

@@ -1,0 +1,33 @@
+---
+layout: post
+title: mixi 写真アップロードAPI
+date: 2007-11-25 17:35:53.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- atom
+- Ruby
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://ido.nu/kuma/2007/06/29/mixi%E3%81%AE%E3%81%82%E3%81%97%E3%81%82%E3%81%A8api%E7%99%BA%E6%8E%98/">このあたり</a>を参考に、mixiのatom ppでの写真アップロードをちまちまRubyで検証してました。</p>
+<p>ちょっとだけ自分用にメモ。</p>
+<ul>
+<li>今日現在では、リクエストのURLがhttp://photo.mixi.jp/atom/r=<strong>4</strong>になってるみたい。</li>
+<li>アルバムのアクセス制御は
+<ul>
+<li>公開:  &lt;permit:access&gt;public&lt;/permit:access&gt;</li>
+<li>友達まで: &lt;permit:access&gt;friends&lt;/permit:access&gt;</li>
+<li>非公開:  &lt;permit:access&gt;protected&lt;/permit:access&gt;、このときは&lt;permit:token&gt;に閲覧キーを入れる</li>
+</ul>
+</li>
+</ul>
+<p>まだアルバム生成のとこまでしかできてない上になんだか恥ずかしいコードですが一応貼ってみます。検証用につくったんで、写真アップロードまで入れるかどうかはわかりませんが、もし変更したらここに反映させてきます。</p>
+<p>追記: 一応ひととおり<a href="http://www.skoji.jp/blog/2007/11/mixiphoto_rb.html">作りました</a>ので、新しいほうをご参照ください。古いほうはひっこめました</p>

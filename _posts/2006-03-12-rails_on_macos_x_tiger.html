@@ -1,0 +1,36 @@
+---
+layout: post
+title: Rails on MacOS X Tiger作業メモ
+date: 2006-03-12 22:40:48.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Ruby
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>だいぶ前に興味をもったけどずーーっと放置状態だったRailsをやっといじりはじめ。作業メモ。</p>
+<h4>Ruby環境修正</h4>
+<p>tigerのrubyは環境にいろいろと問題があるそうで、何か作業をしたはずなんだけど一年近く前なのでおぼえてないです。この件については<a href="http://weblog.rubyonrails.com/archives/2005/04/30/fixing-ruby-on-os-x-tiger/">このあたりが最新情報かな?</a></p>
+<h4>ruby gemsのインストール</h4>
+<p>これも一年近く前で具体的作業を憶えてないです。</p>
+<h4>XAMPPのインストール</h4>
+<p><a href="http://www.apachefriends.org/en/xampp-macosx.html">XAMPP for MacOS X</a>を入れます。</p>
+<h4>railsのインストール</h4>
+<pre>
+% sudo gem install rails
+</pre>
+<h4>MySQL/Rubyのインストール</h4>
+<p>Ruby/MySQLでMySQL 4.1相手にすると、Bad handshakeになってしまいますのでMySQL/Rubyをインストールしようとしたらなんかうまくいかんでした。わかってしまったらこの程度ですが</p>
+<pre>
+% sudo gcc_select 3.3
+% sudo gem install mysql  -- --with-mysql-config=/Applications/xampp/xamppfiles/bin/mysql_config
+</pre>
+<p>gcc 4じゃだめらしいです。</p>

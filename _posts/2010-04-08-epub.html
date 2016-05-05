@@ -1,0 +1,40 @@
+---
+layout: post
+title: EPUB入門メモ
+date: 2010-04-08 06:11:51.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>EPUBに関するメモ。</p>
+<h4>リンク</h4>
+<p>元締め<br />
+<a href="http://www.idpf.org/">International Digital Publishing Forum</a><br />
+EPUB仕様日本語訳をしている、ろすさんのサイト<br />
+<a href="http://lost_and_found.lv9.org/"> 厨二病棟</a><br />
+わかりやすげなまとめ<br />
+<a href="http://www.hxa.name/articles/content/epub-guide_hxa7241_2007.html">Epub Format Construction Guide</a><br />
+ePubのメタデータはダブリンコア<br />
+<a href="http://dublincore.org/documents/2004/12/20/dces/">dublin core metadata element </a><br />
+仕様でかいし、自前でつくるときはvalidatorがないと不安です<br />
+<a href="http://www.threepress.org/document/epub-validate/">epub validator</a><br />
+Hello world的な、達人出版会の記事<br />
+<a href="http://d.hatena.ne.jp/tatsu-zine/20100324/1269451084">はじめてのEPUB</a></p>
+<h4>その他</h4>
+<p>コンテンツのXHTMLには、langやxml:langを指定しておく。そうしないとAdobe Digital Editionでは日本語文字化けする(validatorに怒られるのだけど...)<br />
+zipでつくるときは、こんなんがよい。</p>
+<pre>
+zip -0X testbook.epub mimetype
+zip -9rXD testbook.epub -x mimetype
+</pre>
+<p>mimetypeは非圧縮(-0)で先頭に。他のコンテンツは圧縮してよし(-9)。属性は不要なので-X。ディレクトリは保存しなくてよいので-D。など。</p>

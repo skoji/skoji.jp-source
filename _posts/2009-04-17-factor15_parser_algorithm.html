@@ -1,0 +1,31 @@
+---
+layout: post
+title: Factorに入門する(15) Parser algorithm
+date: 2009-04-17 12:46:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>今回からしばらく、Factorのドキュメントの中からLanguage referenceを地道にみていきます。地を這うような内容が、当分続くことになると思います。飽きたら3Dオブジェクトをまわしたりしてみるかもしれません。</p>
+<p>Conventionsは<a href="http://www.skoji.jp/blog/2009/03/factor3.html">以前とりあげた</a>ので、今回はdocumentのなかから、syntax(文法)の記事をみていきましょう。<br />
+Factorには2種類のsyntaxがあって、それがdefinition syntaxとliteral syntaxですが、ここではliteral syntaxについてとりげられています。本日はまずparser algorithだけとりあげます。</p>
+<h4>Parser algorithm</h4>
+<p>FactorはForthの末裔ですので、基本は、"空白でくぎられたトークン"の集まりです。そして大文字小文字は区別されます。<br />
+パーサはトークンを読んで、それが数値なのか、ふつうのwordなのか、parsing wordなのかをみていきます。<br />
+パース結果は<strong>parse tree</strong>に追加されていきます。</p>
+<p>1文字目がダブルクオーテーション(")のときは、その後に空白があいていなくてもparsing word " が実行され、文字列が読み込まれます。なるほど、これだけ特別扱いなんですね。それ以外の場合、通常のwordであればparse treeに追加され、parsing wordであれば実行されます。</p>
+<p>以前parsing wordに<a href="http://www.skoji.jp/blog/2009/03/factor5_parsing_words.html">挑戦して</a>、<br />
+意外に奥が深くて負けましたが、<br />
+コンセプトは単純ですね。通常のwordはすぐには実行されず、parsing wordsはその場で実行される。Forthでいうimmediate wordに似ています。</p>
+<p>parsing wordはその性質上どんな文法のものでも扱えますが、デフォルトのものはsyntaxボキャブラリにあります。</p>

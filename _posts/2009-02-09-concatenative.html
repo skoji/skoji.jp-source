@@ -1,0 +1,31 @@
+---
+layout: post
+title: Concatenative/Applicative
+date: 2009-02-09 12:43:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>昔々、FORTHという言語が好きでした。<br />
+なんでもスタックベースで、あたまの中で容易に実行モデルがつくれるのがきもちよかったのだと思われます。</p>
+<p>FORTH(Forthって書くんだっけ）も生き残っていますが、派生した言語もいくつかあります。その中でも比較的最近で、なんだかリッチそうな言語Factorについて、ちょっと調べはじめました。</p>
+<p>まず、Factorは「concatenative language」だと名乗っています。そりゃなんだ?  <a href="http://concatenative.org/wiki/view/Concatenative%20language">Concatenative.orgというところに説明があった</a>ので読んでみました。</p>
+<p>
+<dl>
+<dt>applicable programming language</dt>
+<dd>引数に関数を適用するタイプ。普通のプログラミング言語。C, Python, ML, Haskell, Java</dd>
+<dt>concatenative programming language</dt>
+<dd>single piece of dataを操作する関数を組み合わせることで評価する。この関数から関数へ渡されるデータは、スタックの形をしていることが多い。そしてconcatenative languageでは、この関数の組み立てはプログラムをつなげることでおこなわれる。Forth, Joy, PostScript, Cat, Factor</dd>
+</dl>
+<p><p>concatenativeとstack言語は違うの? → 似ているけど、違うクラスの言語。しかしほぼ同じと考えて良い、とのこと。しかしそういわれると違いがなんなのか気になるなあ。stack以外でも理論的には構成できる、ってとこかな?</p></p>

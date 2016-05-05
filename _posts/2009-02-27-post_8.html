@@ -1,0 +1,24 @@
+---
+layout: post
+title: 相互再帰
+date: 2009-02-27 12:22:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lisp系
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://www.skoji.jp/blog/2009/02/tail_recursion1.html">末尾再帰の話</a>続きです。</p>
+<p>(コンパイラに最適化ができるという他に)何がうれしいのか、むしろプログラマからみるとかっこ悪いだけじゃないのか。と思って、Web上のリソースをいろいろあさってみました。末尾再帰に関する、Web上の日本語の資料でたぶんもっとも有名なもののひとつ、<a href="http://practical-scheme.net/docs/tailcall-j.html">「なんでも再帰」</a>を読んでみました。</p>
+<p>「なんでも再帰」ではまず軽く末尾再帰の例が出てから、相互末尾再帰の例がでてきます。そしてだんだん複雑な例になっていきます。</p>
+<p>なるほど状態遷移に使える、つまりStateパタンのように使えるのか。</p>
+<p>...あれ、「天啓が降りてきた!」くらいにおもったのに、かいてみるとなんてことないな。</p>
+<p>でも、わたしにとっては、「あ、Stateパタン」と思った瞬間に、関数がfirst-class objectであることと、末尾再帰の概念がセットになってすとんと腑に落ちたのでした。継続がいまだに腑に落ちないんですが、近々わたしの中ではこれもセットになりそうな予感。</p>

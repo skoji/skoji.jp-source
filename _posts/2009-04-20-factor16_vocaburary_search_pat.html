@@ -1,0 +1,150 @@
+---
+layout: post
+title: Factorに入門する(16) vocaburary search path
+date: 2009-04-20 12:45:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factor入門 16th。今日もLanguage referenceからsyntaxの続きで、"vocabulary search path"を地味にみていきます。Factorのparserがトークンを読むにあたって、vocabulary search pathに入ってるvocabularyの順番で、その名前で定義されているwordを探しに行きます。</p>
+<h4>vocaburary search path : use</h4>
+<p>vocaburary search pathは、変数useに連想配列の形で入っているとのことで、調べてみます。</p>
+<pre>
+( scratchpad ) USE: vocabs.parser
+( scratchpad ) use get .
+V{
+H{
+{ "change-reg" change-reg }
+{ "change-ref" change-ref }
+{ "&gt;&gt;number" &gt;&gt;number }
+{ "change-in1" change-in1 }
+{ "change-in2" change-in2 }
+{ "&gt;&gt;minute" &gt;&gt;minute }
+(以下略)
+</pre>
+<p>
+useの中身は、すでにwordの名前からwordの実体への連想配列になっていて、vocaburary名は直接出てこないようです。</p>
+<h4> wordを定義する先のvocaburary</h4>
+<p>新しいwordを定義する場合、それもどこかのvocabularyに属させないといけません。対話環境(listener)ではvocabulary "scratchpad"が使われるので気にしなくてもよいですが、通常定義するときはIN:をつかって、これから定義するvocabularyをどこに属させるのか決めます。このIN:で定義されている最新のvocabulary名は、変数inで取り出せます。</p>
+<pre>
+( scratchpad ) USE: vocabs.parser
+( scratchpad ) in get .
+"scratchpad"
+</pre>
+<p>ところがこれ、ファイルを作ってやるとこうなります。</p>
+<p>test.factor:</p>
+<pre>
+USING: vocabs.parser namespaces io prettyprint ;
+in get .
+IN: test-temp
+in get .
+</pre>
+<p>実行結果</p>
+<pre>
+$ /Applications/factor/factor temp.factor
+f
+f
+$
+</pre>
+<p>IN: が効いているのはパース中で、in get . が実行されるときはコンパイル後、って違いなんだろうと思いますが、いまのところは完全に理解できていません。第19回くらいに明らかになるかもしれません。</p>
+<h4>USE: USING: </h4>
+<p>さて、IN:は新規にwordを定義するvocabularyを指定しますが、サーチパスに追加するにはUSE:またはUSING:を使います。USE:はひとつだけ、USING:は、;(セミコロン)があらわれるまでの複数vocabularyを指定できます。順番に、search pathの先頭に追加されていきます。</p>
+<p>USE:のいろいろなバリエーションとしてQUALIFIED:, FROM: EXCLUDE:...などいろいろあります。たとえば、QUALIFIED:で読み込まれたwordは、prefixつきになります。名前の衝突を避けるのに使うのでしょうか。例えばこんなです。</p>
+<pre>
+( scratchpad ) QUALIFIED: math
+( scratchpad ) 5 9 math:*
+--- Data stack:
+45
+( scratchpad )
+</pre>
+<p>useの中身の連想配列のキー側に"math:*"が入っていて、value側にはword '*'の実体をいれることでこれを実現しているようです。</p>
+<p>それから、private wordを定義する方法があります。</p>
+<pre>
+( scratchpad ) IN: myvocab
+( myvocab ) &lt;PRIVATE
+( myvocab.private ) : my-word ( -- ) "it's private" print ;
+( myvocab.private ) PRIVATE&gt;
+( myvocab )
+</pre>
+<p>単に、現在のinにたいして".private"をつけたものをinにセットするだけです。documentにもこう書かれています。</p>
+<blockquote><p>
+Private words can be defined; note that this is just a convention and they can be called from other vocabularies anyway</p></blockquote>
+<h4>auto-use?</h4>
+<p>さて、ここまでは、サーチパスにあるvocabularyからword定義を探す前提でしたが、他のメカニズムもあります。</p>
+<p>もし、サーチパスからtokenの名前がつけられたwordが見つからなかった場合には、ロードされているすべてのvocabularyから探しにいきます。</p>
+<p>このとき、auto-use?がtかつ、ロードされているvocaburaryのひとつだけで該当するwordがみつかれば、それをサーチパスにくわえてparsingが続行されます。parse後、そのwordが属するvocaburaryが表示されます。</p>
+<pre>
+( scratchpad ) t auto-use? set
+( scratchpad - auto ) 10 &lt;vector&gt;
+1: Note:
+Added "vectors" vocabulary to search path
+--- Data stack:
+V{ }
+( scratchpad - auto )
+</pre>
+<p>開発中にうっかりUSING:を忘れたときのために使うもの、だそうです。</p>
+<p>auto-use?がfだとerrorになりますが、キャッチしてなんとかできるようです。errorの仕組みがまだ分かっていないので、詳細はまた今度、です。</p>
+<p>もうひとつはっきり分からないことがあって、"loaded vocaburary"の意味です。サーチパスにはいっている場合、useに名前とwordの連想配列が保持されている、のは分かります。USING:していないけど、イメージに入っているものがloaded vocaburaryなんでしょう。ではイメージにvocaburaryがloadされるタイミングは? とか、useのスコープは? とか、useはいつ使われる? (パース時のみ?)とか、この疑問の先にはおそらくいろいろ分からないことがぶらさがっていますが、今回はとりあげません。</p>
+<h4>word定義のshadowing </h4>
+<p>さて、vocaburary search pathの最後は、shadowingの話です。Factorではvocaburaryが異なれば同じ名前のwordが定義できますが、その名前のスコープについて、です。これは実例をみるのがはやいとおもわれるので、Factor documentを見ながら自分でも書いてみましょう。</p>
+<p>ソースコード</p>
+<pre>
+IN: foo
+USING: math io prettyprint ;
+: + ( x y -- z ) "foo:+ called" print + ;
+"checkpoint1: " print
+3 4 + .
+USE: foo
+"checkpoint2: " print
+3 4 + .
+</pre>
+<p>実行結果</p>
+<pre>
+checkpoint1:
+7
+checkpoint2:
+foo:+ called
+7
+</pre>
+<p>
+最初にfooで+を定義しています。このとき、inはfooなので、新しい+はfooに定義されます。その中で使われている+は、USING: で指定されているmathの中にあるので、そちらが優先されます。そのすぐした、トップレベルに書いた+も、mathのものが使われます。</p>
+<p>
+しかし、USE: fooをすれば、その前でUSING:されていたmathの+は隠されて、fooの+が呼ばれます。しかしfoo:+の定義の中で呼ばれる+は、相変わらずmath:+です。</p>
+<p>
+USING:とIN:の順序を逆にするとどうでしょうか。</p>
+<pre>
+USING: math io prettyprint ;
+IN: foo
+: + ( x y -- z ) "foo:+ called" print + ;
+"checkpoint1: " print
+! ここで呼ばれる+は、fooの+。
+3 4 + .
+USE: foo
+"checkpoint2: " print
+3 4 + .
+</pre>
+<pre>
+checkpoint1:
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+foo:+ called
+(以下いつまでも続く)
+</pre>
+<p>後に書いたIN:のほうが優先されるわけですな。</p>

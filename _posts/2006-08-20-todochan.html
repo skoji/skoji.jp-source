@@ -1,0 +1,29 @@
+---
+layout: post
+title: トドちゃんスクリプト
+date: 2006-08-20 09:43:31.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- その他
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://www.hyuki.com/d/200608.html#i20060818100343">結城浩の日記:トドちゃんを数えるPerlスクリプト<br />
+</a>を読んで、さらに<a title="�ȥɤ���" href="http://www5d.biglobe.ne.jp/~y0ka/2006-08-18-1.html">Emacs LispのTodoちゃんを読んで</a>、ほんのちょっとだけ変更してみました。</p>
+<pre>
+; トドちゃん挿入
+(global-set-key "\C-\M-t"
+(lambda (arg)
+"count and insert ToDo in the buffer"
+(interactive "P")
+(insert (format "ε(　 v ﾟωﾟ)  < TODO %d 頭" (count-matches "ToDo")))))
+</pre>
+<p>ChangeLog メモでToDo項目に"ToDo"って書いて運用してるのでそこで使えるかな、と。</p>

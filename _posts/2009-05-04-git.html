@@ -1,0 +1,45 @@
+---
+layout: post
+title: gitを使ってみる
+date: 2009-05-04 12:32:59.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factor言語はものすごいペースで新しいバイナリが出ます。差分のリリースノートとかないので、何がかわったのかよく分かりません。そして突然emacsのfactor mode動作が不審なことになったりします。</p>
+<p>ソース管理システムで差分みればいいのかなー、と思って、Factorで使われているgitを自分の環境にいれてみることにしました。 </p>
+<h4>どこから持ってくる?</h4>
+<p>自分でビルドしてもよいのですが、<a href="http://code.google.com/p/git-osx-installer/">OS X用のパッケージ</a>があるのでそれをありがたく使わせていただきます。gitは/usr/local/git以下にインストールされます。</p>
+<h4>Factorのgit repositoryをコピーする</h4>
+<p>レポジトリ用の場所を作って、次のコマンドでいけます。簡単。</p>
+<pre>
+git clone git://factorcode.org/git/factor.git
+</pre>
+<h4>見るだけ?</h4>
+<p>Factorのgitレポジトリは当面見るだけ、ですが、他に今svnで管理している個人的なものもgitに移行しようかな。</p>
+<h4>基本的な使い方</h4>
+<p>subversionのように、どこかにレポジトリがあって、その一部がワークとしてコピーされている、というイメージではなさそう(たぶん)。レポジトリそのものの下にあるファイルが編集対象で、レポジトリのルートにある".git"ディレクトリ以下にデータベースがあります(たぶん)。</p>
+<p>ということで、使い方はこんなかんじでしょうか。</p>
+<h4>まずレポジトリを用意する</h4>
+<p>既に存在するgitレポジトリならcloneする。そうでなければ、</p>
+<pre>
+cd &lt;レポジトリにする場所&gt;
+git init
+git add .
+git commit
+</pre>
+<p>これで最初のバージョンがコミットされます。</p>
+<h4>日常的な操作</h4>
+<p>ファイルを編集します。編集したファイルをgit addで指定し、git commit。git commit -aで、変更されたファイルを検出してコミット。この場合、新規作成されたファイルは対象にならない。</p>
+<h4>疑問点</h4>
+<p>「リポジトリ」と「ワーク」の関係。特に、「リポジトリ」の場所。上に「たぶん」と書いたことが、間違っているようにも思うが今は理解できていない。</p>

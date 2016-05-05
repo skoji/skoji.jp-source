@@ -1,0 +1,23 @@
+---
+layout: post
+title: memo
+date: 
+type: post
+published: false
+status: draft
+categories:
+- 未分類
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274066304/kaimonolog-22">『Joel on Software』(Joel Spolsky , 青木 靖 訳)</a>で「抽象化の漏れ」という言葉が出てきます。TCPではパケットの到達を保証するように下層にあるIPを抽象化していますが、そもそもIPではパケットの到達を保証していません。だから時々「パケットの到達保証」という抽象化が破れます。このように抽象化していたはずの部分が見えることを、この本では「抽象化の漏れ」と呼んでいます。</p>
+<p>抽象化の漏れは普段でも意識しなくてはならないものであることを、プログラマなら誰でも知っていると思います。先にあげたTCP/IPの例もそうです。float型はまるで実数のように扱えるよう抽象化されているけれども、二進表現で有効桁数が決められた数であることを意識しなくてはならない場面があります。</p>
+<p>でも、<strong>浮動小数点演算のアルゴリズムを意識しなくてはならないことはまずありません</strong>。(<a href="http://www.amazon.co.jp/exec/obidos/ASIN/4839918201/kaimonolog-22">グレートプログラマー</a>は知っている必要があるかもしれませんが:P)</p>
+<p>「いわゆる自動生成」は抽象化の漏れ具合がでかいといえるでしょう</p>

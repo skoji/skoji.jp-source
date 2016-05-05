@@ -1,0 +1,75 @@
+---
+layout: post
+title: Factorに入門する(17) top level formsの実行タイミング
+date: 2009-04-21 11:30:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>収拾付かないFactor入門も17番目。まだまだ全体の景色が見えないので、まとめにははいりませんよ。今日はtop level formsをしっかり理解して帰ってください(オレが)。</p>
+<p>top level formsとは、ソースコードのうちdefinitions以外の部分です。どこに書いてあっても、ソースコードすべてがパースされた「後」に実行されます。試してみましょう。</p>
+<p>こういうソースファイルを書きます。fooを定義する前にfooを呼ぶコードです。</p>
+<pre>
+IN: test
+USING: io ;
+foo
+: foo ( -- ) "test:foo called." print ;
+</pre>
+<p>実行すると</p>
+<pre>
+P" temp.factor"
+4: foo
+^
+No word named ``foo'' found in current vocabulary search path
+</pre>
+<p>パース時のエラーになってます。パースして、コンパイルされて、それから実行されるのですね、たぶん。</p>
+<p>ではこういうのはどうでしょうか。</p>
+<pre>
+USING: io math prettyprint kernel ;
+IN: test
+3 4 + .
+: + ( x y -- ) 2drop "test:+ called. dropped values! HAHAHA" ;
+</pre>
+<p>こいつを実行すると</p>
+<pre>
+7
+</pre>
+<p> 普通にmathの+が呼ばれます。サーチの順序ではtestが先に入っていますが、パース時点ではまたtest:+が定義されていないからですね。そういうときには、DEFER:で、先にwordの空定義を作っておくことができます。Pascalのforwardみたいなもんですが、FactorのDEFER:では、呼ぶとエラーになるwordがまず定義されます。</p>
+<p>まずは、DEFER:で+を宣言して、しかし定義はしないコードを書いてみます。</p>
+<pre>
+USING: io math prettyprint kernel ;
+IN: test
+DEFER: +
+3 4 + .
+</pre>
+<p>実行結果。</p>
+<pre>
+Calling a deferred word before it has been defined
+</pre>
+<p>DEFER:した+がまだ定義されていない、と怒られました。</p>
+<p>+の呼び出しの「後」に、vocaburary "test"の+を定義して、実行してみましょう。</p>
+<pre>
+USING: io math prettyprint kernel ;
+IN: test
+DEFER: +
+3 4 + .
+: + ( x y -- str ) 2drop "test:+ called. dropped the values! HAHAHA"  ;
+</pre>
+<pre>
+"test:+ called. dropped the values! HAHAHA"
+</pre>
+<p>ということで、test内で+を定義したのより後にtop level formが実行されていることが確認できました。</p>
+<p>ドキュメントには、<a href="http://www.skoji.jp/blog/2009/04/factor16_vocaburary_search_pat.html">前回</a>疑問に思った"ソースファイル中でinがとれない"ということについても書いてありました。</p>
+<blockquote><p>Top-level forms do not have access to the in and use variables that were set at parse time, nor do they run inside with-compilation-unit; so meta-programming might require extra work in a top-level form compared with a parsing word.</p></blockquote>
+<p>さらに、変数スコープもtop-levelではダイナミックなあたらしいものが生成されるそうで、実行後にそのスコープはなくなってしまうそうな。このあたりの詳細は、スコープのところをやるときにつっこんでみることにします。</p>

@@ -1,0 +1,81 @@
+---
+layout: post
+title: アルゴリズム
+date: 2007-12-01 11:37:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Ruby
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://blog.livedoor.jp/dankogai/archives/50957658.html">http://blog.livedoor.jp/dankogai/archives/50957658.html</a>をよんで。</p>
+<p>メルセンヌ・ツイスタ以外は理解してたはずなのにけっこう忘れてる。ということで思い出すために実装してみます。Rubyで。</p>
+<p><!--more--></p>
+<h4>ユークリッドの互除法</h4>
+<p>実装自体はとても簡単。aとbの最大公約数を求めるgcd(a,b)は次のようにかけます。</p>
+<pre>
+def gcd(a, b)
+b, a = [a,b].sort
+until b == 0
+a, b = b, a%b
+end
+a
+end
+</pre>
+<p>それより、「なぜこれで最大公約数が求まるのか」は、それほど直感的じゃありません。</p>
+<pre>
+整数A, B、ただしA &gt; Bがある。
+GCD(x, y)は、xとyの最大公約数とする。
+A/Bの商がQ、剰余がRとする。Q,Rは整数。
+このとき、
+A = B * Q + R ... (1)
+したがって
+R = B*Q - A ... (2)
+C= GCD(A,B)とすると、(2)の右辺はB*Q - AはCで割り切れる。
+したがって、(2)の左辺RもCで割り切れる。よって、ＣはRの約数。つまり、
+C = GCD(A,B) &lt;= GCD(B,R) ... (3)
+ここでGCD(B,R) = C'とする。
+(1)の右辺はC'で割り切れる。したがって左辺AもC'で割り切れる。
+つまり、C'は、A,Bの公約数。
+したがって、
+C' =GCD(B,R) &lt;= GCD(A,B) ... (4)
+(3),(4)から、GCD(A,B) = GCD(B,R)。
+</pre>
+<p>ここでひといき。ここまでで、「AとBの剰余がRであるとき、GCD(A,B)=GCD(B,R)である」といえます。AがBで割り切れるまでこの操作を続ければ、そのうちGCD(A,B) = GCD(B,0)になります。GCD(B,0)は明らかにBです。</p>
+<p>こりゃ証明の形になってないですね。この繰り返しを証明の形で記述するにはどうするんだっけ。思い出せないや。</p>
+<h4>エラトステネスの篩</h4>
+<p>なんか不格好な実装</p>
+<pre>
+def primes(n)
+searchlist = (2..n).map
+primelist = [ 1 ]
+while searchlist.last > primelist.last **2
+p =  searchlist[0]
+primelist &lt;&lt; p
+searchlist = searchlist.find_all { | x | x % p > 0 }
+end
+primelist +  searchlist
+end
+</pre>
+<h4>バイナリサーチ</h4>
+<pre>
+def binarySearch(arr, n)
+if (arr.length &lt; 1)
+return nil
+end
+p = arr.length / 2
+case n &lt;=&gt arr[p]
+when -1 then return binarySearch(arr[0,p], n)
+when 0  then return n
+when 1  then  return binarySearch(arr[p+1, arr.length - p],n)
+end
+end
+</pre>

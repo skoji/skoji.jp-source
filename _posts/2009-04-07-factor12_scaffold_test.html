@@ -1,0 +1,80 @@
+---
+layout: post
+title: Factorに入門する(12)  UnitTestが簡単に書ける
+date: 2009-04-07 12:16:11.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factorへの入門第12回。ここまできたら、自分のためにも適切に配列したちゃんとした入門を書こうかと目論んでいます。</p>
+<p>さて、Factorは言語としても強力ですが、"a practical stack language"と名乗っているとおり、実用的な面も抜かりありません。</p>
+<p>ライブラリだけじゃなくて、テストやドキュメンテーション作成のサポートもしっかりしてます。現時点では標準のGUI環境より、添付されている強力はemacs factor mode "fuel"を使ったほうが便利なような気がしますが、factorはかなりのハイペースでバージョンアップしているので日々状況は変化しています。</p>
+<p>今回は、vocaburary作成とテストをemacsからやってみます。ネタは<a href="http://www.skoji.jp/blog/2009/03/factor6.html">先日</a>やった17歳教にします。</p>
+<p>emacsをたちあげ、</p>
+<pre>M-x fuel-scaffold-vocab</pre>
+<p>こう入力すると、</p>
+<pre>Vocab name:</pre>
+<p>ときいてきます。vocaburary名はage17としますので、age17と入力します。すると、</p>
+<pre>Vocab root: resource:</pre>
+<p>と、vocaburary rootをきいてきます。どこに配置するのかきいてくるのですね。ここでresource:につづけてworkと入力すると、age17.factorが作成され、ファイルが開きます。</p>
+<pre>
+! Copyright (C) 2009 KOJIMA Satoshi.
+! See http://factorcode.org/license.txt for BSD license.
+USING: ;
+IN: age17
+</pre>
+<p>ここで1行目に注目。すでに私の名前がはいっています。通常、developer-nameというfactorのグローバル変数が使われますが、<br />
+emacs上のfuel-scaffold-vocabを使った場合はちょっと違います。fuel-scaffold-developer-nameというemacs上の変数が使われます。この値にはデフォルトでemacsのuser-full-name変数がセットされます。このため、私の環境では特に新たな設定をしなくても、名前がセットされたのですね。</p>
+<p>コードをちょいと書いてみます。途中をとばして、まずはdurationから月数をintegerで取り出すwordを書きます。</p>
+<pre>
+! Copyright (C) 2009 KOJIMA Satoshi.
+! See http://factorcode.org/license.txt for BSD license.
+USING: kernel math.parser calendar math io ;
+IN: age17
+: duration&gt;monthsInInteger ( duration -- x ) duration&gt;months &gt;integer ;
+</pre>
+<p>ここで、C-c rとすれば、このvocaburaryをlistenerで読み取ってくれます。</p>
+<p>そしたら、こいつのテストを書いてみましょう。fuelでは、C-coで、code/documents/testが切り替わります。</p>
+<pre>
+Create /Applications/factor/work/age17/age17-docs.factor? (y or n)
+</pre>
+<p>ここではdocument作成はとばします(documentもscaffoldでひな形つくれるので、それは次回)ので、n。</p>
+<pre>
+Create /Applications/factor/work/age17/age17-tests.factor? (y or n)
+</pre>
+<p>ここではyとして、testのファイルを作成します。中身にこんなふうに書いてみましょう。</p>
+<pre>
+USING: math kernel age17 calendar tools.test ;
+[ 10 ] [ 0 10 0 0 0 0 &lt;duration&gt; duration&gt;monthsInInteger ] unit-test
+[ 130 ] [ 10 10 0 0 0 0 &lt;duration&gt; duration&gt;monthsInInteger ] unit-test
+[ 130 ] [ 10 10 1 2 3 4 &lt;duration&gt; duration&gt;monthsInInteger ] unit-test
+[ 0 ] [ 0 0 1 2 3 4 &lt;duration&gt; duration&gt;monthsInInteger ] unit-test
+</pre>
+<p>ワードunit-testは、期待されるstackのシークエンスと、テストしたいコードのquotationを与えると、テストして結果を返します。listener上かの実行は、"vocaburary名" test、とシンプルです。</p>
+<pre>
+( scratchpad ) "age17" test
+Loading resource:work/age17/age17-tests.factor
+{ [ 10 ] [ 0 10 0 0 0 0 &lt;duration&gt; duration&gt;monthsInInteger ] }
+{
+[ 130 ]
+[ 10 10 0 0 0 0 &lt;duration&gt; duration&gt;monthsInInteger ]
+}
+{
+[ 130 ]
+[ 10 10 1 2 3 4 &lt;duration&gt; duration&gt;monthsInInteger ]
+}
+{ [ 0 ] [ 0 0 1 2 3 4 &lt;duration&gt; duration&gt;monthsInInteger ] }
+==== ALL TESTS PASSED
+</pre>
+<p>今回はtestを後にかきましたが、このくらい手軽なので、test駆動でやるのも気楽です。次回は、helpのscaffoldについてとりあげます。</p></p>

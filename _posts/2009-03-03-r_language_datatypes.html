@@ -1,0 +1,77 @@
+---
+layout: post
+title: 'R言語入門: Rはベクトル操作がすごい'
+date: 2009-03-03 12:32:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- R
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/4431712186/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41EM2PZMTYL._SL160_.jpg" alt="Rの基礎とプログラミング技法" class="left" /></a><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4431712186/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank">『Rの基礎とプログラミング技法』</a>を読みながら、R言語の勉強中です。遠い昔にS-PLUSを使えたこともあったので、「再」入門かな。</p>
+<p>この本はコンパクトにまとまっていて、なかなかよい本です。Rに関する多くの本は「統計解析」に重きがおかれていますが、この本は「言語の説明」に重点があります。</p>
+<p>今回は基礎の習得の部分から「ベクトル操作がすごい」ことについて書きます。</p>
+<p>Rの基本的なデータ型は「ベクトル」です。そしてベクトル同士の演算処理がいろいろ用意されています。</p>
+<p>たとえば、"apple", "pear", "orange"のそれぞれが、3,2,1個あるとき、こんな表を作ります。excelでつくってcsvではいてもいいですね。</p>
+<p>test.txt</p>
+<pre>
+product,amount
+apple,3
+pear,2
+orange,1
+</pre>
+<p>で、これを読み込みます。そして、apple/pear/orangeをそれぞれ、その個数繰り返したベクタを作ります。</p>
+<pre>
+&gt; l <- read.table("/Users/skoji/test.txt", sep=",", header=TRUE) # 読み込みます
+&gt; l
+product amount
+1   apple      3
+2    pear      2
+3  orange      1
+&gt; rep(l$product, l$amount) # ベクタproductの要素を、それぞれamount回くりかえします
+[1] apple  apple  apple  pear   pear   orange
+Levels: apple orange pear
+</pre>
+<p>この、repでの指定の仕方がRですね。ベクタにたいして、ベクタで指定した回数だけ何かをする、ってパターンがよくあります。定型的なデータ処理ならループ構文いらず。</p>
+<p>さっき読み込んだ表にたいしても、いろんなことができます。この例だと単純すぎるけど、データベース的なことできるんですよね。</p>
+<pre>
+&gt; subset(l, product %in% c("apple","pear")) # productがappleまたはpearであるもの
+product amount
+1   apple      3
+2    pear      2
+&gt; subset(l, amount > 2) # amountが2より大きいもの
+product amount
+1   apple      3
+</pre>
+<p>このデータ型は「データフレーム」というそうです(この本読むまで知らなかった)。</p>
+<p>単純な一次元ベクトルについても、添え字でいろいろな操作ができます。できすぎです。</p>
+<pre>
+&gt; x <- c(5,3,1,-1,9,100,10)
+&gt; x[3] # 3番目の要素
+[1] 1
+&gt; x[c(5,1)] # 5番目と1番目の要素を、その順番で
+[1] 9 5
+&gt; x[-c(5,1)] # 5番目と1番目の要素を除いたもの
+[1]   3   1  -1 100  10
+&gt; x[c(TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE)] # TRUEのところだけ
+[1] 5 9
+&gt; x[x < 4] # 4未満のものだけ
+[1]  3  1 -1
+&gt; x[1:3] <- c(4,3,2) # 1,2,3番目の要素を4,3,2で置き換える
+&gt; x
+[1]   4   3   2  -1   9 100  10
+&gt; x[x>8] <- 0 # 8より大きい要素は0にする
+&gt; x
+[1]  4  3  2 -1  0  0  0
+&gt;
+</pre>

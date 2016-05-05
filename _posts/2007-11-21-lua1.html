@@ -1,0 +1,33 @@
+---
+layout: post
+title: Luaの勉強:1
+date: 2007-11-21 12:30:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Lua
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>ありがたいことにLuaリファレンスマニュアルの<a href="http://sugarpot.sakura.ne.jp/yuno/html/lua51_manual_ja.html">日本語訳</a>がありましたので、Lightroom SDKからはなれてLua自体をざっと勉強してみます。</p>
+<p>ものすごい基本的な要素から。</p>
+<h4>テーブル</h4>
+<p>{}ってなんだ? と、Lightroom SDKのガイドをみていて<a href="http://www.skoji.jp/blog/2007/11/adobe_photoshop_lightroom_plug.html">おもった</a>のですが、これはテーブルというデータ構造でした。</p>
+<p>テーブルというのは連想配列です。関数もファーストクラスオブジェクトなので、テーブルには値として関数も格納できる。この場合、この関数は「メソッド」と呼ぶ、のかな?</p>
+<p>table.nameって記法は、table["name"]と同じ意味のシンタックス・シュガー。</p>
+<h4>変数</h4>
+<p>変数は型をもたない。グローバルかローカル。ローカル変数はレキシカルスコープを持つ。明示的にlocalと宣言しなければ変数はグローバル。</p>
+<p>グローバル変数は、「環境」テーブルに定義されている。グローバル変数xへの参照は、_envを環境テーブルとするならば、_env.xと同じ。</p>
+<h4>文</h4>
+<p>実行の単位はチャンクとよび、文のあつまり。チャンクは、可変長引数の無名関数の本体と同じ。文の集まりは、ブロックでもある(構文的には同じだが、意味が違う)。do - endで囲むと単一の文もブロックになる。</p>
+<h4>多重代入</h4>
+<p>ができます。x,y = y, xで値の交換ができたり。</p>
+<h4>制御構造</h4>
+<p>けっこう普通だけど、breakやreturnはブロックの最後で使わなくてはならない、ってのが面白い。どうしても途中でbreakしたかったら、do break endとかでブロックをつくるのだ。</p>

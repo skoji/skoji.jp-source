@@ -1,0 +1,106 @@
+---
+layout: post
+title: Factorに入門する(13) ドキュメントも簡単に書ける
+date: 2009-04-07 12:45:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factorの門に入る第13巻。前回に続いて、今度はドキュメントを書いてみます。ドキュメント作成についても、Factorは手厚いのです。しかも、ドキュメントのマークアップもFactorのコード、ドキュメントの出力もFactorのコードで実現できるという徹底ぶり。まあすごいので見てください。</p>
+<p>前回からtestやコードを書き続け、17歳教のコードがかきあがったとしましょう。</p>
+<pre>
+! Copyright (C) 2009 KOJIMA Satoshi.
+! See http://factorcode.org/license.txt for BSD license.
+USING: kernel math.parser calendar math io ;
+IN: age17
+: duration&gt;monthsInInteger ( duration -- x ) duration&gt;months &gt;integer ;
+: getDaysPart ( duration -- x ) dup duration&gt;monthsInInteger months time- duration&gt;days &gt;integer ;
+: whenAge17 ( timestamp -- timepstamp ) 17 years time+ ;
+: age17duration ( timestamp -- duration ) whenAge17 now swap time- ;
+: age17and ( timestamp -- months days ) age17duration dup duration&gt;monthsInInteger swap getDaysPart ;
+</pre>
+<p>このドキュメントを書くことにしましょう。emacsでM-x fuel-scaffold-helpと入力し、vocaburaryとしてage17を指定してみます。age17-docs.factorが作成されて開かれるはずです。</p>
+<pre>
+! Copyright (C) 2009 KOJIMA Satoshi.
+! See http://factorcode.org/license.txt for BSD license.
+USING: calendar help.markup help.syntax kernel ;
+IN: age17
+HELP: age17and
+{ $values
+{ "timestamp" null }
+{ "months" null } { "days" null }
+}
+{ $description "" } ;
+HELP: age17duration
+{ $values
+{ "timestamp" null }
+{ "duration" duration }
+}
+{ $description "" } ;
+HELP: whenAge17
+{ $values
+{ "timestamp" null }
+{ "timestamp" null }
+}
+{ $description "" } ;
+ARTICLE: "age17" "age17"
+{ $vocab-link "age17" }
+;
+ABOUT: "age17"
+</pre>
+<p>Factorでは、ドキュメントもFactorのコードなのです! これだけでもう、helpを検索することができます。たとえば、age17andをfuel-helpで検索すると、こんな表示がされます。</p>
+<pre>
+age17and ( timestamp -- months days )
+Vocabulary: age17
+Definition
+USING: kernel ;
+IN: age17
+: age17and ( timestamp -- months days )
+age17duration dup duration>monthsInInteger swap getDaysPart
+;
+</pre>
+<p>definitionのUSINGもよきにはからって表示してくれています。でもまだ何の説明もないので、書いていきましょう。日本語通るかな? age17-docs.factorのage17andを次のように書きます。</p>
+<pre>
+HELP: age17and
+{ $values
+{ "timestamp" "誕生日" }
+{ "months" "月数"} { "days" "日数" }
+}
+{ $description "誕生日を入力すると、17歳と何ヶ月何日かを求めます。" }
+{ $examples
+"1970 1 1 &lt;date&gt; age17 and" } ;
+</pre>
+<p>これでC-c rして、listenerに読み込みなおさせます。fuel-helpを使ってもいいのですが、listenerからいま書いたヘルプを呼び出してみましょう。</p>
+<pre>
+( scratchpad ) \ age17and help
+age17and ( timestamp -- months days )
+Vocabulary
+age17
+Inputs and outputs
+timestamp 誕生日
+months    月数
+days      日数
+Word description
+誕生日を入力すると、17歳と何ヶ月何日かを求めます。
+Examples
+1970 1 1 &gt;date&gt; age17 and
+Definition
+USING: kernel ;
+IN: age17
+: age17and ( timestamp -- months days )
+age17duration dup duration>monthsInInteger swap getDaysPart
+;
+( scratchpad )
+</pre>
+<p>前回・今回紹介したように、FactorではUnitTestの敷居が低く、ドキュメント作成の敷居が低いので、ちゃんとテストもドキュメントもかかれたコードが作られやすいと思われます。そして、これらのフレームワークも全部Factorで書かれていて簡単に呼び出せるので、開発環境も作りやすいとも思われます。すごいなFactor。でも複数言語(e.g 日本語と英語)でhelpを書くのはどうすればいいんだろう。そういう仕組みはまだ存在しないのかな。もしかするとcontributeするチャンスかもしれません。</p>

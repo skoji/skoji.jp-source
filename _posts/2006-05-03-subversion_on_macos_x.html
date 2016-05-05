@@ -1,0 +1,37 @@
+---
+layout: post
+title: subversionメモ
+date: 2006-05-03 13:50:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- ソフトウェア開発
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>完全に自分用のメモです。Railsとかでちまちま作ってるもののバージョン管理やらなきゃってことで。switchtower(名前かわったみたいだけど)も調べないと</p>
+<h4>MacOS X用クライアント</h4>
+<p>ここにバイナリが</p>
+<p><a href="http://metissian.com/projects/macosx/subversion/">http://metissian.com/projects/macosx/subversion/</a></p>
+<h4>サーバーは? svnってapacheがいるんじゃないの? </h4>
+<p><ul>
+<li>ローカルファイルをレポジトリとして使う方法がある。</li>
+<li>svnserverでもいい。</li>
+<li>どうしてもっていうならApacheでWebDAV</li>
+</ul>
+<h4>つかいはじめ</h4>
+<pre>
+% svnadmin create レポジトリへのパス
+% svn import file:///レポジトリへのパス/theProject -m "なんかメッセージ"
+</pre>
+<h4>日常のつかいかた</h4>
+<p>coでもってきて、できたらci。CarbonEmacsパッケージにはvc-svnがはいっている。C-x v vでco/ci。複数ファイルの一括が分からない。日本語のログで怒られる</p>
+<h4>trunkとかbranchとか</h4>
+<p>コンベンションとして名前を付ける意味がいまいちわかってない</p>

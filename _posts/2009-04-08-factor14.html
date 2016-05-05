@@ -1,0 +1,39 @@
+---
+layout: post
+title: Factorに入門する(14) 好きな場所に自分のvocaburaryをつくる
+date: 2009-04-08 12:20:50.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factorの門 その14。今回は軽めのネタ。</p>
+<p>前々回・前回でvocaburaryをつくりテストをかきコードをかきドキュメントを書き、ってやりましたが、この場所は基本的に固定されてました。Macで/Applicationsの下にfactorをいれたのであれば、ここ。</p>
+<pre>
+/Applications/factor/work/
+</pre>
+<p>scaffoldで作るvocaburaryはこの下に作成されます。もちろん、好きなところに作ってもいいんですが、そうするといろいろ不便です。vocaburaryのロードパスに含まれないので、USE:で簡単にロードできなかったり、helpも探してくれなかったり、emacsやGUIのいろいろなサポートを受け付けられなかったり。</p>
+<p>というわけで、デフォルト以外の場所にvocaburary root(こういう用語なんです)を追加する方法です。</p>
+<p>ドキュメントに"Workng with code outside of the Factor source tree"という項があって、そこに書いてあります。</p>
+<p>方法は3つ:</p>
+<ol>
+<li> FACTOR_ROOTS環境変数に追加パスを設定する。</li>
+<li> ~/.factor-rootsに追加パスを設定する。</li>
+<li> add-vocab-rootで設定する。</li>
+</ol>
+<p>2番目の方法では、たとえばこんなふうに書きます。</p>
+<pre>
+/Users/skoji/Projects/factor/
+/mnt/share/factor-codes/
+</pre>
+<p>こうしておくと、vocaburary作成時に、resource:workなど以外にここに記述したパスがrootとして使えるようになります。</p>

@@ -1,0 +1,20 @@
+---
+layout: post
+title: 'VirtualMachine本: Chapter 4 Dynamic Binary Optimization'
+date: 
+type: post
+published: false
+status: draft
+categories:
+- LowLevel
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>ダイナミックバイナリ最適化の話(最適化しか訳してない＞オレ)。互換性の話はChapter3で触れたけど、ここではパフォーマンスの話です。単純な最適化もあるけど、ここでは複数のbasic blockをまたがる最適化について。</p>
+<p>最適化の前提としてプロファイルがあります。プロファイルは、どの命令(またはブロック)がたくさん実行されているか、そしてどのパスがたくさん実行されているかを知ります。</p>

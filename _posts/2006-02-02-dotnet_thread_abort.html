@@ -1,0 +1,39 @@
+---
+layout: post
+title: ".NETのスレッド停止"
+date: 2006-02-02 08:00:27.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- ".NET Framework"
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>超コネタ。</p>
+<p>
+C#でスレッドを実装していて外部から停止させたいときにどうしようかと調べていたところ、<a href="">Thread.Abort()</a>を呼べば<a href="">ThreadAbortException</a>が対象スレッドで発生し、停止させることができると分かりました。しかしこのThreadAbortExceptionは特殊な例外で「catchしてもcatch節の最後で自動的に再スローされる」のです。</p>
+<p>
+それを抑制するためには、Thread.ResetAbort()を呼べばよいとのこと。MSDNでThread.Abort()の項にはそのようなサンプルが書かれています。ぐぐってみても「再スローされる」ことに悩んだものの結局ResetAbortを呼ぶことで回避するようなコード例ばかりみつかります。</p>
+<p>
+なんか変です。再スローされるという特殊な仕様にしたのはそれなりの理由があるはずです。その理由もわからずにResetAbort()を呼んで再スローを抑制するのは危険な気がします。</p>
+<p>
+いろいろ調べたりひとに聞いたりした結果「通常の処理でスレッドを停止させたい場合にはThread.Abort()を使うべきではない」という記述がMSDNにあることを教えてもらいました。スレッド側はなにがなんでも停止させられてしまうため、リソースの開放が困難になる可能性があるから、という理由です。つまりAbort()を使うべきなのは急いで止める必要があるときということでしょうか。</p>
+<p>
+でThreadAbortExceptionが再スローされる理由は結局分からなかったのですが、こんなところではないかと推測します。</p>
+<ol>
+<li>Thread.Abort()を呼ぶのは非常時
+</li>
+<li>非常時でもcatchしてリソース開放などの後始末チャンスは与えたい
+</li>
+<li>でも非常事態なのでスレッドは例外で終了させたい
+</li>
+</ol>
+<p>
+再スローされる特殊な例外にしたのは何故なのか、ThreadAbortExceptionの説明のところに書いておいてほしいですよね。MSDNドキュメントのどこかには説明があるのかもしれませんが...。</p>

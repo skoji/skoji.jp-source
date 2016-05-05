@@ -1,0 +1,38 @@
+---
+layout: post
+title: gepub 0.1.1 をリリースしました。
+date: 2010-07-07 12:30:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- gepub
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>必要十分を目指すrubyで書いたepubライブラリ・gepubのversion 0.1.1をリリースしました。はじめてminor versionが1になったよ。gem install gepub で降ってくるはず。<br />
+ソースはこちら。<a href="http://github.com/skoji/gepub">http://github.com/skoji/gepub</a><br />
+主な変更点。</p>
+<ol>
+<li>インタフェースをいちから書き直して、itemを生成してbookに追加するというモデルにしました。だいぶシンプルになってる、といいなあ。</li>
+<li>圧縮前epubのディレクトリを作成せずに、直接epubを生成するようにしました</li>
+<li>ソースとなるデータをファイルではなくIOオブジェクトで渡すようにしました</li>
+</ol>
+<p>IOオブジェクトで渡すようになったのは地味な変更だけど、地味に使いやすいんじゃないかと思っております。<br />
+これまでのGEPUB::GeneratorではなくGEPUB::Bookをつかってください。<br />
+GEPUB::Generatorは0.2.0のタイミングで削除する予定です。使い方はgithubに置いてあるexample.rbをご参照ください。例は少しずつ充実させます。<br />
+この後は、</p>
+<ul>
+<li>メタデータをもうちょっとちゃんと書き込めるようにする</li>
+<li>インタフェースがまだおかしい気がするのでみなおす</li>
+<li>XMLライブラリをNokogiriにする</li>
+</ul>
+<p>などなどを考えていますが、予定は気まぐれに変わります。こうなるといいなー、なんていうのがあればお知らせください。ないだろうけど。<br />
+<a href="http://densho.in/">電子書籍部</a>でつかっているテキストto EPUBのコードも遠からず公開する予定です。</p>

@@ -1,0 +1,79 @@
+---
+layout: post
+title: EPUB生成ライブラリを作ってみた
+date: 2010-05-04 11:46:40.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- gepub
+- 電子書籍
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>(2010/5/5 : githubにあげました)</p>
+<p> EPUB生成のライブラリをrubyで作ってみました。ブツはこちら。<a href="http://github.com/skoji/gepub">http://github.com/skoji/gepub</a></p>
+<ul>
+<li>コンテンツ指定のファイルは/content.opfに固定 </li>
+<li>identifierのschemeはURLに固定</li>
+<li>identifierの名前はBookIDに固定</li>
+</ul>
+<p>などなどいろいろ決め打ちにしています。</p>
+<p>利用例はこんなです。</p>
+<pre>
+require 'rubygems'
+require 'gepub'
+require 'fileutils'
+epubdir = "testepub" # epubのコンテンツを置くディレクトリ
+title = "samplepub"  # epubのファイル名
+FileUtils.rm_rf(epubdir)
+FileUtils.mkdir(epubdir)
+# epub メタデータ作成
+epub = GEPUB::Generator.new(title)
+epub.author="the author"
+epub.publisher="the publisher"
+epub.date = "2010-05-03"
+epub.identifier = "/migrated-b/testepub/2010-05-03" # identifierはURLのみ
+# サンプルのコンテンツ生成。通常は、別途作成しているはず。
+[ 'coverpage', 'chapter1', 'chapter2' ].each {
+|name|
+File.open(epubdir + "/#{name}.html", 'w') {
+|file|
+file &lt;&lt; &lt;&lt;EOF
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"&gt;
+&lt;head&gt;
+&lt;title&gt;sample #{name} &lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;#{name}&lt;/h1&gt;
+&lt;p&gt;here comes the contents for #{name}&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+EOF
+}
+}
+# "coverpage"は表紙を想定。従って目次のデータには入れない。
+# spineに入れた順にリーダでは表示される。
+epub.addManifest('cover', "coverpage.html", 'application/xhtml+xml')
+epub.spine.push('cover')
+epub.addManifest('chap1', "chapter1.html", 'application/xhtml+xml')
+epub.spine.push('chap1')
+epub.addNav('chap1', 'Chapter 1', "chapter1.html")
+epub.addManifest('chap2', "chapter2.html", 'application/xhtml+xml')
+epub.spine.push('chap2')
+epub.addNav('chap1', 'Chapter 2', "chapter2.html")
+# この他にcssとかイメージがあれば、それもManifestへ追加する。
+# cssやイメージはspineやaddNavへの追加は不要。
+# container.xml/contents.opf/toc.ncxなどのファイルを生成
+epub.create(epubdir)
+# 生成したディレクトリから、epubファイル作成
+epub.create_epub(epubdir, ".")
+</pre>
+<p>サンプル書いて気付きましたが、EPUB::Creatorというクラスの役割がぶれてるなあ。</p>

@@ -1,0 +1,39 @@
+---
+layout: post
+title: 'VirtualMachine本: Chapter1 Virtual Machine Introduction'
+date: 2009-01-25 19:10:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- LowLevel
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://www.skoji.jp/blog/2008/12/ll.html">昨年末から</a>読んでいるVM本ですが、遅々として進んでいます(日本語がおかしい)。Chapter1(Introduction to Virtual Machines)を読み、Chapter2に入る前にAppendix A(Real Machines)を読んでコンピュータアーキテクチャの復習をして、今Chapter2の途中。ここまで100ページくらい。1ヶ月で100ページだと読み終わるのに半年かかる...。これではいかんので、もうちょっとがんばります。</p>
+<p>さて、遅々としているとはいえ、ほぼ知らない分野なので超面白いです。普段の高級言語で富豪的なことやってるのとは全く違う世界です。たのしい。ここまでのメモを、自分のために書いておきます。</p>
+<p class="note">(2009.2.9 Chapter毎にEntryを整理しました)</p>
+<p>FORTH処理系はthreaded interpreterの考え方だというのが初耳でした。retargetable dynamic binary translatorというものについて言及されていますが、どうやってやるのか見当も付かない。</p>
+<p>まずはコンピュータの作りについて。抽象レイヤがwell-defined interfaceを介して積み上がっている。同じレベルでも違うwell-defined interfaceがある。たとえばIA32とPowerPC。WindowsとLinux。多様性は善だが、interoperabilityの阻害にもなる。</p>
+<p>仮想化は制限をゆるめ、柔軟性を高める。仮想化と抽象化の違い: 仮想化された場合でも、仮想化したレイヤより抽象度が低いとは限らない。</p>
+<p>目的と同じ数だけのVMがある。</p>
+<h4>1.1 アーキテクチャの話</h4>
+<p>well-defined interfaceはいろんなレベルのがある。CPUが提供するISA(instruction set architecture)。user ISA/systme ISAに分けられる。</p>
+<p>ABI = user ISA + systemcall。API = user ISA + ライブラリインタフェース。</p>
+<h4>1.2〜1.4 VMのいろいろ</h4>
+<p>1.3.1 マルチプログラミング: 実はProcess VMの一種と考えられる。各プロセスは、CPUやらメモリやらを占有しているつもり(だが実際には違う)</p>
+<p>1.3.2 エミュレータ、バイナリトランスレータ: sourceとtargetのISAが違うときに使われる。FX!32(Windows Alpha上でWindows IA32のアプリを走らせるためのVM)とか。</p>
+<p>1.3.4 高級言語VM: これはポータビリティが目的。古くはPCODE、最近はJavaVM, CLI</p>
+<p>1.4 System VMs:1960年代くらいから作られてる。Virtual Machineという言葉の元祖。もともとはハードウェアの上に直接VMMを載せていた。hostedなのはもっと最近。</p>
+<p>1.4.2 whole system VMs: ISAが違うとき。PowerPC上のIA32とか。</p>
+<p>1.4.3 codesigned VMs: 他のVMと違って、パフォーマンス向上が目的の場合がある。native ISA用のアプリなどなく、VMを含めたものがあたかもISA。crusoeが好例。IBM AS/400も、object-oriented instruction setをサポートするのが主な目的だった(が、実際は?)</p>
+<h4>1.5分類</h4>
+<p>大きく分けてProcess VM/SystemVM。それぞれの下に、Same ISA/Different ISAがある。</p>
+<p><a href="http://www.skoji.jp/blog/2009/02/vmbook_map.html">Virtual Machine本ひとり勉強会</a></p>
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/1558609105/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51QA8H7XZ4L._SL160_.jpg" alt="Virtual Machines: Versatile Platforms For Systems And Processes (The Morgan Kaufmann Series in Computer Architecture and Design)" />Virtual Machines: Versatile Platforms For Systems And Processes </a></p>

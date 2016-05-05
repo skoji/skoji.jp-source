@@ -1,0 +1,54 @@
+---
+layout: post
+title: Factorに入門する(8) dip combinatorsを駆使してFizzBuzzを書く
+date: 2009-03-24 11:54:15.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Factor
+- プログラミング言語
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Factor入門第8回。今回は、Factorに多々あるcombinatorのうち、"dip combinators"について調べます。factorのcombinatorとは、combinatory logicでいうcombinatorのようなのですが、これを調べるのは、また後日。先に実例で理解しましょう。</p>
+<p>ではdipです。documentの説明をみてみましょう。</p>
+<blockquote><p>
+The dip combinators invoke the quotation at the top of the stack, hiding the values underneath:
+</p></blockquote>
+<p>よくわからんですね。試してみましょう。</p>
+<pre>
+( scratchpad ) 1 2 3 [ / ] dip
+--- Data stack:
+1/2
+3
+( scratchpad ) clear
+( scratchpad ) 1 2 3 4 [ / ] 2dip
+--- Data stack:
+1/2
+3
+4
+( scratchpad )
+</pre>
+<p>dipは、「スタックトップのquotationを実行する。ただし、quotationの下にある値はいったんどけておき、quotation実行後に戻す。という動作をしています。dipのstack effectは( x quot -- x )となっていますが、この"x"がどけておく値ですね。</p>
+<p>2dipの場合は、quotationの下にある値2つをどけています。この「どけておく先」を、factorでは"retain stack"といっているようです。</p>
+<p>さて、<a href="http://www.skoji.jp/blog/2009/03/factor7_fried_quotationfizzbuz.html">前回</a>にひきつづきFizzBuzz。dipをつかって書き直してみます。</p>
+<pre>
+IN: fizzbuzz
+USING: kernel io math math.parser prettyprint sequences fry ;
+: modN? ( x n -- ? ) mod 0 = ;
+: fb ( x n str -- x/str )
+pick number?
+[ pick [ modN? ] 2dip ? ] [ 2drop ] if  ;
+: pp ( x/str -- ) dup number? [ number>string ] when print ;
+100 [ 1 + 15 "FizzBuzz" fb 3 "Fizz" fb 5 "Buzz" fb pp ] each
+</pre>
+<p><a href="http://www.skoji.jp/blog/2009/03/factor7_fried_quotationfizzbuz.html">前回</a>とはword fb見た目がまったく違います。よりシンプルですが、pickして2dipして?、って流れは、ちょっと考えないとおいて行かれます。fried quotationに比べるとトリッキーな感じです。</p>
+<p>このコード例は<a href="http://generation1986.g.hatena.ne.jp/anatoo/20080720/1216577058">この記事</a>にそっくりなのは偶然、ではなく、先にカンニングしていたからです。</p>
+<p>FizzBuzzを<a href="http://www.skoji.jp/blog/2009/03/factor_fizzbuzz.html">最初に書いた</a>後、他に書いてるひとはいないかな? と思って探してみつけました。しかしその時点では2dipが分からなくて読めず。ようやく、自力で2dipがつかえるところに辿り着きましたよ。</p>

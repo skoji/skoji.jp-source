@@ -1,0 +1,71 @@
+---
+layout: post
+title: マークアップ言語を作っている理由
+date: 2014-03-27 20:30:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電子書籍
+tags: []
+meta:
+  _edit_last: '1'
+  s4_url2s: ''
+  s4_image2s: ''
+  s4_ctitle: ''
+  s4_cdes: ''
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>NoraMarkというマークアップ言語を開発中です。開発中といいつつ、電子雑誌トルタルやアサガヤデンショの本などでばりばり使っています。使いながら開発しているというか。<br />
+世の中にはたくさんのマークアップ言語があるのにわざわざ自分で作っているのは、ぴったりくるものが見つけられなかったからです。</p>
+<h3>原稿には論理構造だけを記述したい</h3>
+<p>論理構造を記述できるマークアップ言語はいくつもあります。というか、論理構造指向のほうが多数派でしょう。しかし、EPUBで電書をつくる用途に足りるものはなかなかありませんでした。<br />
+たとえばインタビュー記事には</p>
+<ul>
+<li> インタビューアー</li>
+<li>インタビューされるひと</li>
+<li>地の説明文</li>
+</ul>
+<p>という論理的な要素があります。原稿の時点では、これらが書き分けられればよいのです。たとえばこんなふうに。</p>
+<pre>
+ji {
+そういうわけで、話をうかがことにしたのでした。
+}
+iv: 本日はよろしくおねがいします。
+ie(y): 今日は何の話すればよいんだっけ?
+</pre>
+<p>地の文、インタビューアー、インタビューされるひと、を簡単に書き分けています。たぶん、この記事専用のマークアップですね。<br />
+それを電書にするときにはじめて、ここにはinterviewerクラスを割り付けたp要素を、とか考えるのです。結果、こんなふうなHTMLになるかもしれません。</p>
+<pre>
+&lt;div class=&quot;interview-preface&quot;&gt;
+そういうわけで、話をうかがことにしたのでした。
+&lt;/div&gt;
+&lt;section class=&quot;interview&quot;&gt;
+&lt;p class=&quot;interviewer&quot;&gt;- 本日はよろしくおねがいします。&lt;/p&gt;
+&lt;p class=&quot;interviewee&quot;&gt;&lt;span class=&quot;name&quot;&gt;山田氏(以下山)&lt;/span&gt; 今日は何の話すればよいんだっけ?&lt;/p&gt;
+&lt;/section&gt;
+</pre>
+<p>というようなことを、たとえばMarkdownで実現するのは難しいです。似たようなことができるのでは、私の知る範囲ではRe::VIEWくらいしかなかったのでした。しかしRe::VIEWは、こういう専用のマークアップを自在に作ることを目的にしているようには(私には)見えませんでした。<br />
+XMLでタグづけして、XSLTをちゃんと書けばこういうことは楽々できるでしょう。しかし。</p>
+<h3>簡単にマークアップできて、プレーンテキストでも読みやすくしたい</h3>
+<p>「もとのプレーンテキスト原稿に、手作業でつける最低限のマークアップ」というのも重要な条件です。XMLは強力ですが、手でマークアップするには明らかに向いていません。また、段落などは明示的にマークアップしなくてもちゃんと構造を読み取ってくれないと、電書用のマークアップとしては手間ばかりかかります。</p>
+<h3>間違ったマークアップをしづらくしたい</h3>
+<p>Markdownの設計思想にこういうことが書いてあります。</p>
+<blockquote><p>A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.</p></blockquote>
+<p><a href="http://daringfireball.net/projects/markdown/syntax#philosophy">http://daringfireball.net/projects/markdown/syntax#philosophy</a></p>
+<p>プレーンテキストとしてもちゃんと読めるというのは、おおきな利点です。NoraMarkもそこは狙っています。しかしMarkdownはあまりにもプレーンテキストっぽいので、意図しないマークアップをしてしまうことがあります。たとえば、うっかり字下げしてそこが引用になってしまったり。逆に、うっかり空白を削って引用ではなくなってしまったり。あるいは空行をあけたり削ったりすることで、マークアップ範囲が変わってしまったり。<br />
+「電書用のマークアップ言語」では、マークアップしたテキストそのものではなく、レンダリングした結果が通常は使われます。そうすると「うっかりマークアップを壊しやすい」という特徴はおおきな欠点になってしまいます。マークアップがある程度「不自然」に見えると、こういう間違いは避けやすくなるでしょう。<br />
+NoraMarkがMarkdownといちばん異なるのは、この部分かもしれません。</p>
+<h3>自分でつくってみたい</h3>
+<p>上で書いた色々が台無し。でも、つくりたいものをつくるのは楽しいです。</p>
+<h3>ということで</h3>
+<p>NoraMarkまだα版レベルですが、上記の条件はほぼ満たしているはずです。4月にはそれなりの安定版を出したいと思っています。モノはこちら[https://github.com/skoji/noramark](https://github.com/skoji/noramark)</p>
+<h3>おまけ</h3>
+<p>Emacs用のNoraMark modeも同じ場所に置いてあります。こんなふうに「マークアップされてることが分かりやすく、でもテキストとしてもよみやすく」色分けして表示できます(といっても使っているカラーテーマ次第ではマークアップが必要以上に目立つかもしれませんが)。今のところ、色をつける以上の機能はありません。アウトライン機能は欲しいですが実装がかなり大変そうなのであとまわし。<br />
+<img class="mt-image-center" style="text-align: center; display: block; margin: 0 auto 20px;" src="/migrated-b/blog/koujin.png" alt="koujin.png" width="640" height="426" /><br />
+<img class="mt-image-center" style="text-align: center; display: block; margin: 0 auto 20px;" src="/migrated-b/blog/noramanual.png" alt="noramanual.png" width="640" height="445" /></p>

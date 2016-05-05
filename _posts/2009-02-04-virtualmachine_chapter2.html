@@ -1,0 +1,137 @@
+---
+layout: post
+title: 'VirtualMachine本: Chapter 2 Emulation: Interpretation and Binary Translation'
+date: 2009-02-04 21:33:06.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- LowLevel
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/1558609105/kaimonolog-22/ref=nosim/" name="amazletlink" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51QA8H7XZ4L._SL160_.jpg" alt="Virtual Machines: Versatile Platforms For Systems And Processes (The Morgan Kaufmann Series in Computer Architecture and Design)" />Virtual Machines: Versatile Platforms For Systems And Processes </a></p>
+<p>やっとダイナミックなバイナリトランスレートの話がでてきましたよ。</p>
+<p class="note">(2009.2.9 Chapter毎に整理しました)</p>
+<p>Source ISAとTarget ISAが異なるときの話。しかし、そうじゃない場合にもこのテクニックは使える。binary optimizationとか、特権命令実行時のemulation的動作とか。</p>
+<p><!--more--></p>
+<h4>2.1 Basic Interpretation</h4>
+<p>普通のエミュレーション。メインループがあって、デコード・命令ディスパッチを実行。ブランチが多すぎて遅い。</p>
+<p>この章で突然「FORTHは"threaded code" interpretation modelで有名」と出てきて驚く。FORTHは昔だいぶ遊んだけど、それ知らないぞ(と思ったのですが、threaded codeのところを読んだら納得できました)</p>
+<h4>2.2 Threaded Interpretation</h4>
+<p> 各Instruction emulationの最後に、decodeして対応するインストラクションを実行する。テーブルをひき、そこへ飛ぶコードを追加する。メインループはもういらない。これは、デコード結果からテーブルをひいてジャンプ、なので<br />
+"indirect" threaded interpretationと呼ばれる。</p>
+<h4>2.3 Predecoding and Direct Threaded Interpretation</h4>
+<p>ループは消えたけど、毎回デコードのオーバーヘッドがある。</p>
+<h5>2.3.1</h5>
+<p>そこでプレデコード。デコードして扱いやすい形で再度格納。</p>
+<h5>2.3.2 Direct Threaded Interpretation</h5>
+<p>
+デコード結果の「オペランド」のところに、そのオペランドを実行するアドレスを直接いれる。メモリルックアップが1回減らせる。</p>
+<h4>2.4 Interpreting a Complex Instruction set</h4>
+<p>ここまではPowerPCを例にしていたが、IA32みたいなCISCでは大変。</p>
+<p>IA32だと、General Decodeしてから、特殊な処理に分岐するのが基本的な動き。</p>
+<h5>2.4.2 Threaded Interpretation</h5>
+<p>RISCに比べてdecode処理が複雑ででかい。各instruction interpreterの最後にdecode処理を書いていたら、インタプリタがでかくなる。</p>
+<p>ということで、一般的なケースに特化したdecode-and-dispatchルーチンをいれる。特殊なケースはブランチしてとばす。</p>
+<p>Direct Threaded Interpretationをやろうとするといろいろ問題。とくに2つ:</p>
+<ol>
+<li>predecoded instructionは長くなる傾向がある。メモリをいっぱいくう。<br />
+instruction types毎に中間コード用意するなど<br />
+あるいは、小さいインストラクションに分解するなど → これはCISCからRISCへのbinary translateに似ている</li>
+<li>code discovery。実行しないと命令の境界が分からない場合があり、プレデコード困難。<br />
+binary translationでも問題になるので、あとでくわしく取り扱う。</li>
+</ol>
+<p>		また、2段階のdecode-dispatchになる。これもbinary translationと非常に似ている。<br />
+binary translationはポータビリティに欠ける、が、retargetable binary translatorが開発されている<br />
+(p46)</p>
+<h5>2.4.3 High-performance IA-32 Interpreter</h5>
+<p>
+FX!32をベースにした例。オリジナルのAlphaじゃなくて、PowerPCのアセンブラで記述されているが、PowerPCをよく知らないのでほとんど理解できない。IA32の1インストラクションをAlphaの30インストラクション相当で実行できるらしい。</p>
+<h4>2.5 Binary Translation</h4>
+<p>2.4まではインタプリタだけど、target ISAのバイナリコードに変換するとパフォーマンスがあがる。</p>
+<p>インタプリタと違って、source ISA状態のマッピングをtarget ISAのレジスタに直接おくことで、コンテクストブロックをメモリから読み込むオーバーヘッドを削除できる。</p>
+<h4>2.6 Code Discovery And Dynamic Translation</h4>
+<h5>2.6.1 The Code Discovery Problem</h5>
+<p> スタティックにプレデコードしたりバイナリトランスレートしたりすることを考えてみる。(特にCISCなISAでは)これはかならずしも簡単じゃない(それどころか不可能な場合もある)。命令境界がどこかわからないし、生成されたコードのなかにデータとかパディングがはいっていることだってある。</p>
+<p>RISCであれば、1命令1ワードだったりするが、たとえばIA32だと、任意のバイトが本当に命令境界なのか判断する方法はない。</p>
+<h5>2.6.2 The Code-Location Problem</h5>
+<p> 間接ジャンプだと、ターゲット側に展開された命令列のどこに飛べばいいかわからない(ただしRISCやJavaVMではこういう問題は起こらない)</p>
+<h5>2.6.3 Incremental Predecoding and Translation</h5>
+<p> 2.6節のハイライト! (ってそんなに気合いをいれるほどのことはない)。プレデコードとトランスレーションはきわめて似たプロセスなので、この本では「トランスレーション」と呼びます。</p>
+<p>Emulation Manager、インタプリタとトランスレータ、トランスレートされたコード(のキャッシュ)、そしてソースPCからターゲットPCへのマッピングを示すハッシュテーブルをそろえれば、ダイナミックにインクリメンタルなトランスレートができます。</p>
+<p>Emulation Managerは、マップを使ってコードキャッシュを探し、ヒットすればトランスレートされたブロックを呼びます。ヒットしなければ、インタプリタ・トランスレータを呼んで、次のブロックをインタープリト・トランスレートし、マップにトランスレートされた結果をいれます。</p>
+<p>このときの、トランスレートの単位は「Dynamic Basic Blocks」。ブランチで入ってきたポイントから、ブランチで出るポイントまでを(動的に)認識したものです(これにたいして、Static Basic Blocksは、静的構造を解析してエントリポイント・エグジットポイントで切ったもの)。</p>
+<p>Dynamic Basic Blocksの特徴として「他の大きなブロックの一部が、新たに小さなブロックになることがある」です。これは、大きなブロックの途中に、エントリポイントがある場合などですね。(p57の図がわかりやすい) このダブりがあることで、すでにトランスレートされたコードの途中にブランチしたら、みたいな複雑な処理がいらなくなっています</p>
+<p>こんどは、ブロックごとに「キャッシュを探す」「Emulation Managerに戻る」オーバーヘッドをへらすことが考えられます。キャッシュを探す、については、SourceのPCをTargetのレジスタにいれとくとか、コードブロックの最後に次のSource PCを置いておき、そこをlink register経由でアクセスする方法とかがあります。</p>
+<p>他にも問題がいろいろ。これらはChapter3や4で扱われます。</p>
+<p>
+<ul>
+<li>self-modifying code</li>
+<li>self-referencing code</li>
+<li>precise traps</li>
+</ul>
+<h5>2.6.4: Same-ISA Emulation</h5>
+<p>同じISAでもEmulationがありうる。Emulation Managerが常にコントロールをもち、かつモニタ(= code management)できる。この一例が"simulation"。2.9でcase studyとして扱われる。</p>
+<p>2つめの例は、ISAが同じだがOSが異なる場合。このときはsystem callをemulationする。</p>
+<p>3つめの例は、特権命令を扱うエミュレーション(Chapter 8)。</p>
+<p>4つめは、Chapter10であつかう"program shepherding"。セキュリティ的監視。</p>
+<p>さいごが、ランタイムでのbinary optimization。</p>
+<p>Chapter 3に突入したけど、ここでの復習が追いつかない!</p>
+<h4> 2.7 Control Transfer Optimization</h4>
+<p>2.6までの「シンプルな」トランスレート方法では、Source PC/Target PCのルックアップや、ブロックごとにEmulation Managerへコントロールが戻ることがどうしても起きる。このオーバーヘッドを減らす方法いろいろ。</p>
+<h5>2.7.1 Translation Chaining</h5>
+<p>インタプリンタのスレッディングと同じようなテクニック(名前から見当つくよね)。トランスレートされたブロックをチェーンするのだ。</p>
+<p>次のブロックがまだトランスレートされていない場合は、通常のスタブコードが入る。</p>
+<h5>2.7.2 Software Indirect Jump Prediction</h5>
+<p>ソフトウェア分岐予測! これは本質的には「inline caching」の実装である。分岐先のコードを、出現しそうな順に、ifのなかで即値で埋め込んでおくのです。</p>
+<p>なので、profilingとセットでやる必要がある。</p>
+<h5>2.7.3 Shadow Stack</h5>
+<p>sourceのstackへ戻り値を格納すると同時に、target側でEmulation Managerが管理する"shadow stack"にtargetの戻り先PCを格納する。stackからpopするときは値のチェックをしてconsistencyをみる。</p>
+<p>VM本2章の終わりのほうです。</p>
+<h4>2.8 Instruction Set Issues</h4>
+<p>インストラクションセットエミュレーションについて、まだまだいろいろあるけどそのうちの一部を扱います。</p>
+<h5>2.8.1 Register Architectures</h5>
+<p>レジスタはストレージヒエラルキのてっぺんにいるので、パフォーマンスに影響がでかい。</p>
+<p>レジスタ割り当ての戦略についてbinary translation, interpreterのそれぞれで、一般論を。</p>
+<h5>2.8.2 Condition Codes</h5>
+<p>フラグの類について。sourceとtargetでISAが違えば、同じではない。MIPSみたいにcondition codeがないようなものもある。</p>
+<p>source instructionの実行のたびにcondition codeを更新する手もあるが、これは遅いし、通常必要でもない。lazy evaluationがよく使われるテクニック。condition codeに影響がある、最近実行された命令とそのオペランドを記録しておき、必要になったらcondition codeを生成する。</p>
+<p>この方法でも、実行中にtrapが発生した場合に問題がある。trap発生したら、preciseなソース状態を作らなくてはならない。このへんはあと(4.5.2)で議論する。</p>
+<h5>2.8.3 Data Formats and Arithmetic</h5>
+<p>浮動小数点のフォーマットはかなり統一されているが、たとえばIA32では80bitの中間結果がつかわれるが、ほかの多くのISAでは64bitみたいな差がある。</p>
+<p>ほかにもいろいろ。PowerPCでは連続した乗算・加算のインストラクションがあるが、これはエミュレートできない場合がある(途中でオーバーフローしちゃうとか)。アドレッシングモードが違うとか、即値の長さが違うとか。</p>
+<h5>2.8.4 Memory Address Resolution</h5>
+<p>sourceとTargetでアクセスできるメモリの単位が違う。たとえばbyte単位でのメモリアクセスができないISAもある。</p>
+<h5>2.8.5Memory Data Alignment</h5>
+<p>メモリのアラインメントもISAで違う。いろんなやりかたがあるけど、プロファイルをとるような方法もある。Chapter4で議論する。</p>
+<h5>2.8.6 Byte Order</h5>
+<p>BigEndian, LittleEndianなISAがある。</p>
+<p>両方サポートしているＩＳＡもある。</p>
+<h5>2.8.7 Addressing Architecture</h5>
+<p>サイズが違う、特権レベルが違うなどいろいろ。</p>
+<h4>2.9 Case Study: Shade and the Role of Emulation During Simulation</h4>
+<p>"Shade"という、high-performanceなsimulationのケーススタディ。</p>
+<p>"simulation"は、「内部動作までのシミュレート」を意味する。emulationは表面の動作のみ。</p>
+<p>あまり細かいことはかいていないが、code cacheのメカニズムがシンプル。source PCからhash経由で、translated codeの場所がひかれる。hashのさすさきには、n個の"source/target"ペアがはいってる。新しく使われたのが、せんとうにくる。もしいっぱいになれば、n個目が押し出される。そういうわけで、translateされたけど、danglingになるtranslated codeがある(本文中では"orphan"って表現されてる)。</p>
+<p>code cacheはあたまからつめられていく。もし最後に到達したら、単純にすべてフラッシュされる。そういうわけで、danglingなコードはそのうち消える。</p>
+<p>このメカニズムはシンプルだけど、効率ほんとにいいのか? と疑問に思うが、いいんだろうな、確かめるためには論文にあたればよさそう。</p>
+<h4>2.10 Summary: Performance Tradeoffs</h4>
+<p>2章のまとめ。つぎのものたちが出てきています。</p>
+<dl>
+<dt>Decode-and-Dispatch</dt>
+<dd>メモリ要求少ない、スタートアップ速い、定常動作遅い、ポータビリティ高い</dd>
+<dt>Indirect Threaded Interpreter</dt>
+<dd>メモリ要求少ない、スタートアップ速い、定常動作遅い(Decode-Dispatchよりはまし)、ポータビリティ高い</dd>
+<dt>Direct Threaded Interpreter with Predecoding</dt>
+<dd>メモリ要求多い、スタートアップ遅い、定常動作普通、ポータビリティ普通</dd>
+<dt>Binary Translation</dt>
+<dd>メモリ要求多い、スタートアップとても遅い、定常動作速い、ポータビリティダメ</dd>
+</dl>
+<p><a href="http://www.skoji.jp/blog/2009/02/vmbook_map.html">Virtual Machine本ひとり勉強会</a></p>

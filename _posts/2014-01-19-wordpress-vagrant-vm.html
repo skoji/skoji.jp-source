@@ -1,0 +1,29 @@
+---
+layout: post
+title: WordPressサイトのコピーをローカルのVMで動かす
+date: 2014-01-19 22:04:12.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 開発環境
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>WordPressサイトのコピーをローカルで動かして検証しようとしたら、手元のMacに作っていたWordPress環境が壊れていることに気付きました。Macにこういうの入れるとOSバージョンアップのたびに苦しみます。なので、そろそろVMのLinux上で動かしたい。流行っているらしいVagrantとかDockerとかchefとかいろいろ中途半端に調べた結果、Vagrantだけをベタに使う方法に落ち着きました。</p>
+<ul>
+<li>MacOS専用</li>
+<li>backWPupでサーバ上にtar.gzでバックアップがとられているのが前提</li>
+<li>ruby 1.9以上</li>
+<li>VagrantのVMはUbuntuべったり</li>
+</ul>
+<p>と汎用性は著しく低いのですが、せっかくつくったので公開します。<br />
+<a href="https://github.com/skoji/vagrant-wp-from-backup">https://github.com/skoji/vagrant-wp-from-backup</a><br />
+parameters.rbをいじった上でrake一発で、運がよければコピーされたWordPressがローカルで起動し、http://localhost:4567 から見ることができます。<br />
+ERBの使い方はおそらく変なのでアドバイス歓迎します。</p>
