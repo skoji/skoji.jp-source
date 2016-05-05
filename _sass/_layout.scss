@@ -8,7 +8,6 @@
 
     // Positioning context for the mobile navigation icon
     position: relative;
-    background-color: $header-footer-bg-color;
 }
 
 .site-title {
@@ -66,7 +65,7 @@
                 height: 15px;
 
                 path {
-                    fill: $text-color;
+                    fill: $grey-color-dark;
                 }
             }
         }
@@ -101,7 +100,6 @@
 .site-footer {
     border-top: 1px solid $grey-color-light;
     padding: $spacing-unit 0;
-    background-color: $header-footer-bg-color;
 }
 
 .footer-heading {
@@ -117,7 +115,7 @@
 
 .footer-col-wrapper {
     font-size: 15px;
-    color: $text-color;
+    color: $grey-color;
     margin-left: -$spacing-unit / 2;
     @extend %clearfix;
 }
@@ -189,6 +187,14 @@
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
+    > ul {
+        display: inline-block;
+        list-style: none;
+        margin-left: 1em;
+        > li {
+            display: inline-block;            
+        }
+    }
 }
 
 .post-link {
