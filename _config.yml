@@ -16,6 +16,13 @@ url: "https://skoji.jp"
 twitter_username: skoji
 github_username: skoji
 permalink: /:year/:month/:title.html
+defaults:
+    -
+      scope:
+        path: ""
+      values:
+        type: post
+        layout: post
 category_slug_map:
     .NET Framework: "net-framework"
     atom: "atom"
