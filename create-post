@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $# -ne 1 ]; then
+   echo "You should specify post title." 1>&2
+   exit 1;
+fi
+cd `dirname $0`
+/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n `jekyll post $1 | sed 's/New post created at \(.*\)\./\1/'`
+
