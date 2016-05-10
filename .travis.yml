@@ -5,7 +5,7 @@ branches:
   only:
   - master
 scripts:
-  - bundle exec jekyll b
+  - bundle exec rake build
 before_install:
   - eval `ssh-agent -s`
   - chmod 600 ~/.ssh/config
