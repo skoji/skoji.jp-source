@@ -7,7 +7,10 @@ permalink: /categories/
 <ul>
 {% for category in site.categories %}
 <li>
-<a class="category" href="{{site.baseurl}}/category/{{ category | first | catname2slug}}">{{ category | first }}</a>
+<a class="category" href="{{site.baseurl}}/category/{{ category | first | catname2slug}}">
+  {{ category | first }}
+</a>
+  ({{category[1] | size}})
 </li>
 {% endfor %}
 </ul>
