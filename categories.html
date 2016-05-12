@@ -1,0 +1,14 @@
+---
+layout: page
+title: カテゴリー
+permalink: /categories/
+---
+<section class="categories">
+<ul>
+{% for category in site.categories %}
+<li>
+<a class="category" href="{{site.baseurl}}/category/{{ category | first | catname2slug}}">{{ category | first }}</a>
+</li>
+{% endfor %}
+</ul>
+</section>
