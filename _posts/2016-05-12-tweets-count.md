@@ -23,4 +23,4 @@ plot(x.monthly, main="Tweets", major.format="%Y-%m")
 dev.off()
 ```
 
-関連記事: [Tweet数とブログ](/movabletype/2016/05/tweets-and-blog)(買い物ログ)
+関連記事: [Tweet数とブログ](/movabletype/2016/05/tweets-and-blog.html)(買い物ログ)
