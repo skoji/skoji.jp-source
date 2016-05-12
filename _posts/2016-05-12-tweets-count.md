@@ -17,7 +17,7 @@ library(xts)
 x <- read.csv("tweets.csv")
 x <- x[,c(4)]
 x.xts <- as.xts(read.zoo(x))
-x.monthly = apply.monthly(x.xts[,1], length)
+x.monthly <- apply.monthly(x.xts[,1], length)
 png("tweets-graph.png", width=800, height=400)
 plot(x.monthly, main="Tweets", major.format="%Y-%m")
 dev.off()
