@@ -3,6 +3,7 @@ layout: post
 title: Tweet数集計
 category: R
 date: 2016-05-12 17:10:55 +0900
+image: /movabletype/assets/tweets-graph.png
 ---
 
 自分のTweets数経過をグラフにしてみた。データは、Twitter公式サイトからダウンロードできる全ツイートアーカイブに含まれている、`tweets.csv`。
