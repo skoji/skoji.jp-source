@@ -3,8 +3,8 @@ require 'jekyll'
 module Jekyll
   module Archives
     # Internal requires
-    autoload :Archive, 'jekyll-archives/archive'
-    autoload :VERSION, 'jekyll-archives/version'
+    autoload :Archive, File.join(File.dirname(__FILE__), 'jekyll-archives/archive.rb')
+    autoload :VERSION, File.join(File.dirname(__FILE__), 'jekyll-archives/version.rb')
 
     if (Jekyll.const_defined? :Hooks)
       Jekyll::Hooks.register :site, :after_reset do |site|
