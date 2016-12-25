@@ -28,7 +28,7 @@ module Jekyll
         @type   = type
         @title  = title
         @config = site.config['jekyll-archives']
-        @category_slug_map = @config['category_slug_map'] || {}
+        @category_slug_map = site.config['category_slug_map'] || {}
         # Generate slug if tag or category (taken from jekyll/jekyll/features/support/env.rb)
         if title.to_s.length
           @slug = @category_slug_map[title.to_s] || Utils.slugify(title.to_s)
