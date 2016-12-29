@@ -4,5 +4,5 @@ if [ $# -ne 1 ]; then
    exit 1;
 fi
 cd `dirname $0`
-/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n `bundle exec jekyll post $1 | sed 's/New post created at \(.*\)\./\1/'`
+/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n `bundle exec jekyll post $1 | grep 'New post created' |sed 's/New post created at \(.*\)\./\1/'`
 
