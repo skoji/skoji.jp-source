@@ -3,6 +3,8 @@ if [ $# -ne 1 ]; then
    echo "You should specify post title." 1>&2
    exit 1;
 fi
-cd `dirname $0`
-/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n `bundle exec jekyll post $1 | grep 'New post created' |sed 's/New post created at \(.*\)\./\1/'`
-
+pushd `dirname $0` > /dev/null
+post=`bundle exec jekyll post $1 | grep 'New post created' | sed 's/New post created at \(.*\)\./\1/'`
+ruby refine-post.rb $post
+/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $post
+popd > /dev/null
