@@ -6,5 +6,5 @@ fi
 pushd `dirname $0` > /dev/null
 post=`bundle exec jekyll post $1 | grep 'New post created' | sed 's/New post created at \(.*\)\./\1/'`
 ruby refine-post.rb $post
-/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $post
+/Applications/MacVim.app/Contents/MacOS/Vim -g $post
 popd > /dev/null
