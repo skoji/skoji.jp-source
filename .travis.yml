@@ -13,7 +13,7 @@ before_install:
   - cp deploy_key ~/.ssh/
   - chmod 600 ~/.ssh/deploy_key
   - ssh-add ~/.ssh/deploy_key
-  - echo -e "Host skoji.jp\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host skoji.jp\n\tPort 2222\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
   - build/travis-deploy.sh
 
