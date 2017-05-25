@@ -6,7 +6,7 @@ categories:
 - Mastodon
 ---
 
-Mastodonの自分専用インスタンスを、1.4rc3にアップデートした。release candidateといいつつ、
+Mastodonの[自分専用インスタンス](https://sandbox.skoji.jp/)を、1.4rc3にアップデートした。release candidateといいつつ、
 
 >  which fixes some but not all bugs (yet)
 
