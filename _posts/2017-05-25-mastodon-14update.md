@@ -69,7 +69,7 @@ $ git stash pop # docker-compose.ymlの復帰。私の環境ではそのまま�
 (docker_entrypoint.shでもowner変更はやっているため)
 
 ```
-$ sudo chorn -R mastodon:mastodon public/system
+$ sudo chown -R mastodon:mastodon public/system
 ```
 
 #### 6. Dockerコンテナの再ビルドと生成
