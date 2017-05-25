@@ -3,7 +3,7 @@ layout: post
 title: Mastodonを1.4rc3にアップデートした
 date: '2017-05-25T23:19:44+09:00'
 categories:
-- mastodon
+- Mastodon
 ---
 
 Mastodonの自分専用インスタンスを、1.4rc3にアップデートした。release candidateといいつつ、
