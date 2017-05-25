@@ -12,7 +12,7 @@ Mastodonの自分専用インスタンスを、1.4rc3にアップデートした
 
 なんて[書いていて](https://mastodon.social/users/Gargron/updates/2452607)すこしばかり不安である。
 
-これがなぜか私の環境ではうまくアップデートできない。railsの`assets:precompile`が必ず失敗する。多くの環境ではちゃんと動作しているようだ。Docker環境なのでどこで実行しても基本的に同じはずなのに。Dockerのimageをまっさらにするなどいろいろやってみたが、うまくいかない。結局。[yarnのバージョンをさげる](https://github.com/tootsuite/mastodon/issues/3251#issuecomment-303361503)ことで不思議なことに動作している。この件は未解決だが、とにかく1.4rc3になった。
+これがなぜか私の環境ではうまくアップデートできない。railsの`assets:precompile`が必ず失敗する。多くの環境ではちゃんと動作しているようだ。Docker環境なのでどこで実行しても基本的に同じはずなのに。Dockerのimageをまっさらにするなどいろいろやってみたが、うまくいかない。結局。[yarnのバージョンをさげる](https://github.com/tootsuite/mastodon/issues/3251#issuecomment-303361503)ことで不思議なことに動作している。この件は未解決だが、 なんとかわたしのインスタンスは[1.4rc3(1.4.0.3)になった](https://sandbox.skoji.jp/about/more)。
 
 1.4からは、Dockerでの実行ユーザがrootではなくなり、デフォルトではUID991のユーザになっている。このため、多少手順が変わる部分がある。アップデートの手順を以下に書いておく。
 
