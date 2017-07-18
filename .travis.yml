@@ -17,7 +17,6 @@ before_install:
 - echo -e "Host skoji.jp\n\tPort 2222\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
 - build/travis-deploy.sh
-- echo done.
 notifications:
   slack:
     email: false
