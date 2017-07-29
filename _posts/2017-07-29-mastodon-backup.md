@@ -44,9 +44,9 @@ set -u
 DATE_STRING=$(date -u '+%Y-%m-%d-%H%M%S')
 TMP_DIR=$(mktemp -d)
 pg_basebackup -D $TMP_DIR -z --format=tar && \
-  s3cmd put $TMP_DIR/base.tar.gz "s3://<bucket name>/postgresql/base-$DATE_STRING.tar.gz" &&\
-  cp $TMP_DIR/base.tar.gz /home/mastodon/backup/postgres/base-$DATE_STRING.tar.gz &&\
-  rm -rf $TMP_DIR 
+  s3cmd put $TMP_DIR/base.tar.gz "s3://bookworms-backup/postgres/base-$DATE_STRING.tar.gz" &&\
+    cp $TMP_DIR/base.tar.gz /home/mastodon/backup/postgres/base-$DATE_STRING.tar.gz &&\
+      rm -rf $TMP_DIR 
 ```
 
 ## wal backupのスクリプト
@@ -60,7 +60,7 @@ TMP_DIR=$(mktemp -d)
 mv /home/mastodon/backup/postgres-wal/* $TMP_DIR && \
 cd $TMP_DIR && \
 tar cfz wal-$DATE_STRING.tar.gz * && \
-s3cmd put wal-$DATE_STRING.tar.gz "s3://<bucket name>/postgres/wal/wal-$DATE_STRING.tar.gz" && \
+s3cmd put wal-$DATE_STRING.tar.gz "s3://bookworms-backup/postgres/wal-$DATE_STRING.tar.gz" && \
 mv wal-$DATE_STRING.tar.gz /home/mastodon/backup/postgres/ && \
 cd /tmp && rm -rf $TMP_DIR
 ```
