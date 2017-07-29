@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mastodon: Postgresqlのバックアップ
+title: 'Mastodon: Postgresqlのバックアップ'
 date: '2017-07-29T12:03:42+09:00'
 categories:
 - Mastoson
