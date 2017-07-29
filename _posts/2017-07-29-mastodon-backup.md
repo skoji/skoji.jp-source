@@ -14,7 +14,8 @@ categories:
 
 ```
 archive_mode = on
-archive_command = 'test ! -f /home/mastodon/backup/postgres-wal/%f && cp %p /home/mastodon/backup/postgres-wal/%f'      ```
+archive_command = 'test ! -f /home/mastodon/backup/postgres-wal/%f && cp %p /home/mastodon/backup/postgres-wal/%f'
+```
 
 ## pg_basebackを使うための設定
 
