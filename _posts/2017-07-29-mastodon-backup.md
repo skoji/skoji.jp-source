@@ -3,7 +3,7 @@ layout: post
 title: 'Mastodon: Postgresqlのバックアップ'
 date: '2017-07-29T12:03:42+09:00'
 categories:
-- Mastoson
+- Mastodon
 ---
 
 ありがたいことに[本の虫](https://bookwor.ms)使っていただいている。ひとさまに使っていただいているからには、ちゃんとバックアップが必要だ。手動でDBバックアップはとっていたのだけれども、それだと不安もあるので自動化した。
