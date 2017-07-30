@@ -19,10 +19,10 @@ archive_command = 'test ! -f /home/mastodon/backup/postgres-wal/%f && cp %p /hom
 
 ## pg_basebackを使うための設定
 
-まず、`/etc/postgresql/9.5/main/postgresql.conf` を編集して、`max_wal_senders`を1以上の値にする。
+まず、`/etc/postgresql/9.5/main/postgresql.conf` を編集して、`max_wal_senders`を2以上の値にする。
 
 ```
-max_wal_senders = 1
+max_wal_senders = 2
 ```
 
 それから、`pg_hba.conf`を編集して、localからのreplicationを許可する。
@@ -43,10 +43,12 @@ local   replication     postgres                                peer
 set -u
 DATE_STRING=$(date -u '+%Y-%m-%d-%H%M%S')
 TMP_DIR=$(mktemp -d)
-pg_basebackup -D $TMP_DIR -z --format=tar && \
+pg_basebackup -D $TMP_DIR --xlog-method=stream && \
+  cd $TMP_DIR && tar cfz base.tar.gz * && \
+  cd /tmp && \
   s3cmd put $TMP_DIR/base.tar.gz "s3://bookworms-backup/postgres/base-$DATE_STRING.tar.gz" &&\
-    cp $TMP_DIR/base.tar.gz /home/mastodon/backup/postgres/base-$DATE_STRING.tar.gz &&\
-      rm -rf $TMP_DIR 
+  cp $TMP_DIR/base.tar.gz /home/mastodon/backup/postgres/base-$DATE_STRING.tar.gz &&\
+  rm -rf $TMP_DIR 
 ```
 
 ## wal backupのスクリプト
@@ -68,9 +70,13 @@ cd /tmp && rm -rf $TMP_DIR
 ## cron
 
 ユーザ `postgres` でcronを設定する。
-base backupを週に一回、wal backupを4時間に一回実施する。
+base backupを毎日1回、wal backupを8時間に一回実施する。
 さらに、/home/mastodon/backup/postgres/の下にある古いファイルを消す。
 
 ```
 find /home/mastodon/backup/postgres -mtime +14 -exec rm -rf {} \; 
 ```
+
+### 変更履歴
+
+2017-07-30 `pg_basebackup`を`--xlog-method=stream`で実行するように変更。頻度を調整。
