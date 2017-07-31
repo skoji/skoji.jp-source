@@ -57,14 +57,25 @@ pg_basebackup -D $TMP_DIR --xlog-method=stream && \
 #/bin/sh
 
 set -u
-DATE_STRING=$(date -u '+%Y-%m-%d-%H%M%S')
-TMP_DIR=$(mktemp -d)
-mv /home/mastodon/backup/postgres-wal/* $TMP_DIR && \
-cd $TMP_DIR && \
-tar cfz wal-$DATE_STRING.tar.gz * && \
-s3cmd put wal-$DATE_STRING.tar.gz "s3://bookworms-backup/postgres/wal-$DATE_STRING.tar.gz" && \
-mv wal-$DATE_STRING.tar.gz /home/mastodon/backup/postgres/ && \
-cd /tmp && rm -rf $TMP_DIR
+
+# check if wal files exists
+RES=$(ls /home/mastodon/backup/postgres-wal)
+if [ $? -ne 0 ]; then
+  echo 'ls failed.' >&2
+    exit 1
+    elif [ -z "$RES" ]; then
+      echo 'no wal files. skip backup.'
+        exit 0;
+        fi
+
+        DATE_STRING=$(date -u '+%Y-%m-%d-%H%M%S')
+        TMP_DIR=$(mktemp -d)
+        mv /home/mastodon/backup/postgres-wal/* $TMP_DIR && \
+        cd $TMP_DIR && \
+        tar cfz wal-$DATE_STRING.tar.gz * && \
+        s3cmd put wal-$DATE_STRING.tar.gz "s3://bookworms-backup/postgres/wal-$DATE_STRING.tar.gz" && \
+        mv wal-$DATE_STRING.tar.gz /home/mastodon/backup/postgres/ && \
+        cd /tmp && rm -rf $TMP_DIR
 ```
 
 ## cron
@@ -80,3 +91,4 @@ find /home/mastodon/backup/postgres -mtime +14 -exec rm -rf {} \;
 ### 変更履歴
 
 2017-07-30 `pg_basebackup`を`--xlog-method=stream`で実行するように変更。頻度を調整。
+2017-07-31 バックアップすべきwalファイルがないときのチェックを追加
