@@ -38,16 +38,17 @@ local   replication     postgres                                peer
 ## base backupのスクリプト
 
 ```
-#/bin/sh
-
-set -u
+et -u
 DATE_STRING=$(date -u '+%Y-%m-%d-%H%M%S')
 TMP_DIR=$(mktemp -d)
-pg_basebackup -D $TMP_DIR --xlog-method=stream && \
-  cd $TMP_DIR && tar cfz base.tar.gz * && \
+mkdir -p $TMP_DIR/base
+mkdir -p $TMP_DIR/dump
+pg_basebackup -D $TMP_DIR/base --xlog-method=stream && \
+pg_dumpall > $TMP_DIR/dump/dump.db && \
+  cd $TMP_DIR && tar cfz backup.tar.gz * && \
   cd /tmp && \
-  s3cmd put $TMP_DIR/base.tar.gz "s3://bookworms-backup/postgres/base-$DATE_STRING.tar.gz" &&\
-  cp $TMP_DIR/base.tar.gz /home/mastodon/backup/postgres/base-$DATE_STRING.tar.gz &&\
+  s3cmd put $TMP_DIR/backup.tar.gz "s3://bookworms-backup/postgres/backup-$DATE_STRING.tar.gz" &&\
+  cp $TMP_DIR/backup.tar.gz /home/mastodon/backup/postgres/backup-$DATE_STRING.tar.gz &&\
   rm -rf $TMP_DIR 
 ```
 
@@ -92,3 +93,4 @@ find /home/mastodon/backup/postgres -mtime +14 -exec rm -rf {} \;
 
 2017-07-30 `pg_basebackup`を`--xlog-method=stream`で実行するように変更。頻度を調整。
 2017-07-31 バックアップすべきwalファイルがないときのチェックを追加
+2017-08-01 `pb_dumpall`も取得する
