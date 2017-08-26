@@ -28,11 +28,11 @@ fcitx-configtool
 ### 起動時のドラム音
 
 音量をmuteにしても、ログイン前には音がでてしまう。
-`/usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml`を書き換える。以下の`false`を`true`に書き換える。
+`/usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml`を書き換える。以下の`true`を`false`に書き換える。
 
 ```
     <key name="play-ready-sound" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Whether to play sound when greeter is ready</summary>
     </key>
 ```
