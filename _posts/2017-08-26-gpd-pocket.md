@@ -40,10 +40,10 @@ fcitx-configtool
 ## GPD Pocket固有
 
 ### fan controlなど
-[gpd-pocket-ubuntu-respin](https://github.com/stockmind/gpd-pocket-ubuntu-respin)に頼った。cloneして、`sudo sh update.sh`
+[gpd-pocket-ubuntu-respin](https://github.com/stockmind/gpd-pocket-ubuntu-respin)に頼った。cloneして、`sudo sh update.sh`でOK。
 fan control以外にも解像度調整などいろいろはいっている。
 
-ただし、GPD Pocket標準ubuntuに適用すると、タッチパネルがさらに回転しておかしなことになる。もとのソースで`gpdtouch.sh`でも、インストールあとに`/usr/local/sbin/gpdtoush`でも、以下の部分を変更する。
+ただし、GPD Pocket標準ubuntuに適用すると、タッチパネルがさらに回転しておかしなことになる。`gpdtouch.sh`で以下の部分を変更する。このファイルは`update.sh`で`/usr/local/sbin/gpdtoush`にコピーされるので、そちらを直接変更してもよい。
 
 ```
 --- a/display/gpdtouch.sh
@@ -67,4 +67,4 @@ fan control以外にも解像度調整などいろいろはいっている。
 
 持ち出し用ssh使える端末としては十分以上。ハードウェアの工作精度は高く、キーボードもこのサイズとしては驚異的な違和感のなさだ。記号類はすこしだけひっかかる。動作にはちょっと不安がある。時々タッチパネルが効かなくなったり、スリープからなかなか復帰しなかったり。
 
-この記事はGPD Pocketで書いてみた。ちょっと不便さはあるものの特に問題はなかった。・
+この記事はGPD Pocketで書いてみた。ちょっと不便さはあるものの特に問題はなかった。
