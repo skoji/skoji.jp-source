@@ -14,7 +14,7 @@ categories:
 
 ### mozc + fcitx
 
-たぶんいちばん標準的な方法。
+たぶんいちばん標準的な日本語入力方法。
 ```
 im-config -n fcitx
 （いったん再起動）
