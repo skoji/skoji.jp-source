@@ -1,10 +1,15 @@
 #!/bin/sh
+set -u
+if [ -z "${EDITOR-}" ]; then
+   echo "should specify EDITOR environment variable." 1>&2
+   exit 1;
+fi
 if [ $# -ne 1 ]; then
    echo "You should specify post title." 1>&2
    exit 1;
 fi
-pushd `dirname $0` > /dev/null
+
+cd `dirname $0`
 post=`bundle exec jekyll post $1 | grep 'New post created' | sed 's/New post created at \(.*\)\./\1/'`
 ruby refine-post.rb $post
-/Applications/MacVim.app/Contents/MacOS/Vim -g $post
-popd > /dev/null
+$EDITOR $post
