@@ -15,6 +15,8 @@ categories:
 
 はまりどころはなかったけれども、わりとめんどくさかったので、メモとして残しておく。
 
+（2017-09-21追記：現時点ではさくらのオブジェクトストレージはおすすめしません。S3を使うほうが無難です。S3への引っ越しは[こちら](https://skoji.jp/blog/2017/08/mastodon-s3-setup.html)に書きました）
+
 ## Ubuntu Server設置
 
 さくらのクラウド上にUbuntu Server 16.04.2 LTSを設置した。シンプルモードで、基本的な設定はさくら任せ。
@@ -183,6 +185,7 @@ SMTP_OPENSSL_VERIFY_MODE=none
 ```
 
 #### メディアアップロード先
+（2017-09-21追記：現時点ではさくらのオブジェクトストレージはおすすめしません。S3を使うのが無難です。S3への引っ越し・設定については[こちら](https://skoji.jp/blog/2017/08/mastodon-s3-setup.html)に書きました）
 
 今回はS3互換のさくらのオブジェクトストレージにした。Mastodonでの使用例は[fnyaさんの記事](http://fnya.cocolog-nifty.com/blog/2017/04/mastodonvps-da0.html)があったおかげではまらずに済んだ。ありがとうございます。
 
