@@ -36,3 +36,4 @@ git diff --word-diff-regex=$'[^\x80-\xbf][\x80-\xbf]*' --word-diff=color 8ae5f..
 
 なお、`git diff --word-diff-regex=.`でも良さそうなものだが、これだと（少なくとも私の環境では）diff部分が文字化けしてしまう。unicodeの文字単位ではなく、byte単位でdiffが取られてしまっているようだ。
 
+GitHubでは`--word-diff-regex`相当の設定はできなさそうで残念。
