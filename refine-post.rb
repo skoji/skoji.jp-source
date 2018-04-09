@@ -1,4 +1,5 @@
 require 'yaml'
+require 'date'
 y = YAML.load File.read(ARGV[0])
 y['date'] = DateTime.now.to_s
 y['categories'] = ['未分類']
