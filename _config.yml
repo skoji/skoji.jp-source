@@ -11,7 +11,7 @@ plugins_dir:
   - jekyll-auto-image
 image: /blog/assets/logo.png
 title: 買い物ログ
-email: skoji@mac.com
+email: skoji@skoji.jp
 description: > # this means to ignore newlines until "baseurl:"
   ねこと酒を愛でるプログラマの日記です。
 baseurl: "/blog" # the subpath of your site, e.g. /blog
