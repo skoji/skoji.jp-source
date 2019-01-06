@@ -1,0 +1,25 @@
+---
+layout: post
+title: MissingSyncで無線LAN HotSync:ファイアウォールの設定方法
+date: 2004-09-25 18:43:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Mac/PC/Palm
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>Missing Sync for PalmOS 4をやっと入れました。これにはいろんな特徴がありますが、ついにMacでも無線LAN経由でHotSync! ってところがよいです。TH55でももちろん使えます<br />
+この無線LANによるHotSyncですが、システム環境設定の共有にある「ファイアウォール」が使用中だと動作しません(ヘルプにひとこと書いておいてほしかったな)。<br />
+ファイアウォールを停止すればもちろんOKなのですが、HotSyncするたびにOFF/ONするのは現実的じゃありません。HotSyncで利用するポートをファイアウォール使用中でも使えるように設定しておけばOKです。<br />
+(1)システム環境設定「ファイアウォール」を開く<br />
+<a href="http://skoji.s91.xrea.com/movabletype/archives/fw1.html" onclick="window.open('http://skoji.s91.xrea.com/movabletype/archives/fw1.html','popup','width=595,height=592,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><img src="http://skoji.s91.xrea.com/movabletype/archives/fw1-thumb.jpg"     border="0" /></a><br />
+(2)「新規...」をクリックする。「ポート名」はその他を選び、「ポート番号の範囲」に14237-14238を設定する。説明は適当にわかりやすいものを。<br />
+<a href="http://skoji.s91.xrea.com/movabletype/archives/fw2.html" onclick="window.open('http://skoji.s91.xrea.com/movabletype/archives/fw2.html','popup','width=495,height=241,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><img src="http://skoji.s91.xrea.com/movabletype/archives/fw2-thumb.jpg"     border="0" /></a></p>

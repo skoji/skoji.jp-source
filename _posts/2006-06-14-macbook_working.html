@@ -1,0 +1,34 @@
+---
+layout: post
+title: MacBookに引っ越しほぼ完了
+date: 2006-06-14 01:10:27.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Mac/PC/Palm
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>こんどはちゃんと動きました。<br />
+PowerBook + VAIOの環境をMacBookにほぼ引っ越せたかな。<br />
+世の中的に興味があるひとがいるかもしれないネタについて軽くかいておきます。</p>
+<h4>Parallels Desktop RC2</h4>
+<p><span class="note">クリックで拡大します</span><br />
+<a href="/migrated/movabletype/parallels.html"><img src="/migrated/movabletype/parallels-thumb.png"     alt="" /></a><br />
+ってすでに情報あふれてると思われますが。IntelMacのMacOS上で動作する仮想マシンです。WindowsでもLinuxでも動作しますが、ユーザーランドでは普通のunixとして使えるMacOSにLinuxを入れるメリットは私にとってはあまりありません。<br />
+というわけでParallels Desktop + Windows XP SP2を入れてみました。大変快適に動作します。感覚的には私が使っているVAIO type T (Pentium M 1.1GHz)よりも下手すると速いのではないかというくらいです。</p>
+<h4>AIR EDGE</h4>
+<p>おでかけ通信手段としてwillcomのAIR EDGEなPCカード型を使っているのですが、MacBookにはPCカードスロットがありません。<br />
+Bluetooth接続で<a href="http://www.willcom-inc.com/ja/lineup/wx/310k/">京ぽん2</a>を使うとか、USBで<a href="http://www.willcom-inc.com/ja/lineup/ws/002in/index.html">DD</a>を使うとかあるんですが、機種変更はまだ高い期間(前のPCカード型AIR EDGEを買ってから10ヶ月たってない)で、しかももうすぐwillcom夏モデルが出るという話もあります。<br />
+というわけでいろいろ調べた結果、IOデータのUSB-PCカードアダプタ<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B0009XOZ4K/kaimonolog-22/ref=nosim/" target="_blank">USB2-PCADPG</a>を買いました。willcomのサイトには「Intel Macには非対応」って明記してあるんですが、どうやら動作報告がたくさんあるようですし、そもそもMacOS 10.4にはこのアダプタとほとんど同じUSB2-PCADP用のモデム情報ファイルが標準で入っています。<br />
+1万と安くはない買い物なのでちょっとどきどきしましたが(そりゃMacBook本体に比べれば安いですが)、結果的には何の問題もなく使えました。<br />
+<span class="note">2006.6.15 追記</span><br />
+ParallelsのデフォルトネットワークはEthernet Bridgeですが、それだとダイアルアップなAIR EDGEではguest OSからネットワークにつながりません。でもParallelsをただHost Onlyにすると外のネットワークにつながりません。<br />
+ParallelsをHost Onlyにして「インターネット共有」でそのときアクティブな接続をParallelsの仮想アダプタに共有させればAIR EDGEでもguest OSから外につながるようにできます。コントロールパネルで共有先を切り替えなきゃいけないのがちとめんどくさいですが、でもまあVMの再起動は不要なのでこれが一番いいかなー。</p>

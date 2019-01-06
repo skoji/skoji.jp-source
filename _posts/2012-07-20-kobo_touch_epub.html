@@ -1,0 +1,33 @@
+---
+layout: post
+title: kobo Touch + EPUB3の驚くべき動作
+date: 2012-07-20 05:45:34.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 電書
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>昨日リリースされた kobo Touch。そしてそれにあわせて、実機確認もせずにリリースした<a href="http://www.skoji.jp/movabletype/2012/07/post_416.html">コボルタル</a>。<br />
+いろいろ問題が報告されました(ありがとうございます)</p>
+<ul>
+<li>文字化け → フォント設定で回避</li>
+<li>カッコの表示ずれ</li>
+<li>h1直後の大きな行空き</li>
+<li>縦書きなのに左開きの動作</li>
+<li>イメージずれ</li>
+</ul>
+<p>これは先が長いぞ−、とおもったらなんと。<br />
+<strong>ファイル名をkoborutaru_1.epubからkoborutaru_1.kepub.epubに変更するだけ</strong>で、上記の問題は全部解決してしまうのです。<br />
+詳細はよく分かりませんが、<strong>ファイル名でEPUBのレンダリングエンジンを切り替えている</strong>のではないかと推測しています。なんじゃそりゃー!<br />
+これまでと互換性を保ちつつ、EPUB3対応するための苦肉のquick and dirty hackなのだろうけれど、ファイル名使うというのはなんというかアレだなあ...。<del>せめて、META-INFの下にkobo用のファイルを置く、くらいにしてほしかったなあ</del> ← EPUBバージョンパースするところまで頑張って、3.0なら新しいレンダリングエンジン、くらいはやっぱりやってほしかった<br />
+(2012/7/20 7:40追記)<br />
+kepubじゃないEPUBをkoboにつっこんで読むと、Digital Editions ってディレクトリがkoboのストレージ内にできる。アノテーションとか入るもよう。ってことはkepubじゃないEPUBはAdobeのエンジンでレンダリングしているのじゃないかなあ</p>

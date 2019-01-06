@@ -1,0 +1,24 @@
+---
+layout: post
+title: Movable Type 3.121-jaで気づいた細々とした問題
+date: 2005-01-25 07:57:24.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- blog設定
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>整理できたらまとめてシックスアパートにメールするつもりですがとりあえずここにメモしておきます。</p>
+<h2>コメントの改行が反映されない</h2>
+<p>個別エントリアーカイブをダイナミックページにしていると、「コメントのテキストフォーマット」を「改行を変換する」としていても、&lt;br&gt;タグが挿入されません。&lt;p&gt;タグは入っています。</p>
+<h2>remove_htmlが効かないときがある</h2>
+<p>サイドバーの「最近のコメント」は、MTCommentBodyに対してtrim_toとかremove_htmlを使っているのですが、htmlタグが削除されたりされなかったり。条件はわかっていません。<br />
+あとは英語メッセージと日本語メッセージの対応が2箇所(lib/MT/L10N/ja.pmとphp/lib/ja.php)にあったりするのも気になりますが、これはスタティックページ用とダイナミックページ用でわけているのでしょうね。翻訳が食い違っているのはやはり気になりますが:)</p>

@@ -1,0 +1,46 @@
+---
+layout: post
+title: WILLCOM wx340kからiPhoneへのアドレス帳移行
+date: 2012-01-08 07:56:44.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- 休むに似たり
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>某所でお手伝いしたら予想以上に手間取りました。同じようにはまるかもしれない方のためにメモを残しておきます。</p>
+<h4>使ったソフトウェア</h4>
+<ul>
+<li>Windows 7</li>
+<li>MacOS X Lion</li>
+<li><a href="http://www.willcom-inc.com/ja/support/download/h_tonya/">H"問屋 Windows版</a></li>
+<li><a href="http://www.kyocera.co.jp/prdct/telecom/consumer/wx340k/usb/">wx340k Windows7 USBドライバ</a></li>
+<li>MacOS X アドレス帳</li>
+<li>MacOS X iTunes</li>
+</ul>
+<h4>手順</h4>
+<ol>
+<li>Windows 7にwx340kのUSBドライバを入れる</li>
+<li>Windows 7にH"問屋を入れる</li>
+<li>H"問屋にwx340kのアドレス帳を取り込む</li>
+<li>H"問屋からcsvにアドレス帳を書き出す</li>
+<li>iPhoneと同期予定のMacOS Xのアドレス帳にcsvをインポートする</li>
+<li>MacOS XにiPhoneを同期する</li>
+</ol>
+<p>簡単なんですが、MacでiPhone使いたいのにWindowsが必要なのがハードルです。Windowsユーザなら問題ないですね、たぶん。</p>
+<h4>試行錯誤の歴史</h4>
+<p>まとめると上記のように簡単なんですが、そこまでに3つはまりました。<br />
+まず、wx340kでアドレス帳をmicroSDにバックアップしてみました。KBFとかいう変なファイルが出来てしまい、どこにも取り込めません。京セラのWILLCOM端末でしか読めないらしい。<br />
+次に、Windows7にwx340k附属ソフトをいれようとしました。「このOSはサポートしていません」といわれて先にすすめません。<br />
+Macに京ぽんUSBドライバと京ぽんユーティリティを入れてみました。インストールはできたのですが、wx340kが認識できません。<br />
+ほぼ同じアドレス帳がはいっているwx310saもあったので、そちらも試そうとしましたが似たような状況です。<br />
+随分前に開発終了しているH"問屋をダメもとで試してみたらなんと動くではありませんか。ここで、Windowsの偏執狂的な互換性重視に助けられました。Mac版H"問屋はMacOS 9にしか対応していないので全く動作しないのです。<br />
+おしまい。</p>

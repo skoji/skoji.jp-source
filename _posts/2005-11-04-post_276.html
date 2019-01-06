@@ -1,0 +1,44 @@
+---
+layout: post
+title: カテゴリ・アーカイブをページ分割しました
+date: 2005-11-04 12:35:21.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- blog設定
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>このブログでは右のカテゴリーからたとえば「料理」を選ぶと、「料理」カテゴリーの記事がぜーんぶ一度に表示されてました。</p>
+<p>しかし「料理」カテゴリの記事は100個を超えていていくらなんでもあんまりだなあ。ということで5記事づつ表示するように変更しました。同じ方法を使って、カテゴリなしの場合もインデックスページから5記事づつページめくりで記事を辿っていけるようにしました。</p>
+<p>以下、設定内容についてメモです。</p>
+<p><!--more--></p>
+<p>Movable Typeでのページ分割については、<a href="http://www.nonplus.net/software/mt/MTPaginate.htm">MTPaginate</a>というプラグインがあります。しかしこのプラグインはダイナミックページではうまく動作しません。このブログでは<a href="http://www.skoji.jp/movabletype/2004/12/movabletype_1.html">サイドバー設定の都合で</a>ダイナミックページを使っていますのでMT Paginateは使えません。対応する気配もないので困ったいていたのですが、こんな記事をみつけました。</p>
+<blockquote><p><a href="http://jayseae.cxliv.org/2005/03/31/pagination_using_smarty.html">Don't Back Down - Pagination Using Smarty</a></p></blockquote>
+<p>ふむふむ。そもそもMovableTypeでダイナミック・ページを実現するのに使われているSmartyには、ページ分割表示できる能力があるわけですな。この記事を参考にして(というかほぼパクって)いまは次のようにしています。</p>
+<p>表示するエントリー数の指定は次のようにしています。</p>
+<blockquote class="codesource"><p>&lt;MTEntries lastn=&quot;5&quot; offset=&quot;`$smarty.request.offset`&quot;&gt;</p></blockquote>
+<p>そしてカテゴリーアーカイブページの上下には次のようなコードをいれて、ページナビゲーションできるようにしています。</p>
+{% raw  %}
+<blockquote class="codesource"><p>&lt;p&gt;<br />
+{{capture assign=&quot;count&quot;}}&lt;$MTCategoryCount$&gt;{{/capture}}<br />
+{{if $smarty.request.offset &gt; 0}}<br />
+&lt;a href=&quot;?offset={{math equation=&quot;max(x-5,0)&quot; x=$smarty.request.offset}}&quot;&gt;&amp;laquo; より最近のページ<br />
+&lt;/a&gt; | &lt;a href=&quot;?offset=0&quot;&gt;最新のページ&lt;/a&gt;<br />
+{{/if}}<br />
+{{if $smarty.request.offset &lt; $count-5}}<br />
+{{if $smarty.request.offset &gt; 0}}<br />
+|<br />
+{{/if}}<br />
+&lt;a href=&quot;?offset={{$smarty.request.offset+5}}&quot;&gt;より過去のページ &amp;raquo;&lt;/a&gt;<br />
+{{/if}}<br />
+&lt;/p&gt;</p></blockquote>
+{% endraw %}
+<p>offset=記事数じゃなくてページ番号にして、あとはページ番号を直接クリックできるようにしたいと思っています</p>

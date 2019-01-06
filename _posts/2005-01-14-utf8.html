@@ -1,0 +1,22 @@
+---
+layout: post
+title: 文字コードをUTF-8に変更しました
+date: 2005-01-14 15:08:00.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- blog設定
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>当ブログはあまり考えずにShiftJISの設定で設置してしまったのですが、RSSリーダが対応してなかったりトラックバックが文字化けしたりしてちょっとめんどくさいことになっていました。<br />
+そこで<a title="drifting blog by snotch: movabletype 文字コード変更スクリプト" href="http://bloggers.ja.bz/sunouchi/archives/000078.php">drifting blog by snotch: movabletype 文字コード変更スクリプト</a>を使わせていただいてUTF-8に変更してみました。<br />
+設置してあるサーバ(xrea)上ではpassthruでmysqlとかmysqldumpが実行できないようなので、このスクリプトで生成されたsqlクエリのテキストファイルをxreaが用意しているphpmyadminに突っ込んでデータベースの内容を置き換えました。それからmt.cfgの設定を変更してできあがり。こんなに簡単にできるとは実にありがたいスクリプトです。<br />
+文字化けしている場所があったらお知らせください。</p>
