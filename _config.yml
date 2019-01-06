@@ -10,10 +10,10 @@ plugins_dir:
   - _plugins
   - jekyll-auto-image
 image: /blog/assets/logo.png
-title: 買い物ログ 別館
+title: 買い物ログ
 email: skoji@mac.com
 description: > # this means to ignore newlines until "baseurl:"
-  Satoshi Kojima. A programmer. Loves cats, beer and MMFR.
+  ねこと酒を愛でるプログラマの日記です。
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://skoji.jp"
 timezone: Asia/Tokyo
@@ -50,6 +50,24 @@ category_slug_map:
     電子書籍: "電子書籍"
     Rust: "Rust"
     Mastodon: "Mastodon"
+    11日: "11"
+    Mac/PC/Palm: macpalm
+    blog設定: mt-wp
+    お酒: drink
+    クルマ・バイク: car-motorcycle
+    ソフトウェア: software
+    ネタ: ネタ
+    休むに似たり: thinkbaka
+    写真: photo
+    料理: cooking
+    日常: day
+    映画: movies
+    未分類: nocategry
+    本: books
+    買い物: kaimono
+    電書: ebooks
+    音楽: music
+    目標: resolution
 jekyll-archives:
   enabled: [month, categories]
   layouts:

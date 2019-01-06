@@ -1,0 +1,36 @@
+---
+layout: post
+title: 最近のコメント
+date: 2005-01-05 21:39:12.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- blog設定
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<p>なんとなく気がむいたので、サイドバーにある「最近のコメント」のテンプレートをいじくりまわしていたらこんな時間です。</p>
+<p>おなかがすきました。今日はちゃんとごはんつくろうとおもってたんだけどどうしようかな。</p>
+<p>いじくりまわした結果はこんなです。</p>
+<blockquote class="codesource"><p>
+&lt;h2&gt;最近のコメント&lt;&#47;h2&gt;<br />
+&lt;ul&gt;<br />
+&lt;MTEntries recently_commented_on=&quot;6&quot; &gt;<br />
+&#9;&lt;li&gt;&lt;a href=&quot;&lt;$MTEntryPermalink$&gt;&quot;&gt;&lt;$MTEntryTitle$&gt;&lt;&#47;a&gt;&lt;br &#47;&gt;<br />
+&#9;  &lt;MTComments lastn=&quot;5&quot;&gt;<br />
+&#9;&#9;　└ &lt;a href=&quot;&lt;$MTEntryPermalink$&gt;#c&lt;$MTCommentID$&gt;&quot;&gt; <br />
+&lt;$MTCommentBody trim_to=&quot;14&quot; strip_linefeeds=&quot;1&quot;<br />
+remove_html=&quot;1&quot; sprintf=&quot;&#37;s...&quot;&gt;&lt;&#47;a&gt;&lt;br &#47;&gt;<br />
+&lt;div align=&quot;right&quot;&gt;by &lt;$MTCommentAuthor$&gt; at <br />
+&lt;$MTCommentDate format=&quot;&#37;Y.&#37;m.&#37;d&quot;$&gt;&lt;br &#47;&gt;&lt;&#47;div&gt;<br />
+&#9;&lt;&#47;MTComments&gt;&lt;&#47;li&gt;<br />
+&lt;&#47;MTEntries&gt;<br />
+&lt;&#47;ul&gt;
+</p></blockquote>

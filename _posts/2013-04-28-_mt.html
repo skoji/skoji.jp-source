@@ -1,0 +1,46 @@
+---
+layout: post
+title: 'メモ: MT引っ越し作業でやったこと'
+date: 2013-04-28 06:29:55.000000000 +09:00
+type: post
+published: true
+status: publish
+categories:
+- Mac/PC/Palm
+- blog設定
+tags: []
+meta: {}
+author:
+  login: skoji
+  email: skoji@mac.com
+  display_name: skoji
+  first_name: ''
+  last_name: ''
+---
+<ul>
+<li>サーバ引っ越し (MySQL 4.xから5.xのため) 
+<ul>
+<li>データはmysqldumpで引っ越し。もともとのDBは、設定はEUC-JPだが内容はutf-8だった。新規DBはutf-8出設定</li>
+</ul>
+</li>
+<li>MT5へのアップグレード・できあいのテンプレート適用
+<ul>
+<li>もとからのカスタムテンプレートは全く使い物にならなかった。追求するのも時間が惜しかった</li>
+</ul>
+</li>
+<li>テンプレートの変更
+<ul>
+<li>スタイルシートを多少上書き
+<ul>
+<li>(ヘッダバナーと、エントリメタデータ)</li>
+</ul>
+</li>
+<li>MTEntryMoreを出す条件を変更(あるときだけ出す)</li>
+<li>カテゴリーをサブカテゴリーも表示するように変更</li>
+<li>tweetとlikeを、ブログ記事テンプレートと記事概要テンプレートに埋め込み</li>
+<li>記事Permalinkはハイフンをつかわずアンダースコアを使う形式に(過去そうしていたので)</li>
+<li>atom.xmlをatom-src.xmlに変更 (FeedBurner関連。atom.xmlはFeedBurnerにリダイレクトしてる)</li>
+</ul>
+</li>
+</ul>
+<p>いまのところは以上。</p>
