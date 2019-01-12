@@ -2,11 +2,8 @@
 layout: default
 ---
 <h1>カテゴリー: {{ page.title }}</h1>
-<ul class="posts">
+<ul class="post-list">
   {% for post in page.posts %}
-    <li>
-      <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-    </li>
+  {% include post-item.html %}
   {% endfor %}
 </ul>
