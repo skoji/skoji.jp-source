@@ -4,7 +4,7 @@
           {{ post.title }}
         </h2>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-	{% if post.image %}
+	{% if post.image and post.image != "/blog/assets/logo.png" %}
 	<img class="excerpt-img" src="{{ post.image }}" alt=" " />
 	{% endif %}
         <p>{{ post.excerpt | strip_html | truncate: 70, "..." }}</p>
