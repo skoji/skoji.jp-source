@@ -1,5 +1,5 @@
+      <a class="post-list-link" href="{{ post.url | prepend: site.baseurl }}">
       <li class="post-item">
-	<a class="post-list-link" href="{{ post.url | prepend: site.baseurl }}">
         <h2>
           {{ post.title }}
         </h2>
@@ -8,5 +8,5 @@
 	<img class="excerpt-img" src="{{ post.image }}" alt=" " />
 	{% endif %}
         <p>{{ post.excerpt | strip_html | truncate: 70, "..." }}</p>
-	</a>
       </li>
+      </a>
