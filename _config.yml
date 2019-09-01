@@ -8,7 +8,7 @@
 # Site settings
 plugins_dir:
   - _plugins
-gems:  
+plugins:
   - jekyll-auto-image
 image: /blog/assets/logo.png
 title: 買い物ログ
