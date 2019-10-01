@@ -1,8 +1,10 @@
 require 'yaml'
 require 'date'
-y = YAML.load File.read(ARGV[0])
+file = ARGV[0].gsub(/\e\[\d{1,3}[mK]/, '')
+y = YAML.load File.read(file)
 y['date'] = DateTime.now.to_s
 y['categories'] = ['未分類']
-File.write ARGV[0], YAML.dump(y) + "---\n"
+File.write file, YAML.dump(y) + "---\n"
+puts file
 
 
