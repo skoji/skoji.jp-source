@@ -12,7 +12,7 @@ categories:
 
 テーマなしのひとりアドベントカレンダーの初回。
 
-[gepub](https://github.com/skoji/gepub)ではずっと[Travis CI](https://travis-ci.org)でCIしていたが、[GitHub Actions](https://help.github.com/ja/actions)に移行してみた。
+[gepub](https://github.com/skoji/gepub)ではずっと[Travis CI](https://travis-ci.org)でCIしていたが、[GitHub Actions](https://help.github.com/ja/actions)に[移行](https://github.com/skoji/gepub/pull/88)してみた。
 
 1. ActionsのNew workflowsから、Ruby　Gemを指定して生成
 2. GitHub Packages Repositoryは今まで使っていなかったので、[Personal access tokens](https://github.com/settings/tokens)から、GitHub Package Repository用のtokenを作成。権限は`read:packages`と`write:packages`。
@@ -26,4 +26,3 @@ categories:
 これでGitHub Actionsでテストが走り、されにこれまで`rake release`でやっていたリリースがリリースタグつけてpushで実行されるようになった。GitHub Packages Repositoryにもpushするようになった。
 
 今のところ、Travis CIよりもそれなりに高速に動いていて良い。残念ながらGitHub Actionsでは、`skip ci`などのコミットメッセージによる実行制御はできないようだ。
-
