@@ -16,7 +16,7 @@ jobs:
         PORT: ${{ secrets.DEPLOY_PORT }}
       run: |
         eval `ssh-agent -s`
-        echo "${DEPLOY_KEY}" > keyfile
+        echo "${DEPLOY_KEY}" > keyfile && chmod 600 keyfile
         ssh-add keyfile
         bundle install
         bundle exec rake build
