@@ -23,8 +23,8 @@ categories:
 7. READMEにGitHub Actions Testの[バッジを追加](https://github.com/skoji/gepub/pull/88/files#diff-04c6e90faac2675aa89e2176d2eec7d8R4)
 8. `.travis.yml`を削除
 
-これでGitHub Actionsでテストが走り、されにこれまで`rake release`でやっていたリリースがリリースタグつけてpushで実行されるようになった。GitHub Packages Repositoryにもpushするようになった。
+これでGitHub Actionsでテストが走り、さらにこれまで`rake release`でやっていたリリースがリリースタグつけてpushで実行されるようになった。GitHub Packages Repositoryにもpushするようになった。
 
 今のところ、Travis CIよりもそれなりに高速に動いていて良い。残念ながらGitHub Actionsでは、`skip ci`などのコミットメッセージによる実行制御はできないようだ。
 
-追記：このブログのdeployもGitHub Actionsに変えました。
+追記：このブログのdeployもGitHub Actionsに[変えた](https://github.com/skoji/skoji.jp-blog/pull/3)。
