@@ -26,3 +26,5 @@ categories:
 これでGitHub Actionsでテストが走り、されにこれまで`rake release`でやっていたリリースがリリースタグつけてpushで実行されるようになった。GitHub Packages Repositoryにもpushするようになった。
 
 今のところ、Travis CIよりもそれなりに高速に動いていて良い。残念ながらGitHub Actionsでは、`skip ci`などのコミットメッセージによる実行制御はできないようだ。
+
+追記：このブログのdeployもGitHub Actionsに変えました。
