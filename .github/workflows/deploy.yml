@@ -9,16 +9,16 @@ jobs:
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
       with:
-        version: 2.6.x
+        ruby-version: 2.6.x
     - name: deploy to skoji
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
       run: |
+        eval `ssh-agent -s`
+        ssh-add "${DEPLOY_KEY}"
         bundle install
         bundle exec rake build
-        eval `ssh-agent -s`
-        ssh-add - <<< "${DEPLOY_KEY}"
         rsync -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" -r -vz _site/ nginx-user@skoji.jp:/usr/share/nginx/html/blog/
         
         
