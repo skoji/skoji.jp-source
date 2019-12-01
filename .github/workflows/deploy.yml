@@ -16,7 +16,7 @@ jobs:
         PORT: ${{ secrets.DEPLOY_PORT }}
       run: |
         eval `ssh-agent -s`
-        ssh-add "${DEPLOY_KEY}"
+        echo "${DEPLOY_KEY}" | ssh-add -
         bundle install
         bundle exec rake build
         rsync -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" -r -vz _site/ nginx-user@skoji.jp:/usr/share/nginx/html/blog/
