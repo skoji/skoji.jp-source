@@ -6,7 +6,7 @@ categories:
 - 猫
 ---
 
-<img src='/blog/images/2019-12-02-azuki-head.jpg' alt='azuki in a Tote' style="width: 50%" />
+<img src='/blog/images/2019-12-02-azuki-head.jpg' alt='azuki in a Tote' style="width: 85%" />
 
 あずきが亡くなってからきょうで一年になる。心筋症と診断されてから半年弱の間はとくに症状が無かったのが、急変して肺水腫をおこした。3日間の短い闘病だった。5歳10ヶ月だった。
 
