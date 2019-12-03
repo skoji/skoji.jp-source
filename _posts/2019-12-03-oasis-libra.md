@@ -8,7 +8,7 @@ categories:
 - ひとりアドベントカレンダー
 ---
 
-テーマなしひとりアドベントカレンダー、今日はKindle OasisとKobo Libra H2Oの比較。
+テーマなしひとりアドベントカレンダー、今日は[Kindle Oasis](https://amzn.to/2DIkk3m)と[Kobo Libra H2O](https://books.rakuten.co.jp/event/e-book/ereaders/kobolibra/)の比較。
 
 使い勝手の比較を真面目にやろうとすると、ステップを踏んで写真を撮って比較して、とやっているととても1日では書き終わらない。文章だけで、ざっくりした比較をまずは書いてみる。写真などが不足していてわかりづらいところもあるけれど、徐々に追加していく（かもしれない）。
 
