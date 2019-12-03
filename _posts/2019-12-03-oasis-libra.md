@@ -15,7 +15,7 @@ categories:
 ![Oasis and Libra H2O](/blog/images/oasis-libra.jpg)
 
 日本で今専用の読書端末を提供している電子書籍サービスは、Amazon Kindleと楽天Koboだけだ。
-私は両方のサービスを使っていて、両方の端末を持っている。今は、Kindle Oasis（2019年モデル）と、Kobo Libra H2Oだ。
+私は両方のサービスを使っていて、両方の端末を持っている。今使っているのはKindle Oasis（2019年モデル）と、Kobo Libra H2Oだ。
 
 Kindle Oasisは広告付きで29,980円・広告なしで31,980円から、Kobo Libra H2Oは25,080円のいちモデル（Koboの端末には広告付きの物は今のところない）で、価格帯がちょっとずれている。本来は直接比較するモデルではないだろう。
 
