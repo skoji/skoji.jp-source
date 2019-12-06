@@ -2,7 +2,7 @@
 layout: post
 title: 『エターナル・フレイム』
 date: '2017-01-28T00:03:06+09:00'
-image: 'http://www.hanmoto.com/bd/img/9784153350281_400.jpg'
+image: 'https://www.hanmoto.com/bd/img/9784153350281_400.jpg'
 categories:
 - 本
 ---
