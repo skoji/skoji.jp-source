@@ -16,7 +16,7 @@
       <div class="trigger">
         <a class="page-link" href="https://skoji.jp">skoji.jp</a>
         {% for my_page in site.pages %}
-          {% if my_page.title %}
+          {% if my_page.title and my_page.autogen == nil and my_page.path != 'index.html' %}
           {% unless my_page.path contains "category" %}                  
         <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
           {% endunless %}
