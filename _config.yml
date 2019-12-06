@@ -12,7 +12,7 @@ plugins:
   - jekyll-auto-image
   - jekyll-paginate-v2
 image: /blog/assets/logo.png
-include: ['_pages']
+incremental: true
 pagination:
   enabled: true
   per_page: 60
