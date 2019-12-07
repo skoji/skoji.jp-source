@@ -7,7 +7,8 @@
   const scroller = document.getElementById('scroller');
   const page_positions = [];
   let home;
-
+  const title_base = "{{ site.title }}";
+  
   window.onload = () => {
     page_positions[current_page] = window.pageYOffset;
     home = document.getElementsByClassName('home')[0];    
@@ -39,11 +40,18 @@
   const on_scroll = () => {
     const page = binary_search_pos(window.pageYOffset, Math.floor(page_positions.length / 2), 0, page_positions.length -1);
     let path = '/blog/page-' + page + '/';
-    if (page == 1)
+    let title = title_base + ' - page ' + page;
+    if (page == 1) {
       path = '/blog/'
+      title = title_base;
+    }
     if (current_page != page) {
       current_page = page;
       history.pushState({page: page}, '', path);
+      const titles = document.getElementsByTagName('title');
+      if (titles && titles.length > 0) {
+        titles[0].innerText = title;
+      }
     }
   };
 
