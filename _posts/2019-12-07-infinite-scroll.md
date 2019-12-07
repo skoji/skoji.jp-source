@@ -30,7 +30,7 @@ fetchして追加のコードをリファクタしつつ、[UIにボタンを追
 
 ### Window内でのページ位置を覚える
 
-`pushState`の準備として、どのへんにどのページがあるかを[おぼえさせた](https://github.com/skoji/skoji.jp-blog/pull/4/commits/8fc368c9dfc5217208a1de543fed09c625c5d559)。（最終的なコードではこのコミットからさらに変更している）
+`pushState`の準備として、どのへんにどのページがあるかを[おぼえさせた](https://github.com/skoji/skoji.jp-blog/pull/4/commits/8fc368c9dfc5217208a1de543fed09c625c5d559)。
 
 ### 途中ページが最初からロードされたら、その前のページを読み込む
 
@@ -38,7 +38,7 @@ fetchして追加のコードをリファクタしつつ、[UIにボタンを追
 
 ### Scrollして、ページ移動したらpushStateする
 
-スクロール位置によって、[pushStateでURLを書き換える](https://github.com/skoji/skoji.jp-blog/pull/4/commits/244dc9d08b77f8ae7de3b56d40d14435178db238)。その前のコードに色々問題があり、ここがいちばんてこずった。
+スクロール位置によって、[pushStateでURLを書き換える](https://github.com/skoji/skoji.jp-blog/pull/4/commits/244dc9d08b77f8ae7de3b56d40d14435178db238)。
 
 ### 今後の課題
 
