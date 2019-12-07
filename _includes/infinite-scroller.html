@@ -6,30 +6,41 @@
   const total_pages = {{ paginator.total_pages }};
   const scroller = document.getElementById('scroller');
   const page_positions = {};
-  
+  let home;
   window.onload = () => {
     page_positions[current_page] = window.pageYOffset;
+    home = document.getElementsByClassName('home')[0];    
     if (next_page) {
       scroller.style.display = 'block';
       scroller.onclick = () => {
         read_more();
       };
     }
+    if (previous_page) {
+      
+    }
   };
 
-  const read_more = () => {
-    if (next_page) {
-      fetch('/blog/page-' + next_page).then(response => {
+  const load_page = (page) => {
+    return fetch('/blog/page-' + page).then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
         return response.text();
       }).then(text => {
         const content = new DOMParser().parseFromString(text, "text/html");
-        const post_list = content.documentElement.getElementsByClassName('post-list');
-        const home = document.getElementsByClassName('home')[0];
+        const post_list =  content.documentElement.getElementsByClassName('post-list');
         if (post_list && post_list.length > 0) {
-          const next = post_list[0];
+          return post_list[0]
+        } else {
+          throw Error('no post in page');
+        };
+      });      
+  }
+  
+  const read_more = () => {
+    if (next_page) {
+      load_page(next_page).then((next) => {
           home.appendChild(next);
           const rect = next.getBoundingClientRect();
           page_positions[next_page] = window.pageYOffset + rect.top - 400; // ad-hoc
@@ -40,7 +51,6 @@
             next_page = undefined
             scroller.style.display = 'none';            
           }
-        }
       });
     }
   };
