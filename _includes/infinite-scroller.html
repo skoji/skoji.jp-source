@@ -5,7 +5,7 @@
   let next_page = Number("{{ paginator.next_page }}");
   const total_pages = {{ paginator.total_pages }};
   const scroller = document.getElementById('scroller');
-  const page_positions = {};
+  const page_positions = [];
   let home;
 
   window.onload = () => {
@@ -19,16 +19,47 @@
     }
     if (previous_page) {
       let pos = window.pageYOffset;
+      const this_page_posts = document.getElementsByClassName('post-list')[0];
       load_previous(previous_page, []).then((elements) => {
         elements.forEach((prev) => {
-          home.prepend(prev.elem);
+          home.insertBefore(prev.elem, this_page_posts);
           const rect = prev.elem.getBoundingClientRect();
           pos = pos + rect.height + 15; // hard coded margin
           store_position(prev.page, prev.elem);
         });
         window.scrollTo(0, pos);
+        window.onscroll = on_scroll;
+        page_positions[current_page] = window.pageYOffset;
       });
-    };
+    } else {
+      window.onscroll = on_scroll;
+    }
+  };
+
+  const on_scroll = () => {
+    const page = binary_search_pos(window.pageYOffset, Math.floor(page_positions.length / 2), 0, page_positions.length -1);
+    let path = '/blog/page-' + page;
+    if (page == 1)
+      path = '/blog/'
+    if (current_page != page) {
+      current_page = page;
+      history.pushState({page: page}, '', path);
+    }
+  };
+
+  const binary_search_pos = (pos, index, start, end) => {
+    if (index == end)
+      return index;
+    if (pos >= page_positions[index] && pos <= page_positions[index + 1]) {
+      return index;
+    }
+    if (pos < page_positions[index]) {
+      if (index == start) {
+        return pos;
+      }
+      return binary_search_pos(pos, start + Math.floor((index - start) / 2), start, index);
+    }
+    return binary_search_pos(pos, index + Math.ceil((end - index) / 2), index, end);
   };
 
   const load_previous = (page, elements) => {
@@ -36,7 +67,7 @@
       return Promise.resolve(elements);
     }
     return load_page(page).then((prev) => {
-      elements.push({page: page, elem:prev});
+      elements.unshift({page: page, elem:prev});
         return load_previous(page - 1, elements);
     });
   };
@@ -67,7 +98,7 @@
 
   const store_position = (page, element) => {
     const rect = element.getBoundingClientRect();
-    page_positions[page] = window.pageYOffset + rect.top - 400; // ad-hoc
+    page_positions[page] = window.pageYOffset + rect.top;
   };
   
   const read_more = () => {
@@ -75,8 +106,7 @@
       load_page(next_page).then((next) => {
         home.appendChild(next);
         store_position(next_page, next);
-        current_page += 1;
-        if (current_page < total_pages) {
+        if (next_page < total_pages) {
           next_page += 1;
         } else {
           next_page = undefined
