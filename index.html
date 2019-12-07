@@ -1,15 +1,17 @@
 ---
 layout: default
+pagination:
+  enabled: true
+  collection: posts
 ---
 
 <div class="home">
 
   <ul class="post-list">
-    {% for post in site.posts %}
+    {% for post in paginator.posts %}
     {% include post-item.html %}
     {% endfor %}
   </ul>
 
-  <p class="rss-subscribe">subscribe <a href="https://feeds.feedburner.com/kaimonolog-b">via RSS</a></p>  
-
 </div>
+<button id="scroller" type="button">もっと読む</button>

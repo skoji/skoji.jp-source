@@ -4,10 +4,9 @@
 .site-header {
     border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
-    min-height: 56px;
-
-    // Positioning context for the mobile navigation icon
-    position: relative;
+    height: 56px;
+    position: fixed;
+    width: 100%;
     background-color: $header-footer-bg-color;    
 }
 
@@ -115,7 +114,8 @@
 }
 
 .contact-list,
-.social-media-list {
+.social-media-list,
+.footer-info-list {
     list-style: none;
     margin-left: 0;
 }
@@ -175,7 +175,7 @@
  * Page content
  */
 .page-content {
-    padding: $spacing-unit 0;
+    padding: 86px 0;
 }
 
 .page-heading {
@@ -226,6 +226,14 @@
     li:hover {
         box-shadow: 0 14px 28px rgba(0,0,0,.6)
     }
+}
+
+#scroller {
+  height: $spacing-unit;
+  margin: $spacing-unit auto;
+  display: none;
+  background-color: $header-footer-bg-color;
+  width: 90%;
 }
 
 @include media-query($on-palm) {

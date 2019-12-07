@@ -10,7 +10,16 @@ plugins_dir:
   - _plugins
 plugins:
   - jekyll-auto-image
+  - jekyll-paginate-v2
 image: /blog/assets/logo.png
+incremental: true
+pagination:
+  enabled: true
+  per_page: 60
+  sort_reverse: true
+  indexpage: page-1
+  permalink: page-:num
+  extension: json
 title: 買い物ログ
 email: skoji@skoji.jp
 description: > # this means to ignore newlines until "baseurl:"
