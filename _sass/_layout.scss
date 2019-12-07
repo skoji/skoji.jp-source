@@ -228,6 +228,14 @@
     }
 }
 
+#scroller {
+  height: $spacing-unit;
+  margin: $spacing-unit auto;
+  display: none;
+  background-color: $header-footer-bg-color;
+  width: 90%;
+}
+
 @include media-query($on-palm) {
     .post-list {
 	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));	

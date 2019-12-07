@@ -4,10 +4,13 @@
   let previous_page = Number("{{ paginator.previous_page }}");
   let next_page = Number("{{ paginator.next_page }}");
   const total_pages = {{ paginator.total_pages }};
-
+  const scroller = document.getElementById('scroller');
   window.onload = () => {
     if (next_page) {
-      
+      scroller.style.display = 'block';
+      scroller.onclick = () => {
+        read_more();
+      };
     }
   };
 
@@ -29,6 +32,7 @@
             next_page += 1;
           } else {
             next_page = undefined
+            scroller.style.display = 'none';            
           }
         }
       });
