@@ -9,9 +9,7 @@ categories:
 
 <img src="/blog/images/scroll.png" alt="巻物" width="50%" />
 
-毎日ブログを書いていると、ブログの設定もいじりたくなるということがわかった。[先日のこの記事](/blog/2019/12/cooking.html)に書いたように、ページングしなくては。という気持ちが強まり、今日は朝からその設定をしていた。結局無限スクロールにしつつ、`pushState`でページ移動がわかるようにもした。vanilla JSで書きたいというのもあり、割とてこずった。
-
-結果のコード変更点は[これ](https://github.com/skoji/skoji.jp-blog/pull/4)。
+毎日ブログを書いていると、ブログの設定もいじりたくなるということがわかった。[先日のこの記事](/blog/2019/12/cooking.html)に書いたように、ページングしなくては。という気持ちが強まり、今日は朝からその設定をしていた。結局無限スクロールにしつつ、`pushState`でページ移動がわかるようにもした。vanilla JSで書きたいというのもあり、割とてこずった。結果のコード変更点は[これ](https://github.com/skoji/skoji.jp-blog/pull/4)。
 
 やったことの概要を以下に書く。
 
@@ -26,7 +24,7 @@ UIは変更せずに、「指定されたページをfetchして、その内容�
 
 ### 「もっと読む」ボタンを追加
 
-fetchして追加のコードをリファクタしつつ、[UIにボタンを追加した](https://github.com/skoji/skoji.jp-blog/pull/4/commits/c3e2454cb0583d9ed5971475e2959c82f8f0fd55)。また、
+fetchして追加のコードをリファクタしつつ、[UIにボタンを追加した](https://github.com/skoji/skoji.jp-blog/pull/4/commits/c3e2454cb0583d9ed5971475e2959c82f8f0fd55)。
 
 ### Window内でのページ位置を覚える
 
