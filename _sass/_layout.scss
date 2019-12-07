@@ -73,16 +73,7 @@
         .trigger {
             clear: both;
             display: none;
-        }
-
-	&:active .trigger {
-	    display: block;
-	    padding-bottom: 5px;
-	}
-
-        &:hover .trigger {
-            display: block;
-            padding-bottom: 5px;
+	        padding-bottom: 5px;
         }
 
         .page-link {
@@ -175,7 +166,7 @@
  * Page content
  */
 .page-content {
-    padding: 86px 0 0 $spacing-unit;
+    padding: 86px 0 $spacing-unit 0;
 }
 
 .page-heading {
