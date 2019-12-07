@@ -55,7 +55,7 @@
     }
     if (pos < page_positions[index]) {
       if (index == start) {
-        return pos;
+        return index;
       }
       return binary_search_pos(pos, start + Math.floor((index - start) / 2), start, index);
     }
