@@ -38,7 +38,7 @@
 
   const on_scroll = () => {
     const page = binary_search_pos(window.pageYOffset, Math.floor(page_positions.length / 2), 0, page_positions.length -1);
-    let path = '/blog/page-' + page;
+    let path = '/blog/page-' + page + '/';
     if (page == 1)
       path = '/blog/'
     if (current_page != page) {
@@ -73,7 +73,7 @@
   };
   
   const load_page = (page) => {
-    let url = '/blog/page-' + page;
+    let url = '/blog/page-' + page + '/';
     if (page == 1) {
       url = '/blog/'
     }
