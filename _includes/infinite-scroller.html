@@ -1,0 +1,30 @@
+{% if paginator %}
+<script>
+  let current_page = {{ paginator.page }};
+  let previous_page = "{{ paginator.previous_page }}";
+  let next_page = "{{ paginator.next_page }}";
+  const total_pages = {{ paginator.total_pages }};
+
+  window.onload = () => {
+    if (next_page) {
+      
+    }
+  };
+
+  const read_more = () => {
+    fetch('/blog/page-' + next_page).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.text();
+    }).then(text => {
+      const content = new DOMParser().parseFromString(text, "text/html");
+      const post_list = content.documentElement.getElementsByClassName('post-list');
+      const home = document.getElementsByClassName('home')[0];
+      if (post_list && post_list.length > 0) {
+        home.appendChild(post_list[0]);
+      }
+    });
+  };
+</script>
+{% endif %}
