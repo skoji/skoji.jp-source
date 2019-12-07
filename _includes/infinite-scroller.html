@@ -7,6 +7,7 @@
   const scroller = document.getElementById('scroller');
   const page_positions = {};
   let home;
+
   window.onload = () => {
     page_positions[current_page] = window.pageYOffset;
     home = document.getElementsByClassName('home')[0];    
@@ -17,12 +18,38 @@
       };
     }
     if (previous_page) {
-      
-    }
+      let pos = window.pageYOffset;
+      load_previous(previous_page, []).then((elements) => {
+        elements.forEach((prev) => {
+          home.prepend(prev.elem);
+          const rect = prev.elem.getBoundingClientRect();
+          pos = pos + rect.height + 15; // hard coded margin
+          store_position(prev.page, prev.elem);
+        });
+        window.scrollTo(0, pos);
+      });
+    };
   };
 
+  const load_previous = (page, elements) => {
+    if (page == 0) {
+      return Promise.resolve(elements);
+    }
+    return load_page(page).then((prev) => {
+      elements.push({page: page, elem:prev});
+        return load_previous(page - 1, elements);
+    });
+  };
+  
   const load_page = (page) => {
-    return fetch('/blog/page-' + page).then(response => {
+    let url = '/blog/page-' + page;
+    if (page == 1) {
+      url = '/blog/'
+    }
+    if (page < 1) {
+      return ;
+    }
+    return fetch(url).then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
@@ -36,21 +63,25 @@
           throw Error('no post in page');
         };
       });      
-  }
+  };
+
+  const store_position = (page, element) => {
+    const rect = element.getBoundingClientRect();
+    page_positions[page] = window.pageYOffset + rect.top - 400; // ad-hoc
+  };
   
   const read_more = () => {
     if (next_page) {
       load_page(next_page).then((next) => {
-          home.appendChild(next);
-          const rect = next.getBoundingClientRect();
-          page_positions[next_page] = window.pageYOffset + rect.top - 400; // ad-hoc
-          current_page += 1;
-          if (current_page < total_pages) {
-            next_page += 1;
-          } else {
-            next_page = undefined
-            scroller.style.display = 'none';            
-          }
+        home.appendChild(next);
+        store_position(next_page, next);
+        current_page += 1;
+        if (current_page < total_pages) {
+          next_page += 1;
+        } else {
+          next_page = undefined
+          scroller.style.display = 'none';            
+        }
       });
     }
   };
