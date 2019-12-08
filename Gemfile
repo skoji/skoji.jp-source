@@ -5,5 +5,8 @@ group :jekyll_plugins do
   gem 'jekyll-compose'
   gem 'jekyll-auto-image'
 end
+group :development do
+  gem 'byebug'
+end
 gem 'travis'
 gem 'rake'
