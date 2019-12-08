@@ -5,8 +5,7 @@
     border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
     height: 56px;
-    position: fixed;
-    width: 100%;
+    position: relative;
     background-color: $header-footer-bg-color;    
 }
 
@@ -166,7 +165,7 @@
  * Page content
  */
 .page-content {
-    padding: 86px 0 $spacing-unit 0;
+    padding: $spacing-unit 0;
 }
 
 .page-heading {
