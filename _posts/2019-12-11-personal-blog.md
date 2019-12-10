@@ -1,6 +1,6 @@
 ---
 layout: post
-title: personal-blog
+title: 自前のブログに書く意味
 date: '2019-12-11T07:58:38+09:00'
 image: /blog/images/old-skoji-jp.png
 categories:
