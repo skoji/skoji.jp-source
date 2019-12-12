@@ -23,8 +23,8 @@ permalink: /search/
          this.ref('id');
          this.field('title');
          this.field('content');
-         json.forEach((data) => {
-             this.add(data);
+         Object.keys(json).forEach((id) => {
+             this.add({"id" : id, ...json[id]});
          });
      });
      
