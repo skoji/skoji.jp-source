@@ -63,7 +63,8 @@ permalink: /search/
  document.querySelector('#site_search').addEventListener('submit', (e) => {
      e.preventDefault();
      const q = document.querySelector('#search_box').value;
-     const results = idx.search(q);
+     const s = new lunr.TinySegmenter();
+     const results = idx.search(s.segment(q).join(' '));
      showResults(results);
  });
 
