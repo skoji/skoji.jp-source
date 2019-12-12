@@ -1,0 +1,62 @@
+<script src="../assets/js/lunr.min.js"></script>
+<script src="../assets/js/lunr.stemmer.support.min.js"></script>
+<script src="../assets/js/tinyseg.js"></script>
+<script src="../assets/js/lunr.ja.min.js"></script>
+<script>
+ let postList;
+ let idx;
+ fetch('/blog/posts_lists_for_search.json').then((response) => {
+     return response.json();
+ }).then((json) => {
+     postList = json;
+ });
+
+ fetch('/blog/search_data_indexed.json').then((response) => {
+     return response.json();
+ }).then((json) => {
+     idx = lunr.Index.load(json);
+ });
+ 
+ const showResults = (results) => {
+     const resultsList = document.querySelector('#search_results');
+     resultsList.innerHTML = "";
+     if (results.length == 0) {
+         resultsList.innerHTML = "<li class='no_result'>結果が見つかりません</li>";
+  
+     }
+     results.forEach((r) => {
+         const item = postList[r.ref];
+         const date = document.createTextNode(item.date);
+         const a = document.createElement('a');
+         a.href = item.url;
+         a.innerText = item.title;
+         const datespan = document.createElement('span');
+         datespan.className = 'date';
+         datespan.appendChild(date);
+         
+         const head = document.createElement('div');
+         head.appendChild(datespan);
+         head.appendChild(a);
+         head.className = 'search-head';         
+         
+         const excerpt = document.createTextNode(item.excerpt);
+         const excerptDiv = document.createElement('div');
+         excerptDiv.appendChild(excerpt);
+         excerptDiv.className = 'search-excerpt';         
+         const li = document.createElement('li');
+         
+         li.appendChild(head);
+         li.appendChild(excerptDiv);
+         resultsList.appendChild(li);
+     });
+ }
+ document.querySelector('#site_search').addEventListener('submit', (e) => {
+     e.preventDefault();
+     const q = document.querySelector('#search_box').value;
+     const s = new lunr.TinySegmenter();
+     const results = idx.search(s.segment(q).join(' '));
+     showResults(results);
+ });
+
+ 
+</script>

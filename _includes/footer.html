@@ -35,4 +35,7 @@
 
   </div>
 </footer>
-{% include infinite-scroller.html %}  
+{% include infinite-scroller.html %}
+{% if page.permalink == '/search/' %}
+{% include search-script.html %}
+{% endif %}
