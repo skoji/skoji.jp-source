@@ -338,3 +338,29 @@
         text-align: center;
     }
 }
+
+#search_results {
+    margin-top: 1em;
+    width: 90%;
+    list-style: none;
+    > li {
+        margin-top: 1em;
+        > .search-head {
+            font-size: 1em;
+            border-bottom: 1px solid $grey-color;
+            > .date {
+                font-size: 0.6em;
+                line-height: 1;
+                color: $grey-color;
+                display: block;
+            }
+        }
+        > .search-excerpt {
+            margin-top: 0.4em;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0.8em;
+            text-overflow: ellipsis;
+        }
+    }
+}

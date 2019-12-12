@@ -88,3 +88,8 @@ jekyll-archives:
     category: '/category/:name/'
 # Build settings
 markdown: kramdown
+exclude:
+  - 'Rakefile'
+  - 'deploy.sh'
+  - 'refine-post.rb'
+  - 'preindex.js'
