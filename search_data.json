@@ -5,6 +5,9 @@ layout: null
   {% for post in site.posts %}
   "{{ post.id }}" : { 
     "title": "{{ post.title | xml_escape }}",
+    {% if post.categories %}
+    "categories": "{% for category_name in post.categories %}{{ category_name }} {% endfor %}",
+    {% endif %}
     "content": {{ post.content |  strip_html | to_json }}
   }
   {% unless forloop.last %},{% endunless %}

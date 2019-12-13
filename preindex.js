@@ -20,6 +20,7 @@ stdin.on('end', function () {
     this.use(lunr.ja);
     this.ref('id');
     this.field('title', { boost : 5 });
+    this.field('categories');
     this.field('content');
     Object.keys(json).forEach((id) => {
       this.add({"id" : id, ...json[id]});
