@@ -5,6 +5,8 @@
 <script>
  let postList;
  let idx;
+ let current_q;
+ 
  fetch('/blog/posts_lists_for_search.json').then((response) => {
      return response.json();
  }).then((json) => {
@@ -15,8 +17,19 @@
      return response.json();
  }).then((json) => {
      idx = lunr.Index.load(json);
+     window.onpopstate = doSearchWithQuery;
+     doSearchWithQuery();
  });
- 
+
+
+ const doSearchWithQuery = () => {
+     const query = getQuery(location.search);
+     if (query.q) {
+         document.querySelector('#search_box').value = query.q;
+         doSearch(query.q);
+     }
+ }
+
  const showResults = (results) => {
      const resultsList = document.querySelector('#search_results');
      resultsList.innerHTML = "";
@@ -54,11 +67,26 @@
      e.preventDefault();
      const searchBox = document.querySelector('#search_box')
      const q = searchBox.value;
-     const s = new lunr.TinySegmenter();
-     const results = idx.search(s.segment(q).join(' '));
+     history.pushState('search ' + q, null, location.pathname + '?q=' + q);
      searchBox.blur();
-     showResults(results);
+     doSearch(q);
  });
 
+ const doSearch = (q) => {
+     const s = new lunr.TinySegmenter();
+     const results = idx.search(s.segment(q).join(' '));
+     showResults(results);
+ }
+
+ const getQuery = (search) => {
+     if (!search) return {};
+     return search
+         .substr(1)
+         .split("&")
+         .reduce((acc, cur) => {
+             acc[cur.split("=")[0]] = decodeURI(cur.split("=")[1]);
+             return acc;
+         }, {});
+ };
  
 </script>
