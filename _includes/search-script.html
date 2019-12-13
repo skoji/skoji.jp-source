@@ -22,7 +22,7 @@
      resultsList.innerHTML = "";
      if (results.length == 0) {
          resultsList.innerHTML = "<li class='no_result'>結果が見つかりません</li>";
-  
+         
      }
      results.forEach((r) => {
          const item = postList[r.ref];
@@ -52,9 +52,11 @@
  }
  document.querySelector('#site_search').addEventListener('submit', (e) => {
      e.preventDefault();
-     const q = document.querySelector('#search_box').value;
+     const searchBox = document.querySelector('#search_box')
+     const q = searchBox.value;
      const s = new lunr.TinySegmenter();
      const results = idx.search(s.segment(q).join(' '));
+     searchBox.blur();
      showResults(results);
  });
 
