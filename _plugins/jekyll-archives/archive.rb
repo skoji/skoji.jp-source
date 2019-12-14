@@ -97,6 +97,14 @@ module Jekyll
         @title if @title.is_a? String
       end
 
+      # adhoc-patch
+      def year
+        @title[:year] if @title.is_a? Hash
+      end
+
+      def month
+        @title[:month] if @title.is_a? Hash
+      end
       # Produce a date object if a date-based archive
       #
       # Returns a Date.

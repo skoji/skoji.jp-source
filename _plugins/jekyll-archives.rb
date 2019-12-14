@@ -40,6 +40,27 @@ module Jekyll
         @site.pages.concat(@archives)
 
         @site.config["archives"] = @archives
+
+        # adhoc patch
+        monthly_archives_work = @archives
+                                  .filter { |archive| archive.type == 'month' }
+                                  .sort_by { |archive| archive.date }
+                                  .map { |archive| ["#{archive.year.to_i}-#{archive.month.to_i}", archive] }
+        first_year = monthly_archives_work.first[1].year.to_i
+        first_month = monthly_archives_work.first[1].month.to_i
+        last_year = monthly_archives_work.last[1].year.to_i
+        last_month = monthly_archives_work.last[1].month.to_i
+        monthly_archives_hash = monthly_archives_work.to_h
+        monthly_archives = []
+        for year in first_year..last_year
+          for month in 1..12
+            next if (year == first_year && month < first_month)
+            break if (year == last_year && month > last_month)
+            archive = monthly_archives_hash["#{year}-#{month}"] || Archive.new(@site, {year: year.to_s, month: "%02d" % month}, 'month', [])
+            monthly_archives.push(archive);
+          end
+        end
+        @site.config["monthly_archives"] = monthly_archives
       end
 
       # Read archive data from posts
