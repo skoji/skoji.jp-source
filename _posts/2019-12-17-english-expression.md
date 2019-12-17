@@ -7,15 +7,15 @@ categories:
 - ひとりアドベントカレンダー
 ---
 
-英語の文章はある程度読めるけれども、全然書けるようにならない。こういう言い回しがあるのか、と感心しながら読んだものは、まず覚えていない。だから書くときも使えない。
+英語の文章はある程度読めるけれども、全然書けるようにならない。こういう言い回しがあるのかと感心しながら読んだものは、まず覚えていない。だから書くときも使えない。
 
-私は英語を読むときはわざわざ日本語には訳さずそのまま受け取っている。だから、今読んだものを即日本語にしてと言われるとしばらく考える。それなのに、しばらく前に読んだり聞いたりしたものを思い出すと思い出すのだ。よほどよく見かける表現でなければ、ほとんど身につかない。
+英語を読むときはわざわざ日本語には訳さずそのまま受け取っている。今読んだものを即日本語にしてと言われるとしばらく考える。それなのに、しばらく前に読んだり聞いたりしたものを思い出すと思い出すのだ。よほどよく見かける表現でなければ、ほとんど身につかない。
 
-私は日常的に英語でやり取りすることはなく、読むとしても技術系の文章がほとんどで時々小説を読む程度だ。この頻度だともうこれ以上表現の引き出しは増えなさそうだな、とずいぶん前から思っている。それではつまらないなと見かける表現をメモするものの、メモ自体が散逸してしまう。
+私は日常的に英語でやり取りすることはない。読むのは技術系の文章がほとんどで、時々小説を読む程度だ。この頻度だともうこれ以上表現の引き出しは増えなさそうだな、とずいぶん前から思っている。それではつまらないから気づいたときにメモするものの、メモ自体が散逸してしまう。
 
 散逸させないためにはもしかすると、ここに書くのが一番良いのではないかとふと思いついた。散逸しないからと言って生かせるとは限らないが。
 
-ということで最初はSignal vs Noiseの[6 mistakes to avoid during your first 30 days as a new manager](https://m.signalvnoise.com/6-mistakes-to-avoid-during-your-first-30-days-as-a-new-manager/)を題材に、知らなかったりなるほどこう使えば良いのかという表現をメモしていく。
+ということで最初はSignal vs Noiseの最近の記事、[6 mistakes to avoid during your first 30 days as a new manager](https://m.signalvnoise.com/6-mistakes-to-avoid-during-your-first-30-days-as-a-new-manager/) を題材に、知らなかったりなるほどこう使えば良いのかという表現をメモしていく。
 
 > You’re bound to make mistakes as a new manager
 
@@ -23,7 +23,9 @@ categories:
 
 > I’ve never quite known the proper word to describe the feeling of being simultaneously elated and terrified 
 
-“have never quite known the proper word to describe ...” 「...を表す良い言葉を知らない」（もっと良い翻訳ありそう）。そして、“being simultaneously eleated and terrified”。eleated知ってはいても使おうと思ったことがない。
+“have never quite known the proper word to describe ...” 「...を表す良い言葉を知らない」。
+
+そして、“being simultaneously eleated and terrified”。eleated私は知ってはいたけれど、そもそも使おうと思ったことがない。使おう。
 
 > talking to mentors about the “should’s” and “should not’s” of leadership…
 
@@ -43,11 +45,11 @@ bound toは冒頭と同じ用法。なるほどなーこう使うのなー。
 
 > Your individual relationship with each team member sets the tone for our the entire team will interact with one another
 
-sets the tone。こういうのねー。あとour the teamみたいな言い方はいまいち意味がわかっていないことに気づいた。
+sets the tone。こういうのねー。あとour the entire teamみたいな言い方はいまいちニュアンスがわかっていないことに気づいた。
 
 > As a new manager, it’s tempting to want to be seen as “The Person with a Plan.” 
 
-tempting to want to be seen as...。こうみられたいよね！という意訳。
+tempting to want to be seen as...。こうみられたいよね、という意訳で良いだろうか。temptingのこういう使い方。
 
 > We have a penchant for forward progress
 
