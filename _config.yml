@@ -78,6 +78,7 @@ category_slug_map:
     電書: ebooks
     音楽: music
     目標: resolution
+    英語の表現: english-expression
 jekyll-archives:
   enabled: [month, categories]
   layouts:
