@@ -41,7 +41,7 @@ geo $iptype {
 
 `/ipx`にアクセスすると、`IPv4`または`IPv6`の文字列が返る。これを、トップページのhtmlの中に埋め込む。
 
-```
+``` javascript
 const now = Date.now();
 fetch('/ipx?' + now).then(function(response) {
   return response.text();

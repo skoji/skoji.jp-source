@@ -1,0 +1,13 @@
+{
+  "description": "",
+  "scripts": {},
+  "repository": {},
+  "keywords": [],
+  "author": "Satoshi Kojima",
+  "bugs": {},
+  "homepage": "https://skoji.jp/blog/",
+  "devDependencies": {
+    "textlint": "^11.5.0",
+    "textlint-rule-preset-japanese": "^4.0.4"
+  }
+}
