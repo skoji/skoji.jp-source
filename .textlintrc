@@ -2,7 +2,7 @@
   "rules": {
     "preset-japanese": {
       "no-doubled-joshi": {
-        "allow": ["も","や","にも","でも"]
+        "allow": ["も","や","にも","でも","たり"]
       }
     }
   }
