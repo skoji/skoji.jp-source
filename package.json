@@ -8,6 +8,6 @@
   "homepage": "https://skoji.jp/blog/",
   "devDependencies": {
     "textlint": "^11.5.0",
-    "textlint-rule-preset-japanese": "^4.0.4"
+    "textlint-rule-preset-ja-technical-writing": "^3.1.3"
   }
 }
