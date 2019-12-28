@@ -30,15 +30,15 @@ author:
 <p>しかしC++プログラマから見ると、感覚的には「Rubyは型チェックが行われない」ように見えます。ほとんどの場面では型よりも、そのオブジェクトがどんなメッセージに反応できるかってことのほうが重要です。</p>
 <h4>Duck Typing</h4>
 <p>全く型に関連がなくても同じメソッドを備えていれば、それは事実上同じ型として扱えると考えるのがDuckTypingです。「アヒルのように鳴き、アヒルのように歩くものはアヒルに違いない」といわけです。</p>
-<p>ＳｔａｔｅパターンをRubyで実現しようと思ったら自然とDuckTypingになります。ConcreteState同士は型的には無関係だけど、そのStateに要求されるメソッドを用意しておけばよいわけです。</p>
+<p>StateパターンをRubyで実現しようと思ったら自然とDuckTypingになります。ConcreteState同士は型的には無関係だけど、そのStateに要求されるメソッドを用意しておけばよいわけです。</p>
 <p>Rubyなひと(や、Smalltalkなひと)からすれば自然なんでしょうが、C++ばっかりだった私には新鮮な考え方でした。</p>
 <p>C++では無理だよなあ...。と思っていたらやり方がありました。テンプレートを使うときはDuckTypingになってますね。</p>
 <pre>
 template &lt;T&gt;
 class DoSomethingExecutor {
-public execute(T obj) {
-obj.doSomething();
-}
+  public execute(T obj) {
+    obj.doSomething();
+  }
 }
 </pre>
 <p>Tに要求されるのは、引数のないdoSomething()というメソッドが存在することだけで、型はなんでもOKですね。とはいえテンプレートを駆使して例えばConcreteStateの型がお互い関連のないStateパターンを実現するのは非常に困難ですね。</p>
