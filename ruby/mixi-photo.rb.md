@@ -8,7 +8,8 @@ layout: null
 ``` ruby
 # mixi-photo v0.0.4 (2007/12/08 2:30)
 # mixi photo upload library
-# # (C) Satoshi Kojima 2007
+#
+# (C) Satoshi Kojima 2007
 # http://www.skoji.jp/blog/
 
 require 'digest/sha1'
