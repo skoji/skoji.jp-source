@@ -1,8 +1,11 @@
 ---
 layout: null
 ---
+<head>
+<link rel="stylesheet" href="/blog/css/main.css">
+</head>
 
-<pre>
+``` ruby
 # mixi-photo v0.0.4 (2007/12/08 2:30)
 # mixi photo upload library
 # # (C) Satoshi Kojima 2007
@@ -104,4 +107,7 @@ class MixiPhotoAlbum
   end
 
 end
-</pre>
+
+```
+
+
