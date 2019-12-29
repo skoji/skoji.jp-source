@@ -1,9 +1,9 @@
       <a class="post-list-link" href="{{ post.url | prepend: site.baseurl }}">
-      <li class="post-item">
-        <h2>
-          {{ post.title }}
-        </h2>
-        <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <li class="post-item">
+          <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+          <h2>
+            {{ post.title }}
+          </h2>
 	{% if post.image and post.image != "/blog/assets/logo.png" %}
 	<img class="excerpt-img" src="{{ post.image }}" alt=" " />
 	{% endif %}
