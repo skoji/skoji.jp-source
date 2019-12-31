@@ -219,12 +219,23 @@
 }
 
 #scroller {
-  height: $spacing-unit;
-  margin: $spacing-unit auto;
-  display: none;
-  background-color: $header-footer-bg-color;
-  width: 90%;
+    height: $spacing-unit * 1.4;
+    margin: $spacing-unit auto;
+    display: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid $header-footer-bg-color;
+    width: 20em;
+    max-width: 80%;
+    font-size: 1em;
+    cursor: pointer;
 }
+
+#scroller:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,.3);
+}
+
 
 @include media-query($on-palm) {
     .post-list {
