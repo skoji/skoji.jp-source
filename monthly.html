@@ -8,7 +8,7 @@ permalink: /monthly/
   {% for archive in site.monthly_archives reversed %}
   <li>
     {% if archive.posts.size == 0 %}
-    {{ archive.date | date: "%Y年%m月" }} (0)
+    <span class="no-posts-month">{{ archive.date | date: "%Y年%m月" }} (0)</span>
     {% else %}
     <a href="{{ archive.url | prepend: site.baseurl }}">{{ archive.date | date: "%Y年%m月" }} </a> ({{ archive.posts | size }})
     {% endif %}
