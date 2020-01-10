@@ -6,7 +6,8 @@
       "no-doubled-joshi": {
         "allow": ["も","や","にも","でも","たり"],
         "min_interval": 3
-      }
+      },
+      "ja-no-mixed-period": false
     }
   }
 }
