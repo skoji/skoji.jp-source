@@ -5,9 +5,10 @@
       "arabic-kanji-numbers": false,
       "no-doubled-joshi": {
         "allow": ["も","や","にも","でも","たり"],
-        "min_interval": 3
+        "min_interval": 2
       },
-      "ja-no-mixed-period": false
+      "ja-no-mixed-period": false,
+       "no-exclamation-question-mark": false
     }
   }
 }
