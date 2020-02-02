@@ -17,7 +17,7 @@ categories:
 
 問い合わせたり取り寄せたりWebを見たりした上で、以下のものを事前に準備した。
 
-1. 契約申込書。[ここ](https://www.smrj.go.jp/kyosai/skyosai/entry/request/index.html)から申し込んで、契約申込書を手に入れる。記入は難しくない。A3サイズなので、場所をとる。
+1. 契約申込書。[ここ](https://www.smrj.go.jp/kyosai/skyosai/entry/request/index.html)から申し込んで手に入れる。記入は難しくない。A3サイズなので場所をとる。
 
 2. 確定申告書の控え。電子申告なので電子版の「控え」部分だけプリントアウトした。
 
