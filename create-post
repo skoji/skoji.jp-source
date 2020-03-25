@@ -1,9 +1,5 @@
 #!/bin/sh
 set -u
-if [ -z "${EDITOR-}" ]; then
-   echo "should specify EDITOR environment variable." 1>&2
-   exit 1;
-fi
 if [ $# -ne 1 ]; then
    echo "You should specify post title." 1>&2
    exit 1;
@@ -12,4 +8,4 @@ fi
 cd `dirname $0`
 post=`bundle exec jekyll post $1 | grep 'New post created' | gsed 's/^New post created at \([^.]*\.md\).*$/\1/'`
 post=`ruby refine-post.rb $post`
-$EDITOR $post
+eo $post
