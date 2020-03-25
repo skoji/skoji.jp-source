@@ -21,6 +21,7 @@ jobs:
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
+        TZ: 'Asia/Tokyo'
       run: |
         eval `ssh-agent -s`
         echo "${DEPLOY_KEY}" > keyfile && chmod 600 keyfile
