@@ -7,7 +7,7 @@
   "bugs": {},
   "homepage": "https://skoji.jp/blog/",
   "devDependencies": {
-    "textlint": "^11.5.0",
+    "textlint": "^11.6.3",
     "textlint-rule-preset-ja-technical-writing": "^3.1.3"
   }
 }
