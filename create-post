@@ -8,4 +8,4 @@ fi
 cd `dirname $0`
 post=`bundle exec jekyll post $1 | grep 'New post created' | gsed 's/^New post created at \([^.]*\.md\).*$/\1/'`
 post=`ruby refine-post.rb $post`
-eo $post
+$BLOG_EDITOR $post
