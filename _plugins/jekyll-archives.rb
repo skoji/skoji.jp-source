@@ -53,12 +53,14 @@ module Jekyll
         monthly_archives_hash = monthly_archives_work.to_h
         monthly_archives = []
         for year in first_year..last_year
+          year_monthly_archive = [];
           for month in 1..12
             next if (year == first_year && month < first_month)
             break if (year == last_year && month > last_month)
             archive = monthly_archives_hash["#{year}-#{month}"] || Archive.new(@site, {year: year.to_s, month: "%02d" % month}, 'month', [])
-            monthly_archives.push(archive);
+            year_monthly_archive.push(archive);
           end
+          monthly_archives.push({"year" =>  year, "archives" => year_monthly_archive});
         end
         @site.config["monthly_archives"] = monthly_archives
       end
