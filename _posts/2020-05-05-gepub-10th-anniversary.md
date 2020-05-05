@@ -9,7 +9,7 @@ categories:
 
 ![gepub最初のコミット: 5 May 2010](/blog/images/gepub-first-commit.png)
 
-2010年から作り始めたruby製のEPUBライブラリ、[gepub](https://github.com/skoji/gepub/)を作りはじめてから、今日でちょうど10年になった。前身も含めると2ヶ月ほど前から開発していたのだが、汎用的なコードを目指してGitHubにコミットした最初のコードが[2010年5月5日のこれ](://github.com/skoji/gepub/tree/417362050064632e2be1dd4dba81583de71a93b9)だ。
+ruby製のEPUBライブラリ・[gepub](https://github.com/skoji/gepub/)を作りはじめてから、今日でちょうど10年になった。前身も含めると2ヶ月ほど前から開発していたのだが、汎用的なコードを目指してGitHubにコミットした最初のコードが[2010年5月5日のこれ](://github.com/skoji/gepub/tree/417362050064632e2be1dd4dba81583de71a93b9)だ。
 
 10周年に合わせて新機能をとも思っていたが、とても間に合わなかった。せめて、gepubを使っていたプロジェクトと、その電子書籍を紹介する。思い出せていないものもあるはずなので、適宜指摘していただけるとありがたい。
 
