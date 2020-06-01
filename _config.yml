@@ -70,6 +70,7 @@ category_slug_map:
     写真: photo
     料理: cooking
     日常: day
+    日記: diary
     映画: movies
     未分類: nocategry
     本: books
