@@ -4,7 +4,7 @@ title: 本日の買い物：iPad Magic Keyboard
 date: '2020-04-26T07:53:00+09:00'
 categories:
 - 買い物
-- Mac/PC/Palm
+- computer/gadgets
 ---
 
 ![](/blog/images/ipad-magic-keyboard.jpg)

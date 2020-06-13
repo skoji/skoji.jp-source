@@ -4,7 +4,7 @@ title: 本日の買い物：Rakuten Mini
 date: '2020-06-13T12:11:18+09:00'
 categories:
 - 買い物
-- Mac/PC/Palm
+- computer/gadgets
 ---
 
 

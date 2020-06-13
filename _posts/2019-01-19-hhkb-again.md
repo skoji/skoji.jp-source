@@ -4,7 +4,7 @@ title: 本日の買い物：Happy Hacking Keyboard Type-S 無刻印
 date: '2019-01-19T17:39:54+09:00'
 categories:
 - 買い物
-- Mac/PC/Palm
+- computer/gadgets
 ---
 
 ![Happy Haking Keyboard Type-S 無刻印](/blog/images/hhkb-type-s.jpg)

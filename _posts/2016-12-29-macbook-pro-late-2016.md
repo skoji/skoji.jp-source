@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '買い物ログ: MacBook Pro (15inch Late 2016)'
-categories: [買い物, Mac/PC/Palm]
+categories: [買い物, computer/gadgets]
 ---
 
 MacBook Pro (15inch Late 2016)を仕事用に買った。
