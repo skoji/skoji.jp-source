@@ -5,7 +5,7 @@ permalink: /monthly/
 ---
 <section class="monthly">
   {% for year_archive in site.monthly_archives reversed %}
-  <h3>{{ year_archive.year }} 年</h3>
+  <h3>{{ year_archive.year }} 年 ({{ year_archive.posts_count }})</h3>
   <ul class="monthly-list">
     {% for archive in year_archive.archives reversed %}
     <li>

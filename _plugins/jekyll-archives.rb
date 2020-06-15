@@ -54,13 +54,15 @@ module Jekyll
         monthly_archives = []
         for year in first_year..last_year
           year_monthly_archive = [];
+          year_posts_count = 0;
           for month in 1..12
             next if (year == first_year && month < first_month)
             break if (year == last_year && month > last_month)
             archive = monthly_archives_hash["#{year}-#{month}"] || Archive.new(@site, {year: year.to_s, month: "%02d" % month}, 'month', [])
+            year_posts_count += archive.posts.length
             year_monthly_archive.push(archive);
           end
-          monthly_archives.push({"year" =>  year, "archives" => year_monthly_archive});
+          monthly_archives.push({"year" =>  year, "archives" => year_monthly_archive, "posts_count" => year_posts_count});
         end
         @site.config["monthly_archives"] = monthly_archives
       end
