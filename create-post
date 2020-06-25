@@ -5,7 +5,10 @@ if [ $# -ne 1 ]; then
    exit 1;
 fi
 
+SED=gsed
+command -v gsed || SED=sed
+
 cd `dirname $0`
-post=`bundle exec jekyll post $1 | grep 'New post created' | gsed 's/^New post created at \([^.]*\.md\).*$/\1/'`
+post=`bundle exec jekyll post $1 | grep 'New post created' | ${SED} 's/^New post created at \([^.]*\.md\).*$/\1/'`
 post=`ruby refine-post.rb $post`
 $BLOG_EDITOR $post
