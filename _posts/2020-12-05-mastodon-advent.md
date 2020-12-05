@@ -6,7 +6,7 @@ categories:
 - Mastodon
 ---
 
-この記事は[Fediverse Advent Calendar（第二会場）](https://adventar.org/calendars/5049)の6日目です。
+これは[Fediverse Advent Calendar（第二会場）](https://adventar.org/calendars/5049)の6日目の記事です。
 
 ![](/blog/images/elephant-fren.png)
 
