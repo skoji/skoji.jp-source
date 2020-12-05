@@ -20,7 +20,9 @@ categories:
 
 MastodonはTwitterと同じようなSNSサービスですが、「誰でもサーバを建てられる」「サーバ同士で書き込み(toot、Twitterでいうtweet）を共有できる」という大きな特徴があります。この特徴は分散型とか脱中央集権と呼ばれます。サーバ同士の書き込み共有を「連合を組む」と言ったりします。
 
-分散型SNSはMastodonだけではありません。[Pleroma](https://pleroma.social)や[Misskey](https://join.misskey.page/)などはMastodonとも連合を組むことができます。ゆるく連合した分散型SNS全体の世界をFediverseと呼びます。
+分散型SNSはMastodonだけではありません。老舗の[GNU Social](https://gnusocial.network)をはじめ、[Pleroma](https://pleroma.social)や[Misskey](https://join.misskey.page/)など、Mastodonと連合を組むことができるソフトウェアはたくさんあります。
+
+ゆるく連合した分散型SNS全体の世界をFediverseと呼びます。
 
 ## ユーザ数
 
