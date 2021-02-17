@@ -7,7 +7,7 @@ categories:
 - 開発環境
 ---
 
-VS Codeに乗り換えようかと一瞬思ったが、結局Emacsの設定を充実させる方に舵を切った。この1ヶ月ほどで変えた設定について書いておく。全て`package-install`で導入した。
+VS Codeに乗り換えようかと少し迷っていたが、結局Emacsの設定を充実させる方に舵を切った。この1ヶ月ほどで変えた設定について書いておく。全て`package-install`で導入した。
 
 ### NeotreeからTreemacsに乗り換え
 
