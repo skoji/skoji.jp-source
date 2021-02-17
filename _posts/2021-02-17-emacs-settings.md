@@ -28,7 +28,7 @@ Neotreeはあまり使わなくなっていて、[Treemacs](https://github.com/A
 
 ### helmからivy + counselに乗り換え
 
-[Helm development is now stalled](https://github.com/emacs-helm/helm/issues/2386)というIssueをたまたま発見して、他に似たようなのは…と探して[ivy + counsel](https://github.com/abo-abo/swiper)に乗り換えた。`counsel-M-x`は`helm-M-x`と違ってそのままでは履歴順になってくれないので、[smex](https://github.com/nonsequitur/smex)も導入した。
+[Helm development is now stalled](https://github.com/emacs-helm/helm/issues/2386)というIssueをたまたま発見した。これ他のドキュメントにはまだどこにも書いてないように思われる。ともあれ、他に似たようなものは、と探して[ivy + counsel](https://github.com/abo-abo/swiper)にたどりついた。`counsel-M-x`は`helm-M-x`と違ってそのままでは履歴順になってくれないので、[smex](https://github.com/nonsequitur/smex)も導入した。
 
 設定は以下のとおり。
 
@@ -52,9 +52,7 @@ Neotreeはあまり使わなくなっていて、[Treemacs](https://github.com/A
 
 ### modeline整理
 
-modelineがめちゃくちゃ長くなって、powerlineで普段右端に表示している行数が見えなくなることがよく起きていた。[diminish.el](https://github.com/myrjola/diminish.el)を導入し、よく出ているものを消した。もっとまともなやり方がありそうだけれども、素朴な設定をした。
-
-major modeと、Flycheckは表示したままにしているが、他はかなりの部分が消えた。
+modelineがめちゃくちゃ長くなって、普段右端に表示している行数が見えなくなることがよく起きていた。[diminish.el](https://github.com/myrjola/diminish.el)を導入し、いくつかの、私にとっては表示不要なminor mode表示を消した。もっとまともなやり方がありそうだけれども、素朴な設定をした。
 
 ``` emacs-lisp
 (eval-after-load "projectile"
@@ -73,4 +71,15 @@ major modeと、Flycheckは表示したままにしているが、他はかな�
   '(diminish 'yas-minor-mode))
 (diminish 'eldoc-mode)
 ```
+
+<figure>
+<img style="max-width: 99%" src='/blog/images/2021-emacs-modeline-before.png' alt='キーボード比較' />
+<figcaption>before</figcaption>
+</figure>
+<figure>
+<img style="max-width: 99%" src='/blog/images/2021-emacs-modeline-after.png' alt='キーボード比較' />
+<figcaption>after</figcaption>
+</figure>
+
+
 
