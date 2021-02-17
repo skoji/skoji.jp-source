@@ -28,7 +28,9 @@ Neotreeはあまり使わなくなっていて、[Treemacs](https://github.com/A
 
 ### helmからivy + counselに乗り換え
 
-[Helm development is now stalled](https://github.com/emacs-helm/helm/issues/2386)というIssueをたまたま発見した。これ他のドキュメントにはまだどこにも書いてないように思われる。ともあれ、他に似たようなものは、と探して[ivy + counsel](https://github.com/abo-abo/swiper)にたどりついた。`counsel-M-x`は`helm-M-x`と違ってそのままでは履歴順になってくれないので、[smex](https://github.com/nonsequitur/smex)も導入した。
+[Helm development is now stalled](https://github.com/emacs-helm/helm/issues/2386)というIssueをたまたま発見した。このことは、他のドキュメントにはまだどこにも書いてないように思われる。
+
+ともあれ、もう更新されないのであれば乗り換えた方が良いだろう。他に似たようなものは、と探して[ivy + counsel](https://github.com/abo-abo/swiper)にたどりついた。`counsel-M-x`は`helm-M-x`と違ってそのままでは履歴順になってくれないので、[smex](https://github.com/nonsequitur/smex)も導入した。
 
 設定は以下のとおり。
 
