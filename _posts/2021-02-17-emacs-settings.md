@@ -55,6 +55,17 @@ Neotreeはあまり使わなくなっていて、[Treemacs](https://github.com/A
 もう一つこまったのは「バックアップファイルの残骸が残っている場所に、そのファイル名で新たにファイルを作りたい」とき。
 `C-M-j`(ivy-imeddiate-done)で良いのだが、すぐに忘れそうで、すぐに困りそうだ。
 
+### counsel-projectile
+
+counselに乗り換えたので、[counsel-projectile](https://github.com/ericdanan/counsel-projectile)も入れた。
+最初はcounselなしのprojectileしか動かないね？ と思ったら、`counsel-projectile-mode`にしないといけないのでした。
+
+``` diff
+< (projectile-mode 1)
+---
+> (counsel-projectile-mode 1)
+```
+
 ### modeline整理
 
 modelineがめちゃくちゃ長くなって、普段右端に表示している行数が見えなくなることがよく起きていた。[diminish.el](https://github.com/myrjola/diminish.el)を導入し、いくつかの、私にとっては表示不要なminor mode表示を消した。もっとまともなやり方がありそうだけれども、素朴な設定をした。
