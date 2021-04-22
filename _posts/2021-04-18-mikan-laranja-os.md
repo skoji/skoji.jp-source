@@ -22,9 +22,9 @@ categories:
 
 ### UEFIアプリケーション
 
-2章ではUEFIのアプリケーションを実装する。みかん本ではEDKⅡを前提にしている。私はRustのUEFI API wrapperである[uefi-rs](https://github.com/rust-osdev/uefi-rs)を利用している。これを使えば、UEFIアプリを書くこと自体はかなり簡単になる。ただ、みかん本2.6「メモリマップのファイルへの保存」で出てくる`OpenProtocol`がuefi-rsには実装されておらず、UEFIなにも知らないのでそこでしばらく引っかかった。uefi-rsではLocateProtocolが実装されているので、それが利用できた。
+みかん本2章ではEDKⅡを使ってUEFIのアプリケーションをCで実装する。私はRustのUEFI API wrapperである[uefi-rs](https://github.com/rust-osdev/uefi-rs)を利用した。これを使えば、UEFIアプリを書くこと自体はかなり簡単になる。ただ、みかん本2.6「メモリマップのファイルへの保存」で出てくる`OpenProtocol`がuefi-rsには実装されておらず、UEFIなにも知らないのでそこでしばらく引っかかった。uefi-rsではLocateProtocolが実装されているので、それが利用できた。
 
-### kernelで停滞
+### kernelのビルドで停滞
 
 3章からは別途ビルドしたkernelを読み込むところから始まる。これにかなりハマった。
 
@@ -32,9 +32,9 @@ categories:
 
 そもそもldにどうやって渡せるかわからないところからのスタートだった。ここにずいぶん時間を使ったが、LLVM 11のld.lldを使うことで、macOSでもLinuxでも動作するようになった。最終的には全ての設定を[カスタムターゲット](https://github.com/skoji/laranja-os/blob/0f574072dc3b69cae84304bb04be1d877f3201f2/kernel/x86_64-unknown-none-mikankernel.json)に入れた。
 
-#### そもそも呼び出せない
+#### 呼び出せない
 
-`asm!("hlt")`だけのkernelも呼び出せない。ここにもかなり時間を使って、途中で投げ出しそうになった。が、わかってしまえば簡単だった。targetがx86_64-unknown-uefiだと、`extern "C"`がUEFIのABI(= WindowsのABI)になってしまう。このため、普通に`extern "C"`にしたカーネルのentryが呼び出せない。`extern "sysv64"`にするか、kernelのentry pointを`extern "efiabi"`にすると動く。私は`extern "sysv64"`にしている。
+`asm!("hlt")`だけのkernelもUEFIアプリから呼び出せない。ここにもかなり時間を使って、途中で投げ出しそうになった。が、わかってしまえば簡単だった。targetがx86_64-unknown-uefiだと、`extern "C"`がUEFIのABI(= WindowsのABI)になってしまう。このため、普通に`extern "C"`にしたカーネルのentryが呼び出せない。`extern "sysv64"`にするか、kernelのentry pointを`extern "efiabi"`にすると動く。私は`extern "sysv64"`にしている。
 
 ### kernelが動くようになってから
 
