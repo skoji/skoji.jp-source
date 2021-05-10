@@ -41,7 +41,7 @@
         }
     }
 
-    @include media-query($on-palm) {
+    @include media-query($on-narrow) {
         position: absolute;
         top: 9px;
         right: $spacing-unit / 2;
@@ -263,6 +263,9 @@
             display: inline-block;            
         }
     }
+    @include media-query($on-palm)  {
+        font-size: $small-font-size-for-palm;        
+    }
 }
 
 .post-link {
@@ -345,7 +348,7 @@
 
     h4 {
         margin-top: $spacing-unit;
-        font-size: 20px;
+        font-size: 24px;
 
         @include media-query($on-laptop) {
             font-size: 18px;
