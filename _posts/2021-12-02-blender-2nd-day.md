@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Blender雪だるまモデリングの途中
+title: Blender 雪だるまモデリング
 date: '2021-12-02T21:27:25+09:00'
 categories:
 - blender
