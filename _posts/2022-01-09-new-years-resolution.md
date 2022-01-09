@@ -37,6 +37,6 @@ Filmarksによると、映画は配信を含めて以下の9本を観ていた�
 一冊目は[『微分・積分30講』](https://www.asakura.co.jp/detail.php?book_code=11476)。解析系は学生時代もあまり興味が持てず、今はほとんど忘れてしまっている。しかし、たとえば圏論に踏み込もうとすると、「分かりやすい例」として解析系の話が出てくることも少なくない。少なくとも、そういうものを問題なくすらすら読めるレベルまで思い出したい。
 
 
-もう一冊は直接高校数学ではないが、現在入手困難な[『証明の読み方・考え方』](https://www.kyoritsu-pub.co.jp/bookdetail/9784320013421)の原書の[“How to Read and Do Proofs”](https://www.wiley.com/en-us/How+to+Read+and+Do+Proofs%3A+An+Introduction+to+Mathematical+Thought+Processes%2C+6th+Edition-p-9781118164020)を読み始めている。証明でつかう考え方、プロセスを明文化して整理した本で、これは高校時代に出会っていたらずいぶん違っただろうと思う。私はこの本に書かれていることは断片的に身につけてはいるが、それは穴だらけだということが、読みすすめているとよく分かる。
+もう一冊は、直接高校数学ではない。現在入手困難な[『証明の読み方・考え方』](https://www.kyoritsu-pub.co.jp/bookdetail/9784320013421)の原書である[“How to Read and Do Proofs”](https://www.wiley.com/en-us/How+to+Read+and+Do+Proofs%3A+An+Introduction+to+Mathematical+Thought+Processes%2C+6th+Edition-p-9781118164020)を読んでいる。証明でつかう考え方、プロセスを明文化して整理した本で、これは高校時代に出会っていたらずいぶん違っただろうと思う。私はこの本に書かれていることは断片的に身につけてはいるが、それは穴だらけだ、ということが読みすすめているとよく分かる。
 
 Blenderを憶えたり個人プロジェクトでコードを書いたりといったこともやっていきたいが、目標としては掲げない。流れに身を任せていこうと思う。仕事についてはきちんとやるのが当然なので、こちらも目標としては掲げない。
