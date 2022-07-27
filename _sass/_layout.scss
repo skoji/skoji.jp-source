@@ -6,7 +6,7 @@
     border-bottom: 1px solid $grey-color-light;
     height: 56px;
     position: relative;
-    background-color: $header-footer-bg-color;    
+    background-color: $header-footer-bg-color;
 }
 
 .site-title {
@@ -95,7 +95,7 @@
 .site-footer {
     border-top: 1px solid $grey-color-light;
     padding: $spacing-unit 0;
-    background-color: $header-footer-bg-color;    
+    background-color: $header-footer-bg-color;
 }
 
 .footer-heading {
@@ -205,7 +205,7 @@
 	        font-size: 20px;
 	        line-height: 1.2;
 	        margin-bottom: 5px;
-	    }	
+	    }
 	    p {
 	        font-size: 12px;
 	    }
@@ -239,9 +239,9 @@
 
 @include media-query($on-palm) {
     .post-list {
-	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));	
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 	> li {
-	    margin: 8px;	    
+	    margin: 8px;
 	    h2 {
 		font-size: 18px;
 	    }
@@ -260,11 +260,11 @@
         list-style: none;
         margin-left: 1em;
         > li {
-            display: inline-block;            
+            display: inline-block;
         }
     }
     @include media-query($on-palm)  {
-        font-size: $small-font-size-for-palm;        
+        font-size: $small-font-size-for-palm;
     }
 }
 
@@ -367,6 +367,44 @@
     }
 }
 
+.post-navigation {
+    font-size: 0.9em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    a {
+        color: #888888;
+        &:hover, &:visited {
+	        text-decoration: none;
+            color: #888888;
+        }
+
+    }
+    .next-post {
+        padding-right: 1em;
+        grid-column: 2;
+        justify-self: end;
+        &::before {
+            display: inline-block;
+            float: right;
+            padding-left: 0.5em;
+            content: "newer »";
+            margin-right: -1em;
+        }
+    }
+    .prev-post {
+        grid-column: 1;
+        &::before {
+            float: left;
+            display: block;
+            padding-right: 0.5em;
+            content: "« older";
+        }
+    }
+}
+
+
+
 .note {
     font-size: 0.8em;
     color: #884400;
@@ -396,7 +434,7 @@
     #search_button {
         height: 24px;
         font-size: 1em;
-        line-height: 26px;        
+        line-height: 26px;
         background-color: $background-color;
         margin-left: -0.3em;
     }
