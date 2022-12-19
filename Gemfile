@@ -1,12 +1,14 @@
 source "http://rubygems.org"
-gem 'jekyll', '~> 4.1'
+gem 'jekyll', '~> 4.3'
 group :jekyll_plugins do
   gem 'jekyll-paginate-v2'
   gem 'jekyll-compose'
   gem 'jekyll-auto-image'
+  gem 'jekyll-admin'
+
 end
 group :development do
-  gem 'byebug'
+  gem 'debug'
 end
 gem 'travis'
 gem 'rake'
