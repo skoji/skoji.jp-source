@@ -12,7 +12,8 @@ plugins:
   - jekyll-auto-image
   - jekyll-paginate-v2
 image: /blog/assets/logo.png
-
+exclude: skoji.jp-root
+destination: skoji.jp-root/blog
 pagination:
   enabled: true
   per_page: 60
