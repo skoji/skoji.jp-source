@@ -10,7 +10,6 @@ end
 group :development do
   gem 'debug'
 end
-gem 'travis'
 gem 'rake'
 
 gem "webrick", "~> 1.7"
