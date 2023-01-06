@@ -155,12 +155,4 @@
 	  </div>
 
   </body>
-  <script>
-	  const now = Date.now();
-	  fetch('/ipx?' + now).then(function(response) {
-		 return response.text();
-	  }).then(function(text) {
-		  document.getElementById('ipvx').innerText = "Connected via " + text;
-	});
-  </script>
 </html>
