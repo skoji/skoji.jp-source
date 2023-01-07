@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/skoji
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://skoji.jp
+  * I am skoji (https://keybase.io/skoji) on keybase.
+  * I have a public key ASDJECPiEN7SU6M5imufwydV5tGAwSm2EjSZ8ovppIuJIwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120c91023e210ded253a3398a6b9fc32755e6d180c129b6123499f28be9a48b89230a",
+      "host": "keybase.io",
+      "kid": "0120c91023e210ded253a3398a6b9fc32755e6d180c129b6123499f28be9a48b89230a",
+      "uid": "dfc418c818dc3f5734e9173ff4897419",
+      "username": "skoji"
+    },
+    "merkle_root": {
+      "ctime": 1611815792,
+      "hash": "67a4dd55cb2b2ea463cbff7e057beaea1b4298348b500ec969e7a8536362ffc0d3d033e5367704fc2716d25aeee91ad84734af96d06271b64383914f65dbf7a0",
+      "hash_meta": "6addb778a5ccf99b401538796f7652071980caf162a11d0cb8dd8c5ec6d70e39",
+      "seqno": 18931759
+    },
+    "service": {
+      "entropy": "PkmXDDPom80VRI6/9BLz0EZf",
+      "hostname": "skoji.jp",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.6.0"
+  },
+  "ctime": 1611815842,
+  "expire_in": 504576000,
+  "prev": "44356b221ac0c37e503c2b5cc857c9d34de89978dd90d20889ea01677e17d94a",
+  "seqno": 8,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgyRAj4hDe0lOjOYprn8MnVebRgMEpthI0mfKL6aSLiSMKp3BheWxvYWTESpcCCMQgRDVrIhrAw35QPCtcyFfJ003omXjdkNIIieoBZ34X2UrEIIxR1pJbar9K8UyjdrgR0RC+gcFBvj6W3aumAs8gWkSxAgHCo3NpZ8RAykblanANGOiHFTXLqI7nNsUw5UIsuspVWVE/2OOypwt2Ktj4OF2Zmjw6zTKbTbaayNtNoDpA2yqC4cpnodYvBqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGiVYsuz+ZutXIvQHRyA1t8WwQhasQILs9rwxGhkp+yXo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/skoji
+
+==================================================================
