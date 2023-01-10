@@ -28,7 +28,7 @@ jobs:
         ssh-add keyfile
         bundle install
         bundle exec rake build
-        rsync -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" -r -vz skoji.jp-root/ www-deploy@skoji.jp:/usr/share/nginx/html/
+        rsync -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" -r -vz skoji.jp-root/ web-deploy@skoji.jp:/usr/share/nginx/html/
         
         
       
