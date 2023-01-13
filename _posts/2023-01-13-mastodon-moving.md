@@ -13,7 +13,7 @@ skoji.jpドメインのサーバのOSを、Ubuntu 18.04からクリーンイン�
 Mastodonでは設定ファイルとDBとメディアのバックアップがあれば良い。このうち、メディアはシングルユーザサーバでもそれなりのサイズで面倒なので、先にAWS S3へ切り替えた。
 
 * S3では仮想ホスト形式が推奨。仮想ホスト形式の場合bucket名にドットを入れるとAWS側のワイルドカード証明書とマッチしなくてhttpsできなくなるので注意
-* 使い回してるMastodonの設定ファイルだと`S3_CLOUDFRONT_HOST`ってなってるとこは、そのままでも動くけど、いまは`S3_ALIAS_HOST`のほうが正式
+* 使い回してるMastodonの設定ファイルだと`S3_CLOUDFRONT_HOST`ってなってるところはそのままでも動くけど、いまは`S3_ALIAS_HOST`のほうが正式
 
 ### Bucket作成・設定
 
@@ -110,6 +110,7 @@ server {
 以下をバックアップした。Mastodonに関係ないものも含まれている。
 
 * postgres : `pg_dumpall`の結果
+* `/var/lib/redis/dump.rdb`
 * `.env.production`
 * `/etc/letsencrypt`以下ぜんぶ
 * `/etc/nginx/`以下ぜんぶ
@@ -136,9 +137,15 @@ server {
 
 * certbotはsnapでいれているのでapt版は入れない。
 * DBは`psql -f <バックアップファイル>`で書き戻すのでユーザー作成などはやらない
+* redisのdump.rdbもどす 
 * もともと設定されているDB Userが`mastodon`ではなく`postgres`なので、`pg_hba.conf`を編集してpeerをmd5にする
 * Ubuntu 22.04ではホームディレクトリのpermissionが750なので、`sudo chmod 755 /home/mastodon`する
 * `rake mastodon:setup`はやらない。git clone後に`.env.production`を戻したら、`yarn install && bundle install && bundle exec rake assets:precompile`する。
+
+### 定期実行ジョブ
+
+systemd timerで、`media remove-orphans`や`media remove`をやるようにした（詳細は後日）。`media remove`は今は管理者のWebUIからできるので不要だけど、ログを手軽に確認できるのがよいので設定した。remove-orphansは週次、removeは日次で実行させている。
+
 
 
 
