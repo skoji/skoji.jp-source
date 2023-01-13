@@ -135,7 +135,8 @@ server {
 基本的には公式手順どおり。ただし以下が異なる。
 
 * certbotはsnapでいれているのでapt版は入れない。
-* DB Userが`mastodon`ではなく`postgres`なので、`pg_hba.conf`を編集してpeerをmd5にする
+* DBは`psql -f <バックアップファイル>`で書き戻すのでユーザー作成などはやらない
+* もともと設定されているDB Userが`mastodon`ではなく`postgres`なので、`pg_hba.conf`を編集してpeerをmd5にする
 * Ubuntu 22.04ではホームディレクトリのpermissionが750なので、`sudo chmod 755 /home/mastodon`する
 * `rake mastodon:setup`はやらない。git clone後に`.env.production`を戻したら、`yarn install && bundle install && bundle exec rake assets:precompile`する。
 
