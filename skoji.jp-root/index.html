@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="me" href="https://sandbox.skoji.jp/@skoji">
     <link rel="me" href="https://bookwor.ms/@skoji">
+    <link href="/fontawesome/css/all.min.css" rel="stylesheet">    
     <meta name="google-site-verification" content="SIV6UKczOcY_OmS44XuCBi30il5ZJqEfI9JLq4Dui-s" />
     <title>skoji.jp </title>
-    <script>
-       FontAwesomeConfig = { searchPseudoElements: true };
-    </script>
-    <script defer src="/js/fontawesome-all.min.js"></script>
     <style>
 	 html {
 		 line-height: 1.2;
@@ -109,6 +106,18 @@
          font-size: 1em;
      }
 
+     #nostr-id-copy {
+         color: #000080;
+         cursor: pointer;
+     }
+     #nostr-id-copy:hover {
+         color: #0000f0;         
+     }
+     #nostr-id-copied {
+         color: #008000;
+         display: none;
+         opacity: 0;
+     }
      #footer {
 	     margin: 1em 1em;
 	     color: #606060;
@@ -145,20 +154,23 @@
      	<section>
             <h2>SNS</h2>
             <ul class="no-bullet links">
-	          <li><i class="fab fa-mastodon"></i>Mastodon
+	          <li><i class="fab fa-fw fa-mastodon"></i>Mastodon
 	          <ul class="no-bullet">
 		          <li><a rel="me nofollow" href="https://bookwor.ms/@skoji">@skoji@bookwor.ms</a></li>
                   <li><a rel="me nofollow" href="https://sandbox.skoji.jp/@skoji">@skoji@sandbox.skoji.jp</a></li>
 	          </ul></li>
               <li class="nostr">Nostr
                 <ul class="no-bullet">
-                  <li><input type="text" readonly id="nostr-pubid" value="npub12x7zm9gxsvxv2nrzfpge0tpf7rp8gu4n27837m0z8h77tvxamjfqpfxxs4" />
+                  <li>
+                    <span id="nostr-id-copy"><i class="fa-solid fa-fw fa-copy"></i></span>
+                    <span id="nostr-id-copied"><i class="fa-solid fa-fw fa-check"></i></span>                    
+                    <input type="text" readonly id="nostr-pubid" value="npub12x7zm9gxsvxv2nrzfpge0tpf7rp8gu4n27837m0z8h77tvxamjfqpfxxs4" />
                   </li>
                 </ul></li>
-                <li><i class="fab fa-twitter"></i><a rel="me nofollow" href="https://twitter.com/skoji">Twitter</a></li>
-              <li><i class="fab fa-github"></i><a rel="me nofollow" href="https://github.com/skoji">GitHub</a></li>
-              <li><i class="fab fa-keybase"></i><a href="https://keybase.io/skoji/">Keybase</a></li>
-              <li><i class="fab fa-instagram"></i><a rel="me nofollow" href="https://instagram.com/skoji">Instagram</a></li>
+                <li><i class="fab fa-twitter fa-fw"></i><a rel="me nofollow" href="https://twitter.com/skoji">Twitter</a></li>
+              <li><i class="fab fa-github fa-fw"></i><a rel="me nofollow" href="https://github.com/skoji">GitHub</a></li>
+              <li><i class="fab fa-keybase fa-fw"></i><a href="https://keybase.io/skoji/">Keybase</a></li>
+              <li><i class="fab fa-instagram fa-fw"></i><a rel="me nofollow" href="https://instagram.com/skoji">Instagram</a></li>
             </ul>
          </section>
 	    <section>
@@ -181,10 +193,25 @@
   <script>
    window.onload = () => {
        const nostr_pubid = document.querySelector('#nostr-pubid');
-       document.querySelector('#nostr-pubid').addEventListener('click', (event) => {
-           console.log(nostr_pubid.value);
+       const nostr_id_copy = document.querySelector('#nostr-id-copy');
+       const nostr_id_copied = document.querySelector('#nostr-id-copied');       
+       nostr_id_copy?.addEventListener('click', (event) => {
+           navigator.clipboard.writeText(nostr_pubid.value);
+           nostr_id_copy.style.display = 'none';
+           nostr_id_copied.style.display = 'inline';
+           setTimeout(() => {
+               nostr_id_copied.style.transition = 'opacity 1s';
+               nostr_id_copied.style.opacity = '1';
+           }, 50);
        });
-
+       nostr_id_copied.addEventListener('mouseout', () => {
+           setTimeout(() => {
+               nostr_id_copy.style.display = 'inline';
+               nostr_id_copied.style.display = 'none';
+               nostr_id_copied.style.opacity = '0';
+           }, 100);
+       });
+       
        const now = Date.now();
        fetch('/ipx?' + now).then(function(response) {
 	       return response.text();
