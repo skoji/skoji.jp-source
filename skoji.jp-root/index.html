@@ -196,6 +196,7 @@
        const nostr_id_copy = document.querySelector('#nostr-id-copy');
        const nostr_id_copied = document.querySelector('#nostr-id-copied');       
        nostr_id_copy?.addEventListener('click', (event) => {
+           event.preventDefault();
            navigator.clipboard.writeText(nostr_pubid.value);
            nostr_id_copy.style.display = 'none';
            nostr_id_copied.style.display = 'inline';
@@ -209,7 +210,14 @@
                nostr_id_copy.style.display = 'inline';
                nostr_id_copied.style.display = 'none';
                nostr_id_copied.style.opacity = '0';
-           }, 100);
+           }, 500);
+       });
+       document.addEventListener('click', (event) => {
+           if (!event.target.closest('#nostr-id-copy')) {
+               nostr_id_copy.style.display = 'inline';
+               nostr_id_copied.style.display = 'none';
+               nostr_id_copied.style.opacity = '0';
+           }
        });
        
        const now = Date.now();
