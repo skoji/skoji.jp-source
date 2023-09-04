@@ -35,5 +35,4 @@ categories:
 * IMAX1回
 * 通常上映9回
 
-Dolby CinemaはTHE FIRST SLAM DUNKで初鑑賞だった。また、T・ジョイPRINCE品川,T・ジョイSEIBU大泉,丸の内TOEIもTHE FIRST SLAM DUNKで初鑑賞だった。
-
+Dolby CinemaはTHE FIRST SLAM DUNKで初鑑賞だった。また、T・ジョイPRINCE品川,T・ジョイSEIBU大泉,丸の内TOEIは、THE FIRST SLAM DUNKで初訪問だった。
