@@ -194,34 +194,6 @@
   </body>
   <script>
    window.onload = () => {
-       const nostr_pubid = document.querySelector('#nostr-pubid');
-       const nostr_id_copy = document.querySelector('#nostr-id-copy');
-       const nostr_id_copied = document.querySelector('#nostr-id-copied');       
-       nostr_id_copy?.addEventListener('click', (event) => {
-           event.preventDefault();
-           navigator.clipboard.writeText(nostr_pubid.value);
-           nostr_id_copy.style.display = 'none';
-           nostr_id_copied.style.display = 'inline';
-           setTimeout(() => {
-               nostr_id_copied.style.transition = 'opacity 1s';
-               nostr_id_copied.style.opacity = '1';
-           }, 50);
-       });
-       nostr_id_copied.addEventListener('mouseout', () => {
-           setTimeout(() => {
-               nostr_id_copy.style.display = 'inline';
-               nostr_id_copied.style.display = 'none';
-               nostr_id_copied.style.opacity = '0';
-           }, 2000);
-       });
-       document.addEventListener('click', (event) => {
-           if (!event.target.closest('#nostr-id-copy')) {
-               nostr_id_copy.style.display = 'inline';
-               nostr_id_copied.style.display = 'none';
-               nostr_id_copied.style.opacity = '0';
-           }
-       });
-       
        const now = Date.now();
        fetch('/ipx?' + now).then(function(response) {
 	       return response.text();
