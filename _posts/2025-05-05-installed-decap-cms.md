@@ -1,14 +1,15 @@
 ---
-layout: post
 title: Decap CMSを入れた
-date: 2025-05-05T19:05:41+09:00
+date: 2025-05-05T19:05:00+09:00
 image: /blog/images/decap.png
 categories:
   - blog設定
+layout: post
 ---
-
 このブログをJekyllにして以来、更新には原則としてmacが必須だった。GitHubのWeb UIを使えばWebからの更新もできなくはないが、あまり現実的ではない。
 思い立って、[Decap CMS](https://decapcms.org)を設定してみた。思ったよりもめんどうくさかったが、なんとかなった。記録しておく。
+
+2025/5/6 注: iOS Safariでの使い勝手が悪く、Decap Altenertiveとして開発されている[Sveltia CMS](https://github.com/sveltia/sveltia-cms)に乗り換えた。[ドキュメントにあるように、index.htmlのscript書き換え](https://github.com/sveltia/sveltia-cms?tab=readme-ov-file#migration)だけで完全に動いた。
 
 ## 管理画面と設定の設置
 
