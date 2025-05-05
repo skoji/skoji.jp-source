@@ -5,6 +5,7 @@ backend:
   base_url: https://decap-auth.skoji.jp
 media_folder: 'images'
 public_folder: '/blog/images/'
+site_url: https://skoji.jp
 editor:
   preview: false
 collections:
@@ -13,10 +14,11 @@ collections:
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     folder: '_posts/'
+    preview_path: '/blog/{{year}}/{{month}}/{{title}}.html'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', picker_utc: false, format: "YYYY-MM-DDTHH:mm:ssZ", widget: 'datetime' }
-      - { label: 'OGP Image', name: 'image', widget: 'image' }
+      - { label: 'OGP Image', name: 'image', widget: 'image', required: false }
       - label: 'Categories'
         name: 'categories'
         widget: 'select'
