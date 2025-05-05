@@ -16,6 +16,7 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', picker_utc: false, format: "YYYY-MM-DDTHH:mm:ssZ", widget: 'datetime' }
+      - { label: 'OGP Image', name: 'image', widget: 'image' }
       - label: 'Categories'
         name: 'categories'
         widget: 'select'
