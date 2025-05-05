@@ -5,6 +5,8 @@ date: 2025-05-05T19:05:41+09:00
 categories:
   - blog設定
 ---
+![](/blog/images/decap.png)
+
 このブログをJekyllにして以来、更新には原則としてmacが必須だった。GitHubのWeb UIを使えばWebからの更新もできなくはないが、あまり現実的ではない。
 思い立って、[Decap CMS](https://decapcms.org)を設定してみた。思ったよりもめんどうくさかったが、なんとかなった。記録しておく。
 
