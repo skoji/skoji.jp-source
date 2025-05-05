@@ -4,6 +4,7 @@ backend:
   branch: main
   base_url: https://decap-auth.skoji.jp
 media_folder: 'images'
+public_folder: '/blog/images/'
 editor:
   preview: false
 collections:
