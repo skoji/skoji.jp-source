@@ -1,11 +1,10 @@
 ---
 layout: post
 title: Decap CMSを入れた
-date: '2025-05-05T19:05:41+09:00'
+date: 2025-05-05T19:05:41+09:00
 categories:
-- blog設定
+  - blog設定
 ---
-
 このブログをJekyllにして以来、更新には原則としてmacが必須だった。GitHubのWeb UIを使えばWebからの更新もできなくはないが、あまり現実的ではない。
 思い立って、[Decap CMS](https://decapcms.org)を設定してみた。思ったよりもめんどうくさかったが、なんとかなった。記録しておく。
 
@@ -73,7 +72,7 @@ Decapのドキュメントに、[External OAuth Clientsのリスト](https://dec
 
 まず、実行用ユーザを作成する。
 
-```
+```shell
 sudo adduser --system --group --home /opt/decapcms-oauth2 decap
 sudo mkdir -p /opt/decapcms-oauth2
 sudo chown decap:decap /opt/decapcms-oauth2
@@ -81,7 +80,7 @@ sudo chown decap:decap /opt/decapcms-oauth2
 
 それから、バイナリをビルドする。
 
-```
+```shell
 git clone https://github.com/alukovenko/decapcms-oauth2.git
 cd decapcms-oauth2
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o decapcms-oauth2
@@ -90,7 +89,7 @@ sudo mv decapcms-oauth2 /opt/decapcms-oauth2/
 
 環境設定ファイル`/etc/decapcms-oauth2.env`を作る。
 
-```
+```shell
 OAUTH_CLIENT_ID=xxxxxxxxxxx
 OAUTH_CLIENT_SECRET=xxxxxxxxx
 SERVER_HOST=127.0.0.1
@@ -130,7 +129,7 @@ WantedBy=multi-user.target
 
 有効化し、起動する。
 
-```
+```shell
 sudo systemctl daemon-reload
 sudo systemctl enable --now decapcms-oauth2
 ```
@@ -139,13 +138,13 @@ sudo systemctl enable --now decapcms-oauth2
 
 Let's Encryptの証明書を取得する。
 
-```
+```shell
 sudo certbot certonly --nginx -d decap-auth.skoji.jp
 ```
 
 nginx configを書く。
 
-```
+```nginx
 server {
     if ($host = decap-auth.skoji.jp) {
         return 301 https://$host$request_uri;
@@ -189,6 +188,6 @@ server {
 
 configのチェックとnginx再起動
 
-```
+```shell
 sudo nginx -t && sudo systemctl reload nginx
 ```
