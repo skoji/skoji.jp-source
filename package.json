@@ -9,8 +9,5 @@
   "devDependencies": {
     "textlint": "^12.2.1",
     "textlint-rule-preset-ja-technical-writing": "^7.0.0"
-  },
-  "dependencies": {
-    "decap-cms-app": "^3.6.2"
   }
 }
