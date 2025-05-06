@@ -92,7 +92,6 @@ markdown: kramdown
 host: 0.0.0.0
 exclude:
   - 'Rakefile'
-  - 'deploy.sh'
   - 'refine-post.rb'
   - 'preindex.js'
   - 'skoji.jp-root'
