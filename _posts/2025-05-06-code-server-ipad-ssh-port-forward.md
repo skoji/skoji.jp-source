@@ -25,7 +25,7 @@ curl -fsSL https://code-server.dev/install.sh | sh
   sudo systemctl enable --now code-server@$USER
 ```
 
-これでローカルでは起動している。
+これでローカルでは起動している。systemdにいれずに、使うときに毎回code-serverを手で起動してもよい。
 
 それから、nginx + Let's Encryptでの設定をする。これも指示通りにやればすぐにできる。公式ドキュメントの通りにやれば良いので省略する。
 
