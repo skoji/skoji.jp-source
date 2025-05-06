@@ -20,6 +20,14 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', picker_utc: false, format: "YYYY-MM-DDTHH:mm:ssZ", widget: 'datetime' }
       - { label: 'OGP Image', name: 'image', widget: 'image', required: false }
+      - label: 'Font'
+        name: 'type'
+        widget: 'select'
+        options:
+          - { label: 'default', value: '' }
+          - { label: 'sans-serif', value: 'sans-serif' }
+          - { label: 'serif', value: 'serif' }
+        required: false
       - label: 'Categories'
         name: 'categories'
         widget: 'select'
