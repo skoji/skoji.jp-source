@@ -11,4 +11,8 @@ command -v gsed || SED=sed
 cd `dirname $0`
 post=`bundle exec jekyll post $1 | grep 'New post created' | ${SED} 's/^New post created at \([^.]*\.md\).*$/\1/'`
 post=`ruby refine-post.rb $post`
+year=$(echo "$post" | cut -d'-' -f1 | tr -d '_posts/')
+mkdir -p "_posts/$year"
+mv $post "_posts/$year/"
+post="_posts/$year/$(basename $post)"
 $BLOG_EDITOR $post

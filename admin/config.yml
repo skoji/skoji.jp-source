@@ -12,8 +12,9 @@ collections:
   - name: 'blog'
     label: 'Blog'
     create: true
+    path: "{{year}}/{{slug}}"
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-    folder: '_posts/'
+    folder: "_posts"
     preview_path: '/blog/{{year}}/{{month}}/{{title}}.html'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
