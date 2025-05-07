@@ -16,6 +16,7 @@
     <h1>体重トラッカー</h1>
     <label>前日の体重: <input type="number" step="0.1" id="yesterday" /></label>
     <label>今日の体重: <input type="number" step="0.1" id="today" /></label>
+    <button id="nextDayButton">日付を進める</button>
     <button id="copyButton">結果をコピー</button>
     <textarea id="result" readonly></textarea>
 
@@ -25,7 +26,8 @@
      const yesterdayInput = document.getElementById('yesterday');
      const todayInput = document.getElementById('today');
      const resultArea = document.getElementById('result');
-     const copyButton = document.getElementById('copyButton');     
+     const copyButton = document.getElementById('copyButton');
+     const nextDayButton = document.getElementById('nextDayButton');
 
      function loadValues() {
          const y = localStorage.getItem('wt_yesterday');
@@ -67,6 +69,14 @@
       }).catch(() => {
         alert('コピーに失敗しました。');
       });
+     });
+
+     nextDayButton.addEventListener('click', () => {
+        const t = parseFloat(todayInput.value);
+        if (isNaN(t)) return;
+        yesterdayInput.value = t;
+        todayInput.value = '';
+        updateResult();
      });
      
      yesterdayInput.addEventListener('input', updateResult);
