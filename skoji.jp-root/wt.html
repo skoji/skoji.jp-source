@@ -17,6 +17,7 @@
     <label>前日の体重: <input type="number" step="0.1" id="yesterday" /></label>
     <label>今日の体重: <input type="number" step="0.1" id="today" /></label>
     <button id="nextDayButton">日付を進める</button>
+    <button id="shareButton">バ鯖でtoot</button>
     <button id="copyButton">結果をコピー</button>
     <textarea id="result" readonly></textarea>
 
@@ -28,6 +29,7 @@
      const resultArea = document.getElementById('result');
      const copyButton = document.getElementById('copyButton');
      const nextDayButton = document.getElementById('nextDayButton');
+     const shareButton = document.getElementById('shareButton');
 
      function loadValues() {
          const y = localStorage.getItem('wt_yesterday');
@@ -77,6 +79,13 @@
         yesterdayInput.value = t;
         todayInput.value = '';
         updateResult();
+     });
+
+     shareButton.addEventListener('click', () => {
+         const text = resultArea.value;
+         if (!text) return;
+         const url = `https://mstdn-bike.net/share?text=${encodeURIComponent(text)}`;
+         window.open(url, '_blank');
      });
      
      yesterdayInput.addEventListener('input', updateResult);
