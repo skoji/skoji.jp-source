@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体重トラッカー</title>
+    <style>
+     body { font-family: sans-serif; margin: 2rem; }
+     label { display: block; margin-top: 1rem; }
+     input { width: 100px; padding: 0.5rem; margin-left: 0.5rem; }
+     textarea { width: 100%; height: 8rem; margin-top: 1rem; padding: 0.5rem; font-family: monospace; }
+    </style>
+  </head>
+  <body>
+    <h1>体重トラッカー</h1>
+    <label>前日の体重: <input type="number" step="0.1" id="yesterday" /></label>
+    <label>今日の体重: <input type="number" step="0.1" id="today" /></label>
+    <textarea id="result" readonly></textarea>
+
+    <script>
+     const targetWeight = 65;
+     const startWeight = 72.1;
+     const yesterdayInput = document.getElementById('yesterday');
+     const todayInput = document.getElementById('today');
+     const resultArea = document.getElementById('result');
+
+     function loadValues() {
+         const y = localStorage.getItem('wt_yesterday');
+         const t = localStorage.getItem('wt_today');
+         if (y !== null) yesterdayInput.value = y;
+         if (t !== null) todayInput.value = t;
+     }
+
+     function updateResult() {
+         const y = parseFloat(yesterdayInput.value);
+         const t = parseFloat(todayInput.value);
+         if (isNaN(y) || isNaN(t)) {
+             resultArea.value = '';
+             return;
+         }
+         const diffYesterday = +(t - y).toFixed(1);
+         const diffStart = +(t - startWeight).toFixed(1);
+         const toGo = +(t - targetWeight).toFixed(1);
+         const sign = n => n > 0 ? '+' : (n < 0 ? '-' : '±');
+         const fmt = n => Math.abs(n).toFixed(1);
+
+         let text = `${t.toFixed(1)} kg\n`;
+         text += `前日比 ${sign(diffYesterday)} ${fmt(diffYesterday)} kg\n`;
+         text += `開始時比 ${sign(diffStart)} ${fmt(diffStart)} kg\n`;
+         text += `目標 ${targetWeight} まで ${fmt(toGo)} kg\n`;
+         text += `#バ鯖ダイエット部`;
+         resultArea.value = text;
+
+         localStorage.setItem('wt_yesterday', y);
+         localStorage.setItem('wt_today', t);
+     }
+
+     yesterdayInput.addEventListener('input', updateResult);
+     todayInput.addEventListener('input', updateResult);
+
+     loadValues();
+     updateResult();
+    </script>
+  </body>
+</html>
