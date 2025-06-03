@@ -16,7 +16,16 @@ jobs:
     - name: Set up node
       uses: actions/setup-node@v1
       with:
-        node-version: 18.x
+        node-version: 24.x
+    - name: Optimise images with sharp-cli
+      run: |
+        npx --yes sharp-cli resize 1400 1400 \
+          --fit inside \
+          --withoutEnlargement \
+          --progressive \
+          --optimise \
+          --input "images/**/*.{jpg,jpeg,png}" \
+          --output "{dir}/{base}"
     - name: deploy to skoji
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
