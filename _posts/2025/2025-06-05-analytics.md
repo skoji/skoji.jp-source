@@ -44,6 +44,21 @@ $ sudo zcat -f /var/log/nginx/access.log*.gz /var/log/nginx/access.log | sudo go
 $ sudo chown -R nginx /var/lib/goaccess/*
 ```
 
+### GoAccessの設定ファイル
+
+`/etc/goaccess/goaccess.conf`として以下の内容を登録する。
+最初static-fileなしだったら、static requestのパネルが空っぽになり悩んだ。パラメータをコマンドラインから指定したら出るのに！結論としては、configファイル指定の場合は、static fileのデフォルト値がなくなるから。
+
+```
+date-format %Y-%m-%d
+time-format %H:%M:%S%z
+log-format {"ts":"%dT%t","ip":"%h","xff":"%^","host":"%v","method":"%m","uri":"%U","req":"%r","status":%s,"bytes":%b,"referer":"%R","ua":"%u","req_time":%^}
+static-file .css
+static-file .js
+static-file .jpg
+... (以下static-fileの列挙
+```
+
 ### systemdでの起動設定
 
 以下を`/etc/systemd/system/goaccess.service`として記述した。
