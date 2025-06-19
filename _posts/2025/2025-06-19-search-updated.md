@@ -6,6 +6,6 @@ categories:
  - blog設定
 ---
 
-[2019年にこのブログに入れた検索機能](https://skoji.jp/blog/2019/12/search-form.html)をいまさらアップデートした。Lunrでインデックス作ったりして頑張っていたのを、単純な全文リニアサーチにした。個人のブログでたいしたデータ量ではないんだからこれで十分なのだ。
+[2019年にこのブログに入れた検索機能](https://skoji.jp/blog/2019/12/search-form.html)をいまさら[アップデート](https://github.com/skoji/skoji.jp-source/pull/28)した。Lunrでインデックス作ったりして頑張っていたのを、単純なリニアな文字列検索にした。個人のブログでたいしたデータ量ではないんだからこれで十分なのだ
 
-https://github.com/skoji/skoji.jp-source/pull/28
+
