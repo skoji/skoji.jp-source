@@ -1,6 +1,6 @@
 <script>
  let postList;
- let search_data;
+ let searchData;
  let current_q;
  
  fetch('/blog/posts_lists_for_search.json').then((response) => {
@@ -12,7 +12,7 @@
  fetch('/blog/search_data.json').then((response) => {
      return response.json();
  }).then((json) => {
-     search_data = json;
+     searchData = json;
      window.onpopstate = doSearchWithQuery;
      doSearchWithQuery();
  });
@@ -70,11 +70,11 @@
 
  const doSearch = (q) => {
      const words = q.split(/\s+/).filter((w) => w.length > 0);
-     const keys = Object.keys(search_data).filter((key) => {
+     const keys = Object.keys(searchData).filter((key) => {
      return words.every((word) => {
          const w = new RegExp(word, 'i');
-         return search_data[key].content.search(w) >= 0 ||
-                search_data[key].title.search(w) >= 0
+         return searchData[key].content.search(w) >= 0 ||
+                searchData[key].title.search(w) >= 0
      });
      });
      showResults(keys);
