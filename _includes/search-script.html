@@ -71,9 +71,11 @@
  const doSearch = (q) => {
      const words = q.split(/\s+/).filter((w) => w.length > 0);
      const keys = Object.keys(search_data).filter((key) => {
-         return words.every((word) => {
-             return search_data[key].content.includes(word);
-         });
+     return words.every((word) => {
+         const w = new RegExp(word, 'i');
+         return search_data[key].content.search(w) >= 0 ||
+                search_data[key].title.search(w) >= 0
+     });
      });
      showResults(keys);
  }
