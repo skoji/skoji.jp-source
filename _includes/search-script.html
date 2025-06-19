@@ -68,13 +68,12 @@
  });
 
  const doSearch = (q) => {
-     const words = q.split(/\s+/).filter((w) => w.length > 0);
+     const wordsRegexp = q.split(/\s+/).filter((w) => w.length > 0).map((w) => RegExp(w, 'i'));
      const keys = Object.keys(searchData).filter((key) => {
-     return words.every((word) => {
-         const w = new RegExp(word, 'i');
-         return searchData[key].content.search(w) >= 0 ||
-                searchData[key].title.search(w) >= 0
-     });
+     return wordsRegexp.every((regexp) => {
+         return searchData[key].content.search(regexp) >= 0 ||
+                searchData[key].title.search(regexp) >= 0
+         });
      });
      showResults(keys);
  }
