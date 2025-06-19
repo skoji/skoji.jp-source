@@ -1,11 +1,6 @@
-<script src="../assets/js/lunr.min.js"></script>
-<script src="../assets/js/lunr.stemmer.support.min.js"></script>
-<script src="../assets/js/tinyseg.js"></script>
-<script src="../assets/js/lunr.ja.min.js"></script>
 <script>
  let postList;
- let idx;
- let current_q;
+ let searchData;
  
  fetch('/blog/posts_lists_for_search.json').then((response) => {
      return response.json();
@@ -13,10 +8,10 @@
      postList = json;
  });
 
- fetch('/blog/search_data_indexed.json').then((response) => {
+ fetch('/blog/search_data.json').then((response) => {
      return response.json();
  }).then((json) => {
-     idx = lunr.Index.load(json);
+     searchData = json;
      window.onpopstate = doSearchWithQuery;
      doSearchWithQuery();
  });
@@ -38,7 +33,7 @@
          
      }
      results.forEach((r) => {
-         const item = postList[r.ref];
+         const item = postList[r];
          const date = document.createTextNode(item.date);
          const a = document.createElement('a');
          a.href = item.url;
@@ -73,9 +68,14 @@
  });
 
  const doSearch = (q) => {
-     const s = new lunr.TinySegmenter();
-     const results = idx.search(s.segment(q).join(' '));
-     showResults(results);
+     const wordsRegexp = q.split(/\s+/).filter((w) => w.length > 0).map((w) => RegExp(RegExp.escape(w), 'i'));
+     const keys = Object.keys(searchData).filter((key) => {
+     return wordsRegexp.every((regexp) => {
+         return searchData[key].content.search(regexp) >= 0 ||
+                searchData[key].title.search(regexp) >= 0
+         });
+     });
+     showResults(keys);
  }
 
  const getQuery = (search) => {
