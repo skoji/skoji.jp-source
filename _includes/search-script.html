@@ -68,7 +68,7 @@
  });
 
  const doSearch = (q) => {
-     const wordsRegexp = q.split(/\s+/).filter((w) => w.length > 0).map((w) => RegExp(w, 'i'));
+     const wordsRegexp = q.split(/\s+/).filter((w) => w.length > 0).map((w) => RegExp(RegExp.escape(w), 'i'));
      const keys = Object.keys(searchData).filter((key) => {
      return wordsRegexp.every((regexp) => {
          return searchData[key].content.search(regexp) >= 0 ||
