@@ -4,7 +4,7 @@ title: Mastodonサーバアップデート2025
 date: '2025-07-05T09:24:04+09:00'
 categories:
  - Mastodon
- - Blog設定
+ - blog設定
 ---
 
 Mastodonひとりサーバ [sandbox.skoji.jp](https://sandbox.skoji.jp) とかこのブログとか設置しているサーバのOSアップデート作業を行なった。
