@@ -4,7 +4,6 @@ group :jekyll_plugins do
   gem 'jekyll-paginate-v2'
   gem 'jekyll-compose'
   gem 'jekyll-auto-image'
-  gem 'jekyll-admin'
 
 end
 group :development do
