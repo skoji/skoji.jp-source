@@ -2,6 +2,8 @@
 layout: post
 date: 2016-05-10 17:22:46 +0900
 title: WordPressからJekyllへの引っ越し記録
+categories:
+ - blog設定
 ---
 
 [買い物ログ](/movabletype)とともに、このブログはWordPressからJekyllに引っ越した。以下、引っ越しのために実施した作業を記録する。
