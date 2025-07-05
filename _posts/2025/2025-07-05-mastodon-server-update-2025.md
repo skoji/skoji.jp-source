@@ -7,8 +7,7 @@ categories:
  - blog設定
 ---
 
-Mastodonひとりサーバ [sandbox.skoji.jp](https://sandbox.skoji.jp) とかこのブログとか設置しているサーバのOSアップデート作業を行なった。
-Ubuntuのdo-release-upgradeはトラブった経験がむかーしあり、これまで避けていたんだけど、今回は使ってみた。
+Mastodonひとりサーバ [sandbox.skoji.jp](https://sandbox.skoji.jp) とかこのブログとか設置しているサーバのOSを、Ubuntu 22.04から24.04にアップデートする作業を行なった。Ubuntuのdo-release-upgradeはトラブった経験がむかーしあり、これまで避けていたんだけど、今回は使ってみた。
 
 ### バックアップ
 
