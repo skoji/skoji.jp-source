@@ -1,3 +1,7 @@
+---
+layout: empty
+---
+{% raw %}
 backend:
   name: github
   repo: skoji/skoji.jp-source
@@ -32,5 +36,5 @@ collections:
         name: 'categories'
         widget: 'select'
         multiple: true
-        options: [ "日常", "クルマ・バイク", "買い物", "computer/gadgets", "料理", "音楽",  "お酒", "本", "blog設定", "ソフトウェア", "ネタ", "写真", "映画", "このブログについて", "その他", ".NET Framework", "Ruby", "R", "ソフトウェア開発", "休むに似たり",  "Lua",  "atom",  "未分類",  "イベント",  "LowLevel",  "Factor",  "プログラミング言語",  "開発環境",  "Lisp系",  "電子書籍",  "gepub",  "電書",  "11日",  "webapp",  "目標",  "Rust",  "Mastodon",  "猫",  "ひとりアドベントカレンダー",  "英語の表現",  "個人事業主",  "font",  "日記",  "MikanOS",  "blender"]
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+        options: [{% endraw %}{% for category in site.categories %}"{{ category[0] }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% raw %}]
+      - { label: 'Body', name: 'body', widget: 'markdown' }{% endraw %}
