@@ -38,7 +38,6 @@ MastodonはImageMagickからlibvips利用へ移行中。せっかく24.04にし�
 
 ```
 $ sudo apt install libvips-tools
-$ # mastodonの.env.productionに
 ```
 
 * mastodonの`.env.production`に`MASTODON_USE_LIBVIPS=true`を追加
