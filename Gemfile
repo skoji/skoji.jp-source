@@ -11,4 +11,4 @@ group :development do
 end
 gem 'rake'
 
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.9"
