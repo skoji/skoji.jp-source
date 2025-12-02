@@ -924,7 +924,7 @@ dt {
         flex-direction: column;
         overflow: hidden;
 
-        a {
+        .advent-post-title {
             display: block;
             font-size: 12px;
             line-height: 1.3;
@@ -966,4 +966,23 @@ dt {
 // 月の最初の日の位置を設定
 .calendar .advent-day:nth-of-type(8) {
     grid-column-start: var(--first-day);
+}
+
+// アドベントカレンダーのリンク
+.advent-day-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    &:visited {
+        color: inherit;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
 }

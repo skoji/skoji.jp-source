@@ -51,18 +51,20 @@ layout: default
 
         {% if found_post %}
           <li class="advent-day has-post">
-            <div class="day-number">{{ day }}日</div>
-            <div class="post-info">
-              <a href="{{ found_post.url | prepend: site.baseurl }}">{{ found_post.title }}</a>
-              {% comment %}
-              jekyll-auto-imageで取得した画像を表示（デフォルト画像を除く）
-              {% endcomment %}
-              {% if found_post.image and found_post.image != "" and found_post.image != "/blog/assets/logo.png" %}
-                <div class="post-image">
-                  <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
-                </div>
-              {% endif %}
-            </div>
+            <a class="advent-day-link" href="{{ found_post.url | prepend: site.baseurl }}">
+              <div class="day-number">{{ day }}日</div>
+              <div class="post-info">
+                <div class="advent-post-title">{{ found_post.title }}</div>
+                {% comment %}
+                jekyll-auto-imageで取得した画像を表示（デフォルト画像を除く）
+                {% endcomment %}
+                {% if found_post.image and found_post.image != "" and found_post.image != "/blog/assets/logo.png" %}
+                  <div class="post-image">
+                    <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
+                  </div>
+                {% endif %}
+              </div>
+            </a>
           </li>
         {% else %}
           <li class="advent-day">
