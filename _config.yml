@@ -36,6 +36,11 @@ defaults:
       values:
         type: post
         layout: post
+    - scope:
+        type: pages
+      values:
+        image: "/blog/images/christmas-advent-calendar.jpg"
+        
 category_slug_map:
     .NET Framework: "net-framework"
     atom: "atom"
