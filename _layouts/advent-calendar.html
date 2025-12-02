@@ -55,9 +55,9 @@ layout: default
             <div class="post-info">
               <a href="{{ found_post.url | prepend: site.baseurl }}">{{ found_post.title }}</a>
               {% comment %}
-              jekyll-auto-imageで取得した画像を表示
+              jekyll-auto-imageで取得した画像を表示（デフォルト画像を除く）
               {% endcomment %}
-              {% if found_post.image %}
+              {% if found_post.image and found_post.image != "" and found_post.image != "/blog/assets/logo.png" %}
                 <div class="post-image">
                   <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
                 </div>
