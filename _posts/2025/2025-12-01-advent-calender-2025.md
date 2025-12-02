@@ -7,7 +7,7 @@ categories:
 layout: post
 ---
 
-<p class="note">これはひとりアドベントカレンダー「日記ぽい」1日目の記事です。</p>
+<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>1日目の記事です。</p>
 
 初日の今日は変化のない日常の話をする。
 
