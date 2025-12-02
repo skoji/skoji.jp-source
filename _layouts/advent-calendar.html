@@ -1,0 +1,77 @@
+---
+layout: default
+---
+<article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <div class="post-content">
+    {% assign year = page.year %}
+    {% assign month = page.month %}
+
+    {% comment %}
+    指定された年月の「ひとりアドベントカレンダー」タグがついた記事を取得
+    {% endcomment %}
+    {% assign advent_posts = site.posts | where_exp: "post", "post.categories contains 'ひとりアドベントカレンダー'" %}
+
+    {% comment %}
+    月の1日の曜日を取得（1=月曜, 7=日曜）
+    {% endcomment %}
+    {% assign first_date = year | append: "-" | append: month | append: "-01" %}
+    {% assign first_day_of_week = first_date | date: "%u" | plus: 0 %}
+
+    <div class="calendar-wrapper">
+      <ul class="calendar" style="--first-day: {{ first_day_of_week }}">
+        {% comment %}曜日ヘッダー{% endcomment %}
+        <li class="day-name">Mon</li>
+        <li class="day-name">Tue</li>
+        <li class="day-name">Wed</li>
+        <li class="day-name">Thu</li>
+        <li class="day-name">Fri</li>
+        <li class="day-name">Sat</li>
+        <li class="day-name">Sun</li>
+      {% for i in (1..24) %}
+        {% assign day = i %}
+        {% assign day_string = day %}
+        {% if day < 10 %}
+          {% assign day_string = "0" | append: day %}
+        {% endif %}
+
+        {% comment %}該当する日付の記事を探す{% endcomment %}
+        {% assign found_post = nil %}
+        {% for post in advent_posts %}
+          {% assign post_date = post.date | date: "%Y-%m-%d" %}
+          {% assign target_date = year | append: "-" | append: month | append: "-" | append: day_string %}
+          {% if post_date == target_date %}
+            {% assign found_post = post %}
+          {% endif %}
+        {% endfor %}
+
+        {% if found_post %}
+          <li class="advent-day has-post">
+            <div class="day-number">{{ day }}日</div>
+            <div class="post-info">
+              <a href="{{ found_post.url | prepend: site.baseurl }}">{{ found_post.title }}</a>
+              {% comment %}
+              jekyll-auto-imageで取得した画像を表示
+              {% endcomment %}
+              {% if found_post.image %}
+                <div class="post-image">
+                  <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
+                </div>
+              {% endif %}
+            </div>
+          </li>
+        {% else %}
+          <li class="advent-day">
+            <div class="day-number">{{ day }}日</div>
+          </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+</article>

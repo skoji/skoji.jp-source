@@ -829,3 +829,120 @@ dt {
     .vi    { color: #008080 } // Name.Variable.Instance
     .il    { color: #099 } // Literal.Number.Integer.Long
 }
+
+/**
+ * Advent Calendar
+ */
+.calendar-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+
+    @include media-query($on-palm) {
+        padding: 10px;
+    }
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include media-query($on-palm) {
+        gap: 5px;
+    }
+}
+
+.day-name {
+    background-color: $grey-color-mid-light;
+    color: white;
+    text-align: center;
+    padding: 10px 5px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 4px;
+
+    @include media-query($on-palm) {
+        padding: 8px 3px;
+        font-size: 12px;
+    }
+}
+
+.advent-day {
+    background-color: $grey-color-very-light;
+    border: 1px solid $grey-color-light;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    @include media-query($on-palm) {
+        min-height: 60px;
+        padding: 5px;
+    }
+
+    .day-number {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: $grey-color;
+
+        @include media-query($on-palm) {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+    }
+
+    &.has-post {
+        background-color: white;
+        border-color: $brand-color;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        .day-number {
+            color: $brand-color;
+        }
+
+        &:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    }
+
+    .post-info {
+        width: 100%;
+
+        a {
+            display: block;
+            font-size: 12px;
+            line-height: 1.3;
+            margin-bottom: 8px;
+            word-break: break-word;
+
+            @include media-query($on-palm) {
+                font-size: 10px;
+                margin-bottom: 4px;
+            }
+        }
+
+        .post-image {
+            margin-top: 8px;
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 2px;
+            }
+        }
+    }
+}
+
+// 月の最初の日の位置を設定
+.calendar .advent-day:nth-of-type(8) {
+    grid-column-start: var(--first-day);
+}
