@@ -36,7 +36,8 @@ $on-palm:          600px;
 $on-laptop:        800px;
 $on-narrow:        950px;
 
-
+$sunday-color: #e78080;
+$saturday-color: #78a3d0;
 
 // Use media queries like this:
 // @include media-query($on-palm) {
@@ -836,46 +837,49 @@ dt {
 .calendar-wrapper {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding-left: calc(#{$spacing-unit} / 2);
 
     @include media-query($on-palm) {
-        padding: 10px;
+        padding: 0;
     }
 }
 
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 10px;
+    gap: 3px;
     list-style: none;
     margin: 0;
     padding: 0;
-
-    @include media-query($on-palm) {
-        gap: 5px;
-    }
 }
 
 .day-name {
-    background-color: $grey-color-mid-light;
+    background-color: $grey-color;
     color: white;
     text-align: center;
-    padding: 10px 5px;
+    padding: calc($spacing-unit / 2);
     font-weight: bold;
     font-size: 14px;
-    border-radius: 4px;
+
+    &.sunday {
+        background-color: $sunday-color;
+    }
+
+    &.saturday {
+        background-color: $saturday-color;    
+    }
 
     @include media-query($on-palm) {
-        padding: 8px 3px;
-        font-size: 12px;
+        padding: calc(#{$spacing-unit} / 4);
+        font-size: $small-font-size-for-palm;
     }
 }
 
+
 .advent-day {
     background-color: $grey-color-very-light;
-    border: 1px solid $grey-color-light;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 2px;
+    padding: calc($spacing-unit / 2);
     text-align: center;
     min-height: 150px;
     min-width: 0;
@@ -886,18 +890,18 @@ dt {
 
     @include media-query($on-palm) {
         min-height: 100px;
-        padding: 5px;
+        padding: 0;
     }
 
     .day-number {
         font-weight: bold;
-        font-size: 18px;
+        font-size: $small-font-size;
         margin-bottom: 8px;
         color: $grey-color;
         flex-shrink: 0;
 
         @include media-query($on-palm) {
-            font-size: 14px;
+            font-size: $small-font-size-for-palm;
             margin-bottom: 4px;
         }
     }
