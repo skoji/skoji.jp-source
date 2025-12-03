@@ -104,9 +104,6 @@ img {
     max-width: 100%;
     vertical-align: middle;
 }
-
-
-
 /**
  * Figures
  */
@@ -643,6 +640,11 @@ pre {
 	padding: 0.5em;
 	margin: 0 auto;
     }
+
+    img.small-img {
+        max-width: 30%;
+    }
+    
     figcaption {
         font-size: 0.8em;
         color: #884400;
