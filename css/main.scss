@@ -117,6 +117,7 @@ figure > img {
 figcaption {
     font-size: $small-font-size;
     text-align: center;
+    color: #884444;
     @include media-query($on-palm)  {
         font-size: $small-font-size-for-palm;        
     }
@@ -834,6 +835,16 @@ dt {
 /**
  * Advent Calendar
  */
+.advent-calendar-description {
+    margin: $spacing-unit 0;
+    font-size: $small-font-size;
+    color: #442200;
+    @include media-query($on-palm) {
+        font-size: $small-font-size-for-palm;
+        margin: calc($spacing-unit / 3) 0;
+    }
+}
+
 .calendar-wrapper {
     max-width: 900px;
     margin: 0 auto;
