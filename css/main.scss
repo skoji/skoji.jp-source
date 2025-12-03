@@ -643,6 +643,9 @@ pre {
 
     img.small-img {
         max-width: 30%;
+        @include media-query($on-palm) {
+            max-width: 50%;
+        }
     }
     
     figcaption {
