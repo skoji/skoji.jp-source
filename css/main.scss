@@ -863,10 +863,23 @@ dt {
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 3px;
-    list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.weekdays,
+.dates {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  gap: 3px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dates > li:first-child {
+    grid-column-start: var(--first-day);
 }
 
 .day-name {
@@ -983,10 +996,6 @@ dt {
     }
 }
 
-// 月の最初の日の位置を設定
-.calendar .advent-day:nth-of-type(8) {
-    grid-column-start: var(--first-day);
-}
 
 // アドベントカレンダーのリンク
 .advent-day-link {
