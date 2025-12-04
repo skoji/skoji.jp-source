@@ -11,7 +11,7 @@ categories:
 
 <img class="small-img" src="/blog/images/advent-calendar-page.png" alt="advent calendar pageのスクリーンショット" />
 
-ひとりアドベントカレンダーは過去にもやっていて、アドベントカレンダーの記事一覧ページがないのはなんとなくさみしいなあ、と思っていた。今年は実装した。
+ひとりアドベントカレンダーは過去にもやっていて、アドベントカレンダーの記事一覧ページがないのはなんとなくさみしいなあ、と思っていたので、実装した。
 今年のアドベントカレンダー記事一覧ページは[ここ](https://skoji.jp/blog/advent-calendar/2025/)だ。「ひとりアドベントカレンダー」カテゴリーの記事が追加されるとJekyllビルド時にここに追加されていく。
 
 [Jekyllのlayout](https://github.com/skoji/skoji.jp-source/blob/dcffd941aab08fe8406c64a6ab6e22c02712682b/_layouts/advent-calendar.html)として実装し、ページの定義自体は手動で追加する。今年のページ定義は[ここ](https://github.com/skoji/skoji.jp-source/blob/dcffd941aab08fe8406c64a6ab6e22c02712682b/advent-calendar-2025.md)にある。frontmatterだけで中身はない。
@@ -29,6 +29,9 @@ categories:
 
 Liquidでは日付のフォーマットでstrftimeの文法が使える。`%u`では、月曜日を1とした数値表現が得られるから、月曜始まりカレンダーならそのまま使える。
 
+<h5>追記</h5>
+
+[修正した](https://github.com/skoji/skoji.jp-source/pull/34/files)。advent calendar pageの日付`ul`から`ol`に変更し、さらに曜日のラベルを外に出した（曜日ラベルは順序付きリストで並べた日付の一部とは言えないので）。
 
 
 
