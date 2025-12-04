@@ -22,32 +22,35 @@ layout: default
     {% endif %}
 
     <div class="calendar-wrapper">
-      <ul class="calendar" style="--first-day: {{ first_day_of_week }}">
-        <li class="day-name">Mon</li>
-        <li class="day-name">Tue</li>
-        <li class="day-name">Wed</li>
-        <li class="day-name">Thu</li>
-        <li class="day-name">Fri</li>
-        <li class="day-name saturday">Sat</li>
-        <li class="day-name sunday">Sun</li>
-      {% for i in (1..24) %}
-        {% assign day = i %}
-        {% assign day_string = day %}
-        {% if day < 10 %}
+      <div class="calendar">
+        <ul class="weekdays" aria-hidden="true">
+          <li class="day-name">Mon</li>
+          <li class="day-name">Tue</li>
+          <li class="day-name">Wed</li>
+          <li class="day-name">Thu</li>
+          <li class="day-name">Fri</li>
+          <li class="day-name saturday">Sat</li>
+          <li class="day-name sunday">Sun</li>
+        </ul>
+        <ol class="dates" style="--first-day: {{ first_day_of_week }}">
+          {% for i in (1..24) %}
+          {% assign day = i %}
+          {% assign day_string = day %}
+          {% if day < 10 %}
           {% assign day_string = "0" | append: day %}
-        {% endif %}
+          {% endif %}
 
-        {% comment %}該当する日付の記事を探す{% endcomment %}
-        {% assign found_post = nil %}
-        {% for post in advent_posts %}
+          {% comment %}該当する日付の記事を探す{% endcomment %}
+          {% assign found_post = nil %}
+          {% for post in advent_posts %}
           {% assign post_date = post.date | date: "%Y-%m-%d" %}
           {% assign target_date = year | append: "-" | append: month | append: "-" | append: day_string %}
           {% if post_date == target_date %}
-            {% assign found_post = post %}
+          {% assign found_post = post %}
           {% endif %}
-        {% endfor %}
+          {% endfor %}
 
-        {% if found_post %}
+          {% if found_post %}
           <li class="advent-day has-post">
             <a class="advent-day-link" href="{{ found_post.url | prepend: site.baseurl }}">
               <div class="day-number">{{ day }}日</div>
@@ -57,20 +60,21 @@ layout: default
                 jekyll-auto-imageで取得した画像を表示（デフォルト画像を除く）
                 {% endcomment %}
                 {% if found_post.image and found_post.image != "" and found_post.image != "/blog/assets/logo.png" %}
-                  <div class="post-image">
-                    <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
-                  </div>
+                <div class="post-image">
+                  <img src="{{ found_post.image }}" alt="{{ found_post.title }}">
+                </div>
                 {% endif %}
               </div>
             </a>
           </li>
-        {% else %}
+          {% else %}
           <li class="advent-day">
             <div class="day-number">{{ day }}日</div>
           </li>
-        {% endif %}
-      {% endfor %}
-      </ul>
+          {% endif %}
+          {% endfor %}
+        </ol>
+      </div>
     </div>
 
     <p style="text-align: center; margin-top: 30px;">
