@@ -10,8 +10,10 @@ layout: post
 
 <img class="small-img" src="/blog/images/advent-calendar-page.png" alt="advent calendar pageのスクリーンショット" />
 
-ひとりアドベントカレンダーは過去にもやっていて、アドベントカレンダーの記事一覧ページがないのはなんとなくさみしいなあ、と思っていたので、実装した。
-今年のアドベントカレンダー記事一覧ページは[ここ](https://skoji.jp/blog/advent-calendar/2025/)だ。「ひとりアドベントカレンダー」カテゴリーの記事が追加されるとJekyllビルド時にここに追加されていく。
+ひとりアドベントカレンダーは過去にもやっていて、アドベントカレンダーの記事一覧ページがないのはさみしいなあ、と思っていた。やっと実装した。
+
+
+今年のアドベントカレンダー記事一覧ページは[ここ](https://skoji.jp/blog/advent-calendar/2025/)だ。「ひとりアドベントカレンダー」カテゴリーの記事が追加されるとJekyllビルド時に増えていく。
 
 [Jekyllのlayout](https://github.com/skoji/skoji.jp-source/blob/dcffd941aab08fe8406c64a6ab6e22c02712682b/_layouts/advent-calendar.html)として実装し、ページの定義自体は手動で追加する。今年のページ定義は[ここ](https://github.com/skoji/skoji.jp-source/blob/dcffd941aab08fe8406c64a6ab6e22c02712682b/advent-calendar-2025.md)にある。frontmatterだけで中身はない。
 
