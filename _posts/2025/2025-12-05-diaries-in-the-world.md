@@ -7,7 +7,7 @@ categories:
  - 本
 ---
 
-<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>3日目の記事です。日記がなんだかよく分からなくなったので日記本を読んでいます。</p>
+<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>5日目の記事です。日記がなんだかよく分からなくなったので日記本を読んでいます。</p>
 
 <img class="small-img" src="/blog/images/diary_books.jpeg" alt="ここで取り上げた日記本たち" />
 
