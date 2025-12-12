@@ -6,7 +6,7 @@ categories:
   - 日記
 layout: post
 ---
-<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>8日目の記事です。なんのための日記？</p>
+<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>12日目の記事です。なんのための日記？</p>
 
 <img class="small-img" src="/blog/images/aku-yu-diary-book.jpg" alt="阿久悠「日記力『日記』を書く生活のすすめ」表紙画像" />
 
