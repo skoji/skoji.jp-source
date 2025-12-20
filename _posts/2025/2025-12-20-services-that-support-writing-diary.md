@@ -7,7 +7,7 @@ categories:
   - 日記
 ---
 
-<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>20日目の記事です。日記アプリって何がある</p>
+<p class="note">これは<a href="/blog/advent-calendar/2025/">ひとりアドベントカレンダー「日記ぽい」</a>20日目の記事です。日記アプリってどんなのがあるかな？</p>
 <img class="small-img" src="/blog/images/journal-suggestion.png" alt="Apple Journalの提案" />
 
 日記をPCやスマートフォンで書くのに、テキストエディタと何らかの構造化ができれば十分と思っていた。Notionみたいな高機能でなくても、例えばAppleの標準メモでも十分だ。EmacsのOrgを日記に使ってる人も昔からいる。
