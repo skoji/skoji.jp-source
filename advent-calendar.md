@@ -2,6 +2,7 @@
 layout: page
 title: Advent Calendars
 permalink: /advent-calendars/
+image: /blog/images/christmas-advent-calendar.jpg
 autogen: true
 ---
 
