@@ -91,6 +91,7 @@ jekyll-archives:
 # Build settings
 markdown: kramdown
 host: 127.0.0.1
+livereload: true
 exclude:
   - 'Rakefile'
   - 'refine-post.rb'
