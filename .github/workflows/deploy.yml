@@ -13,19 +13,23 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.4
-    - name: Set up node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 24.x
-    - name: Optimise images with sharp-cli
+    - name: Install libvips-tools
       run: |
-        npx --yes sharp-cli resize 1400 1400 \
-          --fit inside \
-          --withoutEnlargement \
-          --progressive \
-          --optimise \
-          --input "images/**/*.{jpg,jpeg,png}" \
-          --output "{dir}/{base}"
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends libvips-tools
+    - name: Optimise images with vipsthumbnail
+      run: |
+        find images -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -print0 |
+        while IFS= read -r -d '' f; do
+          case "$f" in
+            *.[pP][nN][gG]) opts="[strip]" ;;
+            *) opts="[Q=80,optimize_coding,interlace,strip]" ;;
+          esac
+          base="${f##*/}"
+          dir="${f%/*}"
+          vipsthumbnail "$f" --size "1400x1400>" -o "tmp-vips-$base$opts"
+          mv "$dir/tmp-vips-$base" "$f"
+        done
     - name: deploy to skoji
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
